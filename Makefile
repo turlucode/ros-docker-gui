@@ -7,14 +7,19 @@ help: ## This help.
 
 # DOCKER TASKS
 # [NVIDIA] Build ROS Indigo Container
-nvidia_ros_indigo: ## [NVIDIA] Build ROS Indigo Container
+nvidia_ros_indigo: ## [NVIDIA] Build ROS Indigo Container | (CUDA 8 - no CUDNN)
 	docker build -t turlucode/ros-indigo:latest nvidia/indigo
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:latest\033[0m\n"
 
 # [NVIDIA] Build ROS Indigo Container with OpenCV 3.3 support
-nvidia_ros_indigo_opencv3: ## [NVIDIA] Build ROS Indigo Container - With OpenCV 3.3 support
+nvidia_ros_indigo_opencv3: ## [NVIDIA] Build ROS Indigo Container - With OpenCV 3.3 support | (CUDA 8 - no CUDNN)
 	docker build -t turlucode/ros-indigo-opencv3:latest nvidia/indigo-opencv3
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo-opencv3:latest\033[0m\n"
+
+# [NVIDIA] Build ROS Kinetic Container
+nvidia_ros_kinetic: ## [NVIDIA] Build ROS Kinetic Container | (CUDA 8 - no CUDNN)
+	docker build -t turlucode/ros-kinetic:latest nvidia/kinetic
+	@printf "\n\033[92mDocker Image: turlucode/ros-kinetic:latest\033[0m\n"
 
 # Helper TASKS
 nvidia_run_help: ## [NVIDIA] Prints help and hints on how to run an NVIDIA-based image
