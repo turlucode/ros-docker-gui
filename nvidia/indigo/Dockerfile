@@ -31,6 +31,11 @@ RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 60 --slave /
 # check which one is set, and change back and forth using:
 # sudo update-alternatives --config gcc
 
+# Install new paramiko (solves ssh issues)
+RUN apt-get install -y python-pip python-dev build-essential
+RUN /usr/bin/yes | pip install --upgrade pip
+RUN /usr/bin/yes | pip install --upgrade virtualenv
+RUN /usr/bin/yes | pip install --upgrade paramiko
 
 # Configure timezone and locale
 #RUN echo "Europe/Amsterdam" > /etc/timezone && \
