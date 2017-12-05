@@ -49,10 +49,10 @@ RUN apt-get install -y zsh
 RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
 #RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
 RUN chsh -s /usr/bin/zsh root
-RUN git clone https://github.com/sindresorhus/pure ~/.oh-my-zsh/custom/pure
-RUN ln -s ~/.oh-my-zsh/custom/pure/pure.zsh-theme ~/.oh-my-zsh/custom/
-RUN ln -s ~/.oh-my-zsh/custom/pure/async.zsh ~/.oh-my-zsh/custom/
-RUN sed -i -e 's/robbyrussell/refined/g' ~/.zshrc
+RUN git clone https://github.com/sindresorhus/pure /root/.oh-my-zsh/custom/pure
+RUN ln -s /root/.oh-my-zsh/custom/pure/pure.zsh-theme /root/.oh-my-zsh/custom/
+RUN ln -s /root/.oh-my-zsh/custom/pure/async.zsh /root/.oh-my-zsh/custom/
+RUN sed -i -e 's/robbyrussell/refined/g' /root/.zshrc
 
 # Terminator Config
 RUN mkdir -p /root/.config/terminator/
@@ -66,8 +66,8 @@ RUN apt-get update && apt-get install -y ros-kinetic-desktop-full python-rosinst
 
 # Configure ROS
 RUN rosdep init && rosdep update 
-RUN echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
-RUN echo "source /opt/ros/kinetic/setup.zsh" >> ~/.zshrc
+RUN echo "source /opt/ros/kinetic/setup.bash" >> /root/.bashrc
+RUN echo "source /opt/ros/kinetic/setup.zsh" >> /root/.zshrc
 
 # Clean-up
 RUN rm -rf /var/lib/apt/lists/*
