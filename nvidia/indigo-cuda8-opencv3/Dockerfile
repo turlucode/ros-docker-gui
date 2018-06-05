@@ -23,7 +23,7 @@ gdb valgrind && \
 apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Dependencies for caffe
-RUN apt-get install -y \
+RUN apt-get update && apt-get install -y \
 libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libhdf5-serial-dev protobuf-compiler \
 libatlas-base-dev liblmdb-dev && \
 apt-get clean && rm -rf /var/lib/apt/lists/*
