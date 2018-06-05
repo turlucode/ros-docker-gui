@@ -123,7 +123,7 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
       -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules \
       -D BUILD_EXAMPLES=ON \
       -D CUDA_CUDA_LIBRARY=/usr/local/cuda-8.0/targets/x86_64-linux/lib/stubs/libcuda.so .. && \
-make -j8 && make install && cd ../.. \
+make -j8 && make install && cd ../.. && \
 rm -rf /opencv && rm -rf /opencv_contrib
 
 RUN sh -c 'echo "/usr/local/lib" >> /etc/ld.so.conf.d/opencv.conf' && ldconfig
