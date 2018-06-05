@@ -13,7 +13,7 @@ nvidia_ros_indigo_cuda8: ## [NVIDIA] Build ROS Indigo Container | (CUDA 8 - no c
 
 # [NVIDIA] Build ROS Indigo Container with OpenCV 3.3 support
 nvidia_ros_indigo_cuda8_opencv3: ## [NVIDIA] Build ROS Indigo Container | (CUDA 8 - no cuDNN) | OpenCV 3.3
-	docker build -t turlucode/ros-indigo:cuda8-opencv3 nvidia/indigo-opencv3
+	docker build -t turlucode/ros-indigo:cuda8-opencv3 nvidia/indigo-cuda8-opencv3
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cuda8-opencv3\033[0m\n"
 
 # [NVIDIA] Build ROS Indigo Container with OpenCV 3.3 support and cuDNN 6
