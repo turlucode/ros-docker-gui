@@ -77,8 +77,8 @@ manually a `docker build` command or just use the makefile:
 ````
 # Prints Help
 make
-# E.g. Build ROS Indigo with OpenCV3 support
-make nvidia_ros_indigo_opencv3
+# E.g. Build ROS Indigo with CUDA 8 and OpenCV3 support
+make nvidia_ros_indigo_cuda8_opencv3
 ````
 _Note:_ The build process takes a while.
 
