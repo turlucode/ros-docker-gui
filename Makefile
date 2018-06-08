@@ -7,29 +7,34 @@ help: ## This help.
 
 # DOCKER TASKS
 # [NVIDIA] Build ROS Indigo Container
-nvidia_ros_indigo_cuda8: ## [NVIDIA] Build ROS Indigo Container | (CUDA 8 - no cuDNN)
+nvidia_ros_indigo_cuda8: ## [NVIDIA] Build ROS Indigo  Container | (CUDA 8 - no cuDNN)
 	docker build -t turlucode/ros-indigo:cuda8 nvidia/indigo-cuda8
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cuda8\033[0m\n"
 
-# [NVIDIA] Build ROS Indigo Container with OpenCV 3.3 support
-nvidia_ros_indigo_cuda8_opencv3: ## [NVIDIA] Build ROS Indigo Container | (CUDA 8 - no cuDNN) | OpenCV 3.3
+# [NVIDIA] Build ROS Indigo Container
+nvidia_ros_indigo_cuda8_cudnn6: ## [NVIDIA] Build ROS Indigo  Container | (CUDA 8 - cuDNN 6)
+	docker build -t turlucode/ros-indigo:cuda8-cudnn6 nvidia/indigo-cuda8-cudnn6
+	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cuda8-cudnn6\033[0m\n"
+
+# [NVIDIA] Build ROS Indigo Container with OpenCV 3.x support
+nvidia_ros_indigo_cuda8_opencv3: nvidia_ros_indigo_cuda8 ## [NVIDIA] Build ROS Indigo  Container | (CUDA 8 - no cuDNN) | OpenCV 3.4.1
 	docker build -t turlucode/ros-indigo:cuda8-opencv3 nvidia/indigo-cuda8-opencv3
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cuda8-opencv3\033[0m\n"
 
-# [NVIDIA] Build ROS Indigo Container with OpenCV 3.3 support and cuDNN 6
-nvidia_ros_indigo_cuda8_cudnn6_opencv3: ## [NVIDIA] Build ROS Indigo Container | (CUDA 8 - cuDNN 6) | OpenCV 3.3
+# [NVIDIA] Build ROS Indigo Container with OpenCV 3.x support and cuDNN 6
+nvidia_ros_indigo_cuda8_cudnn6_opencv3: nvidia_ros_indigo_cuda8_cudnn6 ## [NVIDIA] Build ROS Indigo  Container | (CUDA 8 - cuDNN 6)  | OpenCV 3.4.1
 	docker build -t turlucode/ros-indigo:cuda8-cudnn6-opencv3 nvidia/indigo-cuda8-cudnn6-opencv3
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cuda8-cudnn6-opencv3\033[0m\n"
 
 # [NVIDIA] Build ROS Kinetic Container
 nvidia_ros_kinetic_cuda8: ## [NVIDIA] Build ROS Kinetic Container | (CUDA 8 - no cuDNN)
-	docker build -t turlucode/ros-kinetic:cuda8 nvidia/kinetic
-	@printf "\n\033[92mDocker Image: turlucode/ros-kinetic-cuda8:latest\033[0m\n"
+	docker build -t turlucode/ros-kinetic:cuda8 nvidia/kinetic-cuda8
+	@printf "\n\033[92mDocker Image: turlucode/ros-kinetic:cuda8\033[0m\n"
 
-# [NVIDIA] Build ROS Kinetic Container with OpenCV 3.3 support
-nvidia_ros_kinetic_cuda8_opencv3: ## [NVIDIA] Build ROS Kinetic Container | (CUDA 8 - no cuDNN) | OpenCV 3.3
-	docker build -t turlucode/ros-kinetic:cuda8-opencv3 nvidia/kinetic-opencv3
-	@printf "\n\033[92mDocker Image: turlucode/ros-kinetic:cuda8-opencv3\033[0m\n"
+# [NVIDIA] Build ROS Kinetic Container with OpenCV 3 latest support
+nvidia_ros_kinetic_cuda8_opencv3-latest: nvidia_ros_kinetic_cuda8 ## [NVIDIA] Build ROS Kinetic Container | (CUDA 8 - no cuDNN) | OpenCV 3.4.1 latest
+	docker build -t turlucode/ros-kinetic:cuda8-opencv3 nvidia/kinetic-cuda8-opencv3_latest
+	@printf "\n\033[92mDocker Image: turlucode/ros-kinetic:cuda8-opencv3_latest\033[0m\n"
 
 # Helper TASKS
 nvidia_run_help: ## [NVIDIA] Prints help and hints on how to run an NVIDIA-based image

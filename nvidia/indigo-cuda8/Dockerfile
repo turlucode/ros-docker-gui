@@ -1,4 +1,4 @@
-FROM nvidia/cuda:8.0-devel-ubuntu14.04
+FROM turlucode/ros-indigo:cuda8-cudnn6
 
 MAINTAINER Athanasios Tasoglou <tasoglou@gmail.com>
 

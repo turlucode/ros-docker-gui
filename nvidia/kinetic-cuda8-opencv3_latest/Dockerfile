@@ -1,39 +1,11 @@
-FROM turlucode/ros-indigo:cuda8-cudnn6
+FROM turlucode/ros-kinetic:cuda8
 
 MAINTAINER Athanasios Tasoglou <tasoglou@gmail.com>
 
-LABEL Description="ROS-Indigo-Desktop with CUDA 8 support, cuDNN 6 and OpenCV v3.4.1 (Ubuntu 14.04)" Vendor="TurluCode" Version="1.1"
+LABEL Description="ROS-Kinetic-Desktop with CUDA support (Ubuntu 16.04) and OpenCV v3.4.1" Vendor="TurluCode" Version="1.1"
 
-# Install packages without prompting the user to answer any questions
-ENV DEBIAN_FRONTEND noninteractive 
-
-# Install OpenCV3
-## Install dependencies
-RUN apt-get update && apt-get install -y \
-build-essential \
-checkinstall \
-pkg-config \
-yasm \
-gfortran \
-libjpeg8-dev \
-libjasper-dev \
-libpng12-dev \
-libtiff4-dev \
-libprotobuf-dev \
-protobuf-compiler \
-libgoogle-glog-dev \
-libgflags-dev \
-libgphoto2-dev \
-libeigen3-dev \
-libhdf5-dev \
-libtbb2 libtbb-dev \
-doxygen \
-python3-dev python3-pip && \
-apt-get clean && rm -rf /var/lib/apt/lists/*
-
-RUN /usr/bin/yes | pip3 install --upgrade pip numpy
-
-## Get OpenCV
+# Get OpenCV
+# for gcc > 6.1 use ENABLE_PRECOMPILED_HEADERS=OFF
 # for opencv 3.4.1 use BUILD_EXAMPLES=OFF (https://github.com/opencv/opencv/issues/11117) OR detele driver_api_multi.cpp and driver_api_stereo_multi.cpp
 # True? Using WITH_OPENMP=ON has no sense if TBB is used (lower priority).
 RUN git clone https://github.com/opencv/opencv.git && cd opencv && git checkout 3.4.1 && cd .. && \
