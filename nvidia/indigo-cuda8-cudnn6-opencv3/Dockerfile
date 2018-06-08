@@ -1,8 +1,7 @@
 FROM turlucode/ros-indigo:cuda8-cudnn6
 
 MAINTAINER Athanasios Tasoglou <tasoglou@gmail.com>
-
-LABEL Description="ROS-Indigo-Desktop with CUDA 8 support, cuDNN 6 and OpenCV v3.4.1 (Ubuntu 14.04)" Vendor="TurluCode" Version="1.1"
+LABEL Description="ROS-Indigo-Desktop with CUDA 8 support, cuDNN 6 and OpenCV v3.4.1 (Ubuntu 14.04)" Vendor="TurluCode" Version="2.0"
 
 # Install packages without prompting the user to answer any questions
 ENV DEBIAN_FRONTEND noninteractive 
@@ -60,5 +59,5 @@ rm -rf /opencv && rm -rf /opencv_contrib
 
 RUN sh -c 'echo "/usr/local/lib" >> /etc/ld.so.conf.d/opencv.conf' && ldconfig
 
-# Run terminator
-CMD ["terminator"]
+# --- turlucode/ros-indigo:cuda8-cudnn6 will launch terminator
+CMD ["true"]

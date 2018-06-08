@@ -1,8 +1,7 @@
 FROM turlucode/ros-kinetic:cuda8
 
 MAINTAINER Athanasios Tasoglou <tasoglou@gmail.com>
-
-LABEL Description="ROS-Kinetic-Desktop with CUDA support (Ubuntu 16.04) and OpenCV v3.4.1" Vendor="TurluCode" Version="1.1"
+LABEL Description="ROS-Kinetic-Desktop with CUDA support (Ubuntu 16.04) and OpenCV v3.4.1" Vendor="TurluCode" Version="2.0"
 
 # Get OpenCV
 # for gcc > 6.1 use ENABLE_PRECOMPILED_HEADERS=OFF
@@ -32,5 +31,5 @@ rm -rf /opencv && rm -rf /opencv_contrib
 
 RUN sh -c 'echo "/usr/local/lib" >> /etc/ld.so.conf.d/opencv.conf' && ldconfig
 
-# Run terminator
-CMD ["terminator"]
+# --- turlucode/ros-kinetic:cuda8 will launch terminator
+CMD ["true"]

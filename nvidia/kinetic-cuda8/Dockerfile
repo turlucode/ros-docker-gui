@@ -68,5 +68,9 @@ RUN echo "export ROSLAUNCH_SSH_UNKNOWN=1" >> /root/.bashrc
 RUN echo "source /opt/ros/kinetic/setup.zsh" >> /root/.zshrc
 RUN echo "export ROSLAUNCH_SSH_UNKNOWN=1" >> /root/.zshrc
 
-# Run terminator
-CMD ["terminator"]
+# Entry script - This will also run terminator
+COPY assets/entrypoint_setup.sh /
+ENTRYPOINT ["/entrypoint_setup.sh"]
+
+# ---
+CMD ["true"]

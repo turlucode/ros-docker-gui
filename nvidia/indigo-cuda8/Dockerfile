@@ -1,8 +1,7 @@
-FROM turlucode/ros-indigo:cuda8-cudnn6
+FROM nvidia/cuda:8.0-devel-ubuntu14.04
 
 MAINTAINER Athanasios Tasoglou <tasoglou@gmail.com>
-
-LABEL Description="ROS-Indigo-Desktop with CUDA 8 support (Ubuntu 14.04)" Vendor="TurluCode" Version="1.1"
+LABEL Description="ROS-Indigo-Desktop with CUDA 8 support (Ubuntu 14.04)" Vendor="TurluCode" Version="2.0"
 
 # Install packages without prompting the user to answer any questions
 ENV DEBIAN_FRONTEND noninteractive 
@@ -77,5 +76,9 @@ RUN echo "export ROSLAUNCH_SSH_UNKNOWN=1" >> /root/.bashrc
 RUN echo "source /opt/ros/indigo/setup.zsh" >> /root/.zshrc
 RUN echo "export ROSLAUNCH_SSH_UNKNOWN=1" >> /root/.zshrc
 
-# Run terminator
-CMD ["terminator"]
+# Entry script - This will also run terminator
+COPY assets/entrypoint_setup.sh /
+ENTRYPOINT ["/entrypoint_setup.sh"]
+
+# ---
+CMD ["true"]

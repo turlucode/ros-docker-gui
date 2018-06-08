@@ -22,8 +22,10 @@ Currently this project supports HW accelerated containers for:
 Support for other grahics cards will follow!
 
 ## NVIDIA Graphics Card
-For machines that are using NVIDIA graphics cards we need to have the 
-[nvidia-docker-plugin].
+For machines that are using NVIDIA graphics cards we need to have the [nvidia-docker-plugin].
+
+__IMPORTANT:__ This repo supports only `nvidia-docker` version 1!!! 
+
 ### Install nvidia-docker-plugin 
 Assuming the NVIDIA drivers and Docker® Engine are properly installed (see 
 [installation](https://github.com/NVIDIA/nvidia-docker/wiki/Installation))
@@ -80,7 +82,7 @@ make nvidia_ros_indigo_opencv3
 ````
 _Note:_ The build process takes a while.
 
-### Running the image
+### Running the image (as root)
 Once the container has been built, you can issue the following command to run it:
 ````
 nvidia-docker run --rm -it --privileged --net=host \ 
@@ -89,9 +91,45 @@ nvidia-docker run --rm -it --privileged --net=host \
 -v $HOME/.Xauthority:/root/.Xauthority -e XAUTHORITY=/root/.Xauthority \
 -v <PATH_TO_YOUR_CATKIN_WS>:/root/catkin_ws \
 -e ROS_IP=<HOST_IP or HOSTNAME> \
-turlucode/ros-indigo
+turlucode/ros-indigo:cuda8
 ````
 A terminator window will pop-up and the rest you know it! :)
+
+_Important Remark_: This will launch the container as root. This might have unwanted effects! If you want to run it as the current user, see next section.
+
+### Running the image (as current user)
+You can also run the script as the current linux-user by passing the `DOCKER_USER_*` variables like this:
+````
+nvidia-docker run --rm -it --privileged --net=host --ipc=host \
+-v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY \
+-v $HOME/.Xauthority:/home/$(id -un)/.Xauthority -e XAUTHORITY=/home/$(id -un)/.Xauthority \
+-e DOCKER_USER_NAME=$(id -un) \
+-e DOCKER_USER_ID=$(id -u) \
+-e DOCKER_USER_GROUP_NAME=$(id -gn) \
+-e DOCKER_USER_GROUP_ID=$(id -g) \
+-e ROS_IP=localhost \
+turlucode/ros-indigo:cuda8
+````
+
+_Important Remark_: Please note that you need to pass the `Xauthority` to the correct user's home directory.
+
+## Other options
+
+### Mount your local catkin_ws
+
+To mount your local `catkin_ws` you can just use the following docker feature:
+````
+# for root user
+-v $HOME/<some_path>/catkin_ws:/root/catkin_ws
+# for local user
+-v $HOME/<some_path>/catkin_ws:/home/$(id -un)/catkin_ws
+````
+
+### Passing a camera device
+If you have a virtual device node like `/dev/video0`, e.g. a compatible usb camera, you pass this to the docker container like this:
+````
+--device /dev/video0
+````
 
 # Issues and Contributing
   - Please let us know by [filing a new 
