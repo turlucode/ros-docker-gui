@@ -60,8 +60,13 @@ setup_env_user () {
     ln -s /home/$USER/.oh-my-zsh/custom/pure/pure.zsh-theme /home/$USER/.oh-my-zsh/custom/
     ln -s /home/$USER/.oh-my-zsh/custom/pure/async.zsh /home/$USER/.oh-my-zsh/custom/
     sed -i -e 's@ZSH=/root@ZSH=/home/$USER@g' /home/$USER/.zshrc
+    # Copy SSH keys & fix owner
+    if [ -d "/root/.ssh" ]; then
+        cp -rf /root/.ssh /home/$USER/
+        chown -R $USER:$GROUP /home/$USER/.ssh
+    fi
     
-    ## Fix permissions
+    ## Fix owner
     chown $USER:$GROUP /home/$USER
     chown -R $USER:$GROUP /home/$USER/.config
     chown $USER:$GROUP /home/$USER/.profile

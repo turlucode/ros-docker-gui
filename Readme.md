@@ -33,8 +33,7 @@ Assuming the NVIDIA drivers and Docker® Engine are properly installed (see
 #### _Ubuntu distributions_
 ```sh
 # Install nvidia-docker and nvidia-docker-plugin
-wget -P /tmp 
-https://github.com/NVIDIA/nvidia-docker/releases/download/v1.0.1/nvidia-docker_1.0.1-1_amd64.deb
+wget -P /tmp https://github.com/NVIDIA/nvidia-docker/releases/download/v1.0.1/nvidia-docker_1.0.1-1_amd64.deb && \
 sudo dpkg -i /tmp/nvidia-docker*.deb && rm /tmp/nvidia-docker*.deb
 
 # Test nvidia-smi
@@ -44,9 +43,8 @@ nvidia-docker run --rm nvidia/cuda nvidia-smi
 #### _CentOS distributions_
 ```sh
 # Install nvidia-docker and nvidia-docker-plugin
-wget -P /tmp 
-https://github.com/NVIDIA/nvidia-docker/releases/download/v1.0.1/nvidia-docker-1.0.1-1.x86_64.rpm
-sudo rpm -i /tmp/nvidia-docker*.rpm && rm /tmp/nvidia-docker*.rpm
+wget -P /tmp https://github.com/NVIDIA/nvidia-docker/releases/download/v1.0.1/nvidia-docker-1.0.1-1.x86_64.rpm && \
+sudo rpm -i /tmp/nvidia-docker*.rpm && rm /tmp/nvidia-docker*.rpm && \
 sudo systemctl start nvidia-docker
 
 # Test nvidia-smi
@@ -56,10 +54,8 @@ nvidia-docker run --rm nvidia/cuda nvidia-smi
 #### _Other distributions_
 ```sh
 # Install nvidia-docker and nvidia-docker-plugin
-wget -P /tmp 
-https://github.com/NVIDIA/nvidia-docker/releases/download/v1.0.1/nvidia-docker_1.0.1_amd64.tar.xz
-sudo tar --strip-components=1 -C /usr/bin -xvf /tmp/nvidia-docker*.tar.xz && rm 
-/tmp/nvidia-docker*.tar.xz
+wget -P /tmp https://github.com/NVIDIA/nvidia-docker/releases/download/v1.0.1/nvidia-docker_1.0.1_amd64.tar.xz && \
+sudo tar --strip-components=1 -C /usr/bin -xvf /tmp/nvidia-docker*.tar.xz && rm /tmp/nvidia-docker*.tar.xz
 
 # Run nvidia-docker-plugin
 sudo -b nohup nvidia-docker-plugin > /tmp/nvidia-docker.log
@@ -114,6 +110,14 @@ turlucode/ros-indigo:cuda8
 _Important Remark_: Please note that you need to pass the `Xauthority` to the correct user's home directory.
 
 ## Other options
+
+### Mount your ssh-keys
+For both root and custom user use:
+
+```
+-v $HOME/.ssh:/root/.ssh
+```
+For the custom-user the container will make sure to copy them to the right location.
 
 ### Mount your local catkin_ws
 
