@@ -59,7 +59,7 @@ setup_env_user () {
     rm -rf /home/$USER/.oh-my-zsh/custom/pure.zsh-theme /home/$USER/.oh-my-zsh/custom/async.zsh
     ln -s /home/$USER/.oh-my-zsh/custom/pure/pure.zsh-theme /home/$USER/.oh-my-zsh/custom/
     ln -s /home/$USER/.oh-my-zsh/custom/pure/async.zsh /home/$USER/.oh-my-zsh/custom/
-    sed -i -e 's@ZSH=/root@ZSH=/home/$USER@g' /home/$USER/.zshrc
+    sed -i -e 's@ZSH=\"/root@ZSH=\"/home/$USER@g' /home/$USER/.zshrc
     # Copy SSH keys & fix owner
     if [ -d "/root/.ssh" ]; then
         cp -rf /root/.ssh /home/$USER/
@@ -72,6 +72,7 @@ setup_env_user () {
     chown $USER:$GROUP /home/$USER/.profile
     chown $USER:$GROUP /home/$USER/.bashrc
     chown $USER:$GROUP /home/$USER/.zshrc
+    chown -R $USER:$GROUP /home/$USER/.oh-my-zsh
 
     ## This a trick to keep the evnironmental variables of root which is important!
     echo "if ! [ \"$DOCKER_USER_NAME\" = \"$(id -un)\" ]; then" >> /root/.bashrc
