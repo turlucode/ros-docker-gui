@@ -24,45 +24,77 @@ Support for other grahics cards will follow!
 ## NVIDIA Graphics Card
 For machines that are using NVIDIA graphics cards we need to have the [nvidia-docker-plugin].
 
-__IMPORTANT:__ This repo supports only `nvidia-docker` version 1!!! 
+__IMPORTANT:__ This repo supports `nvidia-docker` version `2.x`!!!
 
 ### Install nvidia-docker-plugin 
 Assuming the NVIDIA drivers and Docker® Engine are properly installed (see 
 [installation](https://github.com/NVIDIA/nvidia-docker/wiki/Installation))
 
-#### _Ubuntu distributions_
+#### _Ubuntu 14.04/16.04/18.04, Debian Jessie/Stretch_
 ```sh
-# Install nvidia-docker and nvidia-docker-plugin
-wget -P /tmp https://github.com/NVIDIA/nvidia-docker/releases/download/v1.0.1/nvidia-docker_1.0.1-1_amd64.deb && \
-sudo dpkg -i /tmp/nvidia-docker*.deb && rm /tmp/nvidia-docker*.deb
+# If you have nvidia-docker 1.0 installed: we need to remove it and all existing GPU containers
+docker volume ls -q -f driver=nvidia-docker | xargs -r -I{} -n1 docker ps -q -a -f volume={} | xargs -r docker rm -f
+sudo apt-get purge -y nvidia-docker
 
-# Test nvidia-smi
-nvidia-docker run --rm nvidia/cuda nvidia-smi
+# Add the package repositories
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | \
+  sudo apt-key add -
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | \
+  sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+sudo apt-get update
+
+# Install nvidia-docker2 and reload the Docker daemon configuration
+sudo apt-get install -y nvidia-docker2
+sudo pkill -SIGHUP dockerd
+
+# Test nvidia-smi with the latest official CUDA image
+docker run --runtime=nvidia --rm nvidia/cuda:9.0-base nvidia-smi
 ```
 
-#### _CentOS distributions_
-```sh
-# Install nvidia-docker and nvidia-docker-plugin
-wget -P /tmp https://github.com/NVIDIA/nvidia-docker/releases/download/v1.0.1/nvidia-docker-1.0.1-1.x86_64.rpm && \
-sudo rpm -i /tmp/nvidia-docker*.rpm && rm /tmp/nvidia-docker*.rpm && \
-sudo systemctl start nvidia-docker
+#### _CentOS 7 (docker-ce), RHEL 7.4/7.5 (docker-ce), Amazon Linux 1/2_
 
-# Test nvidia-smi
-nvidia-docker run --rm nvidia/cuda nvidia-smi
+If you are __not__ using the official `docker-ce` package on CentOS/RHEL, use the next section.
+
+```sh
+# If you have nvidia-docker 1.0 installed: we need to remove it and all existing GPU containers
+docker volume ls -q -f driver=nvidia-docker | xargs -r -I{} -n1 docker ps -q -a -f volume={} | xargs -r docker rm -f
+sudo yum remove nvidia-docker
+
+# Add the package repositories
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.repo | \
+  sudo tee /etc/yum.repos.d/nvidia-docker.repo
+
+# Install nvidia-docker2 and reload the Docker daemon configuration
+sudo yum install -y nvidia-docker2
+sudo pkill -SIGHUP dockerd
+
+# Test nvidia-smi with the latest official CUDA image
+docker run --runtime=nvidia --rm nvidia/cuda:9.0-base nvidia-smi
 ```
 
-#### _Other distributions_
+If `yum` reports a conflict on `/etc/docker/daemon.json` with the `docker` package, you need to use the next section instead.
+
+For `docker-ce` on `ppc64le`, look at the [FAQ](https://github.com/nvidia/nvidia-docker/wiki/Frequently-Asked-Questions#do-you-support-powerpc64-ppc64le).
+
+#### _Arch-linux_
 ```sh
 # Install nvidia-docker and nvidia-docker-plugin
-wget -P /tmp https://github.com/NVIDIA/nvidia-docker/releases/download/v1.0.1/nvidia-docker_1.0.1_amd64.tar.xz && \
-sudo tar --strip-components=1 -C /usr/bin -xvf /tmp/nvidia-docker*.tar.xz && rm /tmp/nvidia-docker*.tar.xz
+# If you have nvidia-docker 1.0 installed: we need to remove it and all existing GPU containers
+docker volume ls -q -f driver=nvidia-docker | xargs -r -I{} -n1 docker ps -q -a -f volume={} | xargs -r docker rm -f
 
-# Run nvidia-docker-plugin
-sudo -b nohup nvidia-docker-plugin > /tmp/nvidia-docker.log
+sudo rm /usr/bin/nvidia-docker /usr/bin/nvidia-docker-plugin
 
-# Test nvidia-smi
-nvidia-docker run --rm nvidia/cuda nvidia-smi
+# Install nvidia-docker2 from AUR and reload the Docker daemon configuration
+yaourt -S aur/nvidia-docker
+
+# Test nvidia-smi with the latest official CUDA image
+docker run --runtime=nvidia --rm nvidia/cuda:9.0-base nvidia-smi
 ```
+
+#### Proceed only if `nvidia-smi` works
+
 If the `nvidia-smi` test was successful you may proceed. Otherwise please visit the 
 [official NVIDIA support](https://github.com/NVIDIA/nvidia-docker).
 
@@ -70,9 +102,10 @@ If the `nvidia-smi` test was successful you may proceed. Otherwise please visit 
 
 You can either browse to directory of the version you want to install and issue 
 manually a `docker build` command or just use the makefile:
-````
+````sh
 # Prints Help
 make
+
 # E.g. Build ROS Indigo with CUDA 8 and OpenCV3 support
 make nvidia_ros_indigo_cuda8_opencv3
 ````
@@ -80,9 +113,8 @@ _Note:_ The build process takes a while.
 
 ### Running the image (as root)
 Once the container has been built, you can issue the following command to run it:
-````
-nvidia-docker run --rm -it --privileged --net=host \ 
---ipc=host \               
+````sh
+docker run --rm -it --runtime=nvidia --privileged --net=host --ipc=host \
 -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY \
 -v $HOME/.Xauthority:/root/.Xauthority -e XAUTHORITY=/root/.Xauthority \
 -v <PATH_TO_YOUR_CATKIN_WS>:/root/catkin_ws \
@@ -95,8 +127,8 @@ _Important Remark_: This will launch the container as root. This might have unwa
 
 ### Running the image (as current user)
 You can also run the script as the current linux-user by passing the `DOCKER_USER_*` variables like this:
-````
-nvidia-docker run --rm -it --privileged --net=host --ipc=host \
+````sh
+docker run --rm -it --runtime=nvidia --privileged --net=host --ipc=host \
 -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY \
 -v $HOME/.Xauthority:/home/$(id -un)/.Xauthority -e XAUTHORITY=/home/$(id -un)/.Xauthority \
 -e DOCKER_USER_NAME=$(id -un) \
@@ -107,7 +139,10 @@ nvidia-docker run --rm -it --privileged --net=host --ipc=host \
 turlucode/ros-indigo:cuda8
 ````
 
-_Important Remark_: Please note that you need to pass the `Xauthority` to the correct user's home directory.
+_Important Remark_: 
+
+- Please note that you need to pass the `Xauthority` to the correct user's home directory.
+- You may need to run `xhost local:root` if get errors like `Error: cannot open display`
 
 ## Other options
 
@@ -134,6 +169,13 @@ If you have a virtual device node like `/dev/video0`, e.g. a compatible usb came
 ````
 --device /dev/video0
 ````
+
+# Base images
+
+The images on this repository are based on the following work:
+
+  - [nvidia-opengl](https://gitlab.com/nvidia/samples/blob/master/opengl/ubuntu14.04/glxgears/Dockerfile)
+  - [nvidia-cuda](https://gitlab.com/nvidia/cuda) - Hierarchy is base->runtime->devel
 
 # Issues and Contributing
   - Please let us know by [filing a new 
