@@ -26,6 +26,8 @@ For machines that are using NVIDIA graphics cards we need to have the [nvidia-do
 
 __IMPORTANT:__ This repo supports `nvidia-docker` version `2.x`!!!
 
+> For `nvidia-docker-v1.0` support, [check the corresponding branch](https://github.com/turlucode/ros-docker-gui/tree/nvidia-docker-v1.0)
+
 ### Install nvidia-docker-plugin 
 Assuming the NVIDIA drivers and Docker® Engine are properly installed (see 
 [installation](https://github.com/NVIDIA/nvidia-docker/wiki/Installation))
@@ -106,8 +108,8 @@ manually a `docker build` command or just use the makefile:
 # Prints Help
 make
 
-# E.g. Build ROS Indigo with CUDA 8 and OpenCV3 support
-make nvidia_ros_indigo_cuda8_opencv3
+# E.g. Build ROS Indigo
+make nvidia_ros_indigo
 ````
 _Note:_ The build process takes a while.
 
@@ -119,7 +121,7 @@ docker run --rm -it --runtime=nvidia --privileged --net=host --ipc=host \
 -v $HOME/.Xauthority:/root/.Xauthority -e XAUTHORITY=/root/.Xauthority \
 -v <PATH_TO_YOUR_CATKIN_WS>:/root/catkin_ws \
 -e ROS_IP=<HOST_IP or HOSTNAME> \
-turlucode/ros-indigo:cuda8
+turlucode/ros-indigo:latest
 ````
 A terminator window will pop-up and the rest you know it! :)
 
@@ -136,13 +138,13 @@ docker run --rm -it --runtime=nvidia --privileged --net=host --ipc=host \
 -e DOCKER_USER_GROUP_NAME=$(id -gn) \
 -e DOCKER_USER_GROUP_ID=$(id -g) \
 -e ROS_IP=localhost \
-turlucode/ros-indigo:cuda8
+turlucode/ros-indigo:latest
 ````
 
 _Important Remark_: 
 
 - Please note that you need to pass the `Xauthority` to the correct user's home directory.
-- You may need to run `xhost local:root` if get errors like `Error: cannot open display`
+- You may need to run `xhost si:localuser:$USER` or worst case `xhost local:root` if get errors like `Error: cannot open display`
 
 ## Other options
 
