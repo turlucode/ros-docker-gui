@@ -90,6 +90,7 @@ sudo rm /usr/bin/nvidia-docker /usr/bin/nvidia-docker-plugin
 
 # Install nvidia-docker2 from AUR and reload the Docker daemon configuration
 yaourt -S aur/nvidia-docker
+sudo pkill -SIGHUP dockerd
 
 # Test nvidia-smi with the latest official CUDA image
 docker run --runtime=nvidia --rm nvidia/cuda:9.0-base nvidia-smi
