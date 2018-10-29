@@ -1,4 +1,4 @@
-FROM turlucode/ros-indigo:latest
+FROM turlucode/ros-indigo:nvidia
 
 MAINTAINER Athanasios Tasoglou <athanasios@tasoglou.net>
 LABEL Description="ROS-Indigo-Desktop with CUDA 8 support (Ubuntu 14.04)" Vendor="TurluCode" Version="3.0"
@@ -36,7 +36,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 ### nvidia-container-runtime
 ENV NVIDIA_VISIBLE_DEVICES all
-ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
+# ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
 ENV NVIDIA_REQUIRE_CUDA "cuda>=8.0"
 
 ## CUDA Devel-packages

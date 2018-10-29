@@ -7,8 +7,8 @@ help: ## This help.
 
 # DOCKER TASKS
 nvidia_ros_indigo: ## [NVIDIA] Build ROS  Indigo  Container
-	docker build -t turlucode/ros-indigo:latest nvidia/indigo
-	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:latest\033[0m\n"
+	docker build -t turlucode/ros-indigo:nvidia nvidia/indigo
+	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:nvidia\033[0m\n"
 
 nvidia_ros_indigo_opencv3: nvidia_ros_indigo ## [NVIDIA] Build ROS  Indigo  Container | -------------------- | OpenCV 3.4.1
 	docker build -t turlucode/ros-indigo:opencv3 nvidia/indigo-opencv3
@@ -53,8 +53,8 @@ nvidia_ros_indigo_cuda10_cudnn7_opencv3: nvidia_ros_indigo_cuda10_cudnn7 ## [NVI
 ## KINETIC
 
 nvidia_ros_kinetic: ## [NVIDIA] Build ROS  Kinetic Container
-	docker build -t turlucode/ros-kinetic:latest nvidia/kinetic
-	@printf "\n\033[92mDocker Image: turlucode/ros-kinetic:latest\033[0m\n"
+	docker build -t turlucode/ros-kinetic:nvidia nvidia/kinetic
+	@printf "\n\033[92mDocker Image: turlucode/ros-kinetic:nvidia\033[0m\n"
 
 nvidia_ros_kinetic_opencv3: nvidia_ros_kinetic ## [NVIDIA] Build ROS  Kinetic Container | -------------------- | OpenCV 3.4.1
 	docker build -t turlucode/ros-kinetic:opencv3 nvidia/kinetic-opencv3
@@ -68,7 +68,7 @@ nvidia_ros_kinetic_cuda8_cudnn6: nvidia_ros_kinetic_cuda8 ## [NVIDIA] Build ROS 
 	docker build -t turlucode/ros-kinetic:cuda8-cudnn6 nvidia/kinetic-cuda8-cudnn6
 	@printf "\n\033[92mDocker Image: turlucode/ros-kinetic:cuda8-cudnn6\033[0m\n"
 
-nvidia_ros_kinetic_cuda8_opencv3: nvidia_ros_kinetic_cuda8 ## [NVIDIA] Build ROS  Kinetic Container | (CUDA  8 - no cuDNN) | OpenCV 3.4.1 latest
+nvidia_ros_kinetic_cuda8_opencv3: nvidia_ros_kinetic_cuda8 ## [NVIDIA] Build ROS  Kinetic Container | (CUDA  8 - no cuDNN) | OpenCV 3.4.1
 	docker build -t turlucode/ros-kinetic:cuda8-opencv3 nvidia/kinetic-cuda8-opencv3_latest
 	@printf "\n\033[92mDocker Image: turlucode/ros-kinetic:cuda8-opencv3_latest\033[0m\n"
 
@@ -86,4 +86,4 @@ nvidia_ros_bouncy: ## [NVIDIA] Build ROS2 Bouncy  Container
 ## Helper TASKS
 
 nvidia_run_help: ## [NVIDIA] Prints help and hints on how to run an NVIDIA-based image
-	 @printf "  - Make sure the nvidia-docker-plugin (Test it with: docker run --rm --runtime=nvidia nvidia/cuda:9.0-base nvidia-smi)\n  - Command example:\ndocker run --rm -it --runtime=nvidia --privileged --net=host --ipc=host \\ \n-v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY \\ \n-v $HOME/.Xauthority:/root/.Xauthority -e XAUTHORITY=/root/.Xauthority \\ \n-v <PATH_TO_YOUR_CATKIN_WS>:/root/catkin_ws \\ \n-e ROS_IP=<HOST_IP or HOSTNAME> \\ \nturlucode/ros-indigo:latest\n"
+	 @printf "  - Make sure the nvidia-docker-plugin (Test it with: docker run --rm --runtime=nvidia nvidia/cuda:9.0-base nvidia-smi)\n  - Command example:\ndocker run --rm -it --runtime=nvidia --privileged --net=host --ipc=host \\ \n-v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY \\ \n-v $HOME/.Xauthority:/root/.Xauthority -e XAUTHORITY=/root/.Xauthority \\ \n-v <PATH_TO_YOUR_CATKIN_WS>:/root/catkin_ws \\ \n-e ROS_IP=<HOST_IP or HOSTNAME> \\ \nturlucode/ros-indigo:nvidia\n"

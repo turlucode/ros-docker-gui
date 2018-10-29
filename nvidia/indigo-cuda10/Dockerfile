@@ -1,4 +1,4 @@
-FROM turlucode/ros-indigo:latest
+FROM turlucode/ros-indigo:nvidia
 
 MAINTAINER Athanasios Tasoglou <athanasios@tasoglou.net>
 LABEL Description="ROS-Indigo-Desktop with CUDA 10 support (Ubuntu 14.04)" Vendor="TurluCode" Version="1.0"
@@ -32,7 +32,7 @@ ENV PATH /usr/local/cuda/bin:${PATH}
 
 ## nvidia-container-runtime
 ENV NVIDIA_VISIBLE_DEVICES all
-ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
+# ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
 ENV NVIDIA_REQUIRE_CUDA "cuda>=10.0 brand=tesla,driver>=384,driver<385"
 
 

@@ -122,7 +122,7 @@ docker run --rm -it --runtime=nvidia --privileged --net=host --ipc=host \
 -v $HOME/.Xauthority:/root/.Xauthority -e XAUTHORITY=/root/.Xauthority \
 -v <PATH_TO_YOUR_CATKIN_WS>:/root/catkin_ws \
 -e ROS_IP=<HOST_IP or HOSTNAME> \
-turlucode/ros-indigo:latest
+turlucode/ros-indigo:nvidia
 ````
 A terminator window will pop-up and the rest you know it! :)
 
@@ -139,7 +139,7 @@ docker run --rm -it --runtime=nvidia --privileged --net=host --ipc=host \
 -e DOCKER_USER_GROUP_NAME=$(id -gn) \
 -e DOCKER_USER_GROUP_ID=$(id -g) \
 -e ROS_IP=localhost \
-turlucode/ros-indigo:latest
+turlucode/ros-indigo:nvidia
 ````
 
 _Important Remark_: 
