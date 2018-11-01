@@ -29,7 +29,6 @@ apt-get install -y gcc-4.9 g++-4.9 gcc-4.8 g++-4.8 && \
 apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 60 --slave /usr/bin/g++ g++ /usr/bin/g++-4.9
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 60 --slave /usr/bin/g++ g++ /usr/bin/g++-4.8
-RUN update-alternatives --set gcc /usr/bin/gcc-4.9
 # check which one is set, and change back and forth using:
 # sudo update-alternatives --config gcc
 
@@ -78,6 +77,9 @@ RUN echo "source /opt/ros/indigo/setup.bash" >> /root/.bashrc
 RUN echo "export ROSLAUNCH_SSH_UNKNOWN=1" >> /root/.bashrc
 RUN echo "source /opt/ros/indigo/setup.zsh" >> /root/.zshrc
 RUN echo "export ROSLAUNCH_SSH_UNKNOWN=1" >> /root/.zshrc
+
+# Force set fix
+RUN update-alternatives --set gcc /usr/bin/gcc-4.9
 
 # Entry script
 COPY assets/entrypoint_setup.sh /
