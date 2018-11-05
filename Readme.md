@@ -101,6 +101,10 @@ docker run --runtime=nvidia --rm nvidia/cuda:9.0-base nvidia-smi
 If the `nvidia-smi` test was successful you may proceed. Otherwise please visit the 
 [official NVIDIA support](https://github.com/NVIDIA/nvidia-docker).
 
+#### Remarks & Troubleshooting
+
+- If your nvidia-driver is `4.10.x` and greater, you need to choose CUDA 10 images.
+
 ### Build desired Docker Image
 
 You can either browse to directory of the version you want to install and issue 

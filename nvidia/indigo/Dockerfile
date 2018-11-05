@@ -38,6 +38,7 @@ RUN apt-get update && apt-get install -y python-pip python build-essential && ap
 RUN /usr/bin/yes | pip install --upgrade pip
 RUN /usr/bin/yes | pip install --upgrade virtualenv
 RUN /usr/bin/yes | pip install --upgrade paramiko
+RUN /usr/bin/yes | pip install --ignore-installed --upgrade numpy protobuf
 
 # Locale
 RUN locale-gen en_US.UTF-8  

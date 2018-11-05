@@ -37,6 +37,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ### nvidia-container-runtime
 ENV NVIDIA_VISIBLE_DEVICES all
 # ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
+ENV NVIDIA_DRIVER_CAPABILITIES all
 ENV NVIDIA_REQUIRE_CUDA "cuda>=8.0"
 
 ## CUDA Devel-packages
