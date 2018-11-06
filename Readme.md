@@ -118,6 +118,8 @@ make nvidia_ros_indigo
 ````
 _Note:_ The build process takes a while.
 
+> For nvidia-driver `>= 4.10.x` you need to build CUDA10 images for compatibility!
+
 ### Running the image (as root)
 Once the container has been built, you can issue the following command to run it:
 ````sh
