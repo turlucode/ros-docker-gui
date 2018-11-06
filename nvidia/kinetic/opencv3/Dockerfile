@@ -1,4 +1,4 @@
-FROM turlucode/ros-kinetic:latest
+FROM turlucode/ros-kinetic:nvidia
 
 MAINTAINER Athanasios Tasoglou <athanasios@tasoglou.net>
 LABEL Description="ROS-Kinetic-Desktop with CUDA 8 support (Ubuntu 16.04) and OpenCV v3.4.1" Vendor="TurluCode" Version="3.0"

@@ -6,6 +6,8 @@ LABEL Description="ROS-Kinetic-Desktop with CUDA 8 and cuDNN 6 support (Ubuntu 1
 # Install packages without prompting the user to answer any questions
 ENV DEBIAN_FRONTEND noninteractive 
 
+RUN echo "deb https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64 /" > /etc/apt/sources.list.d/nvidia-ml.list
+
 ENV CUDNN_VERSION 6.0.21
 LABEL com.turlucode.ros.cudnn="${CUDNN_VERSION}"
 
