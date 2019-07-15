@@ -6,8 +6,8 @@
 [profiles]
   [[default]]
     use_system_font = False
-    background_darkness = 0.75
-    background_type = image
+    background_darkness = 0.69
+    background_type = transparent
     background_image = /root/.config/terminator/background.png
     scroll_background = False
     font = Monospace 12
