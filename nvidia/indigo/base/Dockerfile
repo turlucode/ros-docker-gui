@@ -18,6 +18,7 @@ terminator \
 wget \
 curl \
 htop \
+dbus-x11 \
 software-properties-common python-software-properties \
 gdb valgrind && \
 apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -64,7 +65,7 @@ COPY assets/terminator_background.png /root/.config/terminator/background.png
 # Install ROS
 RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 RUN apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --force-yes \
 libpcap-dev \
 gstreamer1.0-tools libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-good1.0-dev \
 ros-indigo-desktop-full \
