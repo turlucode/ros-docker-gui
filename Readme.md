@@ -11,15 +11,69 @@ More info in [this blog post](http://turlucode.com/ros-docker-container-gui-supp
 # Getting Started
 The idea is to have HW accelerated GUIs on docker. Generally it has proven that this is 
 a challenging task. However graphics card companies like NVIDIA, already provide 
-solutions for their platform. To make this work, the idea is to share the host’s X11 
+solutions for their platform. To make this work, the idea is to share the host's X11 
 socket with the container as an external volume.
 
 ## Current Support
 Currently this project supports HW accelerated containers for:
 
- - NVIDIA (via [nvidia-docker])
+ - [Integraded GPU](#integraded-gpu) (e.g. Intel)
+ - [NVIDIA](#nvidia-graphics-card) (via [nvidia-docker])
 
 Support for other grahics cards will follow!
+
+## Integraded GPU
+This repository supports ROS docker images that rely their integrated GPU of the CPU for Graphics. 
+
+
+### Build desired Docker Image
+You can use the docker images labeled with `[CPU]` to get support for your integraded GPU:
+
+```sh
+# Prints Help
+make
+
+# E.g. Build ROS Indigo
+make cpu_ros_indigo
+```
+
+### Running the image (as root)
+Once the container has been built, you can issue the following command to run it:
+````sh
+docker run --rm -it --privileged --net=host --ipc=host \
+--device=/dev/dri:/dev/dri \
+-v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY \
+-v $HOME/.Xauthority:/home/$(id -un)/.Xauthority -e XAUTHORITY=/home/$(id -un)/.Xauthority \
+-e ROS_IP=localhost \
+turlucode/ros-indigo:cpu
+````
+A terminator window will pop-up and the rest you know it! :)
+
+_Important Remark_: This will launch the container as root. This might have unwanted effects! If you want to run it as the current user, see next section.
+
+- See also [this section](#other-options) for other options.
+
+### Running the image (as current user)
+You can also run the script as the current linux-user by passing the `DOCKER_USER_*` variables like this:
+````sh
+docker run --rm -it --privileged --net=host --ipc=host \
+--device=/dev/dri:/dev/dri \
+-v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY \
+-v $HOME/.Xauthority:/home/$(id -un)/.Xauthority -e XAUTHORITY=/home/$(id -un)/.Xauthority \
+-e DOCKER_USER_NAME=$(id -un) \
+-e DOCKER_USER_ID=$(id -u) \
+-e DOCKER_USER_GROUP_NAME=$(id -gn) \
+-e DOCKER_USER_GROUP_ID=$(id -g) \
+-e ROS_IP=localhost \
+turlucode/ros-indigo:cpu
+````
+
+_Important Remark_: 
+
+- Please note that you need to pass the `Xauthority` to the correct user's home directory.
+- You may need to run `xhost si:localuser:$USER` or worst case `xhost local:root` if get errors like `Error: cannot open display`
+
+- See also [this section](#other-options) for other options.
 
 ## NVIDIA Graphics Card
 For machines that are using NVIDIA graphics cards we need to have the [nvidia-docker-plugin].
@@ -181,6 +235,7 @@ If you have a virtual device node like `/dev/video0`, e.g. a compatible usb came
 
 # Base images
 
+## NVIDIA
 The images on this repository are based on the following work:
 
   - [nvidia-opengl](https://gitlab.com/nvidia/samples/blob/master/opengl/ubuntu14.04/glxgears/Dockerfile)

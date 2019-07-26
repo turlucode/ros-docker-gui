@@ -8,6 +8,7 @@ help: ## This help.
 # DOCKER TASKS
 
 # NVIDIA
+## INDIGO
 nvidia_ros_indigo: ## [NVIDIA] Build ROS  Indigo  Container
 	docker build -t turlucode/ros-indigo:nvidia nvidia/indigo/base
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:nvidia\033[0m\n"
@@ -100,7 +101,22 @@ nvidia_ros_bouncy: ## [NVIDIA] Build ROS2 Bouncy  Container
 	docker build -t turlucode/ros-bouncy:latest nvidia/bouncy/base
 	@printf "\n\033[92mDocker Image: turlucode/ros-bouncy:latest\033[0m\n"
 
+## Helper TASKS
+nvidia_run_help: ## [NVIDIA] Prints help and hints on how to run an [NVIDIA]-based image
+	 @printf "\n- Make sure the nvidia-docker-plugin (Test it with: docker run --rm --runtime=nvidia nvidia/cuda:9.0-base nvidia-smi)\n  - Command example:\ndocker run --rm -it --runtime=nvidia --privileged --net=host --ipc=host \\ \n-v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY \\ \n-v $HOME/.Xauthority:/root/.Xauthority -e XAUTHORITY=/root/.Xauthority \\ \n-v <PATH_TO_YOUR_CATKIN_WS>:/root/catkin_ws \\ \n-e ROS_IP=<HOST_IP or HOSTNAME> \\ \nturlucode/ros-indigo:nvidia\n"
 
-# Helper TASKS
-nvidia_run_help: ## [NVIDIA] Prints help and hints on how to run an NVIDIA-based image
-	 @printf "  - Make sure the nvidia-docker-plugin (Test it with: docker run --rm --runtime=nvidia nvidia/cuda:9.0-base nvidia-smi)\n  - Command example:\ndocker run --rm -it --runtime=nvidia --privileged --net=host --ipc=host \\ \n-v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY \\ \n-v $HOME/.Xauthority:/root/.Xauthority -e XAUTHORITY=/root/.Xauthority \\ \n-v <PATH_TO_YOUR_CATKIN_WS>:/root/catkin_ws \\ \n-e ROS_IP=<HOST_IP or HOSTNAME> \\ \nturlucode/ros-indigo:nvidia\n"
+# CPU
+## INDIGO
+cpu_ros_indigo: ## [CPU] Build ROS Indigo  Container
+	docker build -t turlucode/ros-indigo:cpu cpu/indigo/base
+	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cpu\033[0m\n"
+
+## KINETIC
+
+cpu_ros_kinetic: ## [CPU] Build ROS Kinetic Container
+	docker build -t turlucode/ros-kinetic:cpu cpu/kinetic/base
+	@printf "\n\033[92mDocker Image: turlucode/ros-kinetic:cpu\033[0m\n"
+
+## Helper TASKS
+cpu_run_help: ## [CPU] Prints help and hints on how to run an [CPU]-based image
+	 @printf "\nCommand example:\ndocker run --rm -it --runtime=nvidia --privileged --net=host --ipc=host \\ \n--device=/dev/dri:/dev/dri \\ \n-v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY \\ \n-v $HOME/.Xauthority:/root/.Xauthority -e XAUTHORITY=/root/.Xauthority \\ \n-v <PATH_TO_YOUR_CATKIN_WS>:/root/catkin_ws \\ \n-e ROS_IP=<HOST_IP or HOSTNAME> \\ \nturlucode/ros-indigo:cpu\n"
