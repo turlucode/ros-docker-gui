@@ -1,7 +1,7 @@
 FROM turlucode/ros-indigo:cuda10-cudnn7
 
 MAINTAINER Athanasios Tasoglou <athanasios@tasoglou.net>
-LABEL Description="ROS-Indigo-Desktop with CUDA 8, cuDNN 10 and OpenCV v3.4.1 support (Ubuntu 14.04)" Vendor="TurluCode" Version="1.0"
+LABEL Description="ROS-Indigo-Desktop with CUDA 8, cuDNN 10 and OpenCV v3.4.1 support (Ubuntu 14.04)" Vendor="TurluCode" Version="1.1"
 LABEL com.turlucode.ros.opencv="3.4.1"
 
 # Install packages without prompting the user to answer any questions
@@ -27,9 +27,12 @@ libgphoto2-dev \
 libeigen3-dev \
 libhdf5-dev \
 libtbb2 libtbb-dev \
-doxygen \
-python3-dev python3-pip && \
+doxygen && \
 apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install Python 3.6
+RUN add-apt-repository -y ppa:jonathonf/python-3.6 && apt-get update && apt-get install -y python3.6 python3.6-dev && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN curl https://bootstrap.pypa.io/get-pip.py | python3.6
 
 RUN /usr/bin/yes | pip3 install --upgrade pip numpy
 
