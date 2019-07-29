@@ -22,6 +22,21 @@ Currently this project supports HW accelerated containers for:
 
 Support for other grahics cards will follow!
 
+### Supported ROS Images
+
+| ROS Distribution | Integrated Graphics |                         NVIDIA Graphics                        |                OpenCV               |
+|:----------------:|:-------------------:|:--------------------------------------------------------------:|:-----------------------------------:|
+|      Indigo      |         yes         | - CUDA 8 (cuDNN 6,7) - CUDA 10 (cuDNN 7) - CUDA 10.1 (cuDNN 7) | - OpenCV 2.x (default) - OpenCV 3.x |
+|      Kinetic     |         yes         | - CUDA 8 (cuDNN 6) - CUDA 10 (cuDNN 7) - CUDA 10.1 (cuDNN 7)   | - OpenCV 2.x (default) - OpenCV 3.x |
+|      Melodic     |         yes         | - CUDA 10 (cuDNN 7) - CUDA 10.1 (cuDNN 7)                      | - OpenCV 3.x (default)              |
+|   Bouncy (ROS2)  |         yes         |                         no support yet                         | - OpenCV 3.x (default)              |
+
+You can also see the complete list by running:
+
+```sh
+make
+```
+
 ## Integraded GPU
 This repository supports ROS docker images that rely their integrated GPU of the CPU for Graphics. 
 
@@ -240,6 +255,11 @@ The images on this repository are based on the following work:
 
   - [nvidia-opengl](https://gitlab.com/nvidia/samples/blob/master/opengl/ubuntu14.04/glxgears/Dockerfile)
   - [nvidia-cuda](https://gitlab.com/nvidia/cuda) - Hierarchy is base->runtime->devel
+
+# OpenCV Build References
+
+  - [Official documentation](https://docs.opencv.org/3.4.7/d7/d9f/tutorial_linux_install.html)
+  - [learnopencv.com](https://www.learnopencv.com/install-opencv-3-4-4-on-ubuntu-16-04/)
 
 # Issues and Contributing
   - Please let us know by [filing a new 
