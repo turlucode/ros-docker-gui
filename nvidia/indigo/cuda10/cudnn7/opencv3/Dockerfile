@@ -1,8 +1,8 @@
 FROM turlucode/ros-indigo:cuda10-cudnn7
 
 MAINTAINER Athanasios Tasoglou <athanasios@tasoglou.net>
-LABEL Description="ROS-Indigo-Desktop with CUDA 10, cuDNN 7 and OpenCV v3.4.1 support (Ubuntu 14.04)" Vendor="TurluCode" Version="1.2"
-LABEL com.turlucode.ros.opencv="3.4.1"
+LABEL Description="ROS-Indigo-Desktop with CUDA 10, cuDNN 7 and OpenCV v3.4.7 support (Ubuntu 14.04)" Vendor="TurluCode" Version="1.4"
+LABEL com.turlucode.ros.opencv="3.4.7"
 
 # Install packages without prompting the user to answer any questions
 ENV DEBIAN_FRONTEND noninteractive 
@@ -27,21 +27,26 @@ libgphoto2-dev \
 libeigen3-dev \
 libhdf5-dev \
 libtbb2 libtbb-dev \
+qt5-default \
 doxygen && \
 apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install Python 3.6
-RUN add-apt-repository -y ppa:jonathonf/python-3.6 && apt-get update && apt-get install -y python3.6 python3.6-dev && apt-get clean && rm -rf /var/lib/apt/lists/*
-RUN curl https://bootstrap.pypa.io/get-pip.py | python3.6
+# Install Python 3.6 and pip3
+RUN add-apt-repository -y ppa:jonathonf/python-3.6 && apt-get update && \
+apt-get install -y python3.6 python3.6-dev && \
+apt-get clean && rm -rf /var/lib/apt/lists/* && \
+curl https://bootstrap.pypa.io/get-pip.py | python3.6 && \
+update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.4 1 && \
+update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 2
 
 RUN /usr/bin/yes | pip3 install --upgrade pip numpy
 
 ## Get OpenCV
-# for opencv 3.4.1 use BUILD_EXAMPLES=OFF (https://github.com/opencv/opencv/issues/11117) OR detele driver_api_multi.cpp and driver_api_stereo_multi.cpp
 # True? Using WITH_OPENMP=ON has no sense if TBB is used (lower priority).
-RUN git clone https://github.com/opencv/opencv.git && cd opencv && git checkout 3.4.1 && cd .. && \
-git clone https://github.com/opencv/opencv_contrib.git && cd opencv_contrib && git checkout 3.4.1 && cd .. && \
-rm opencv/samples/gpu/driver_api_multi.cpp opencv/samples/gpu/driver_api_stereo_multi.cpp && \
+# Do we need QT5 support (-D WITH_QT=ON)? If not, remove also qt5-default.
+ENV OPENCV_VERSION 3.4.7
+RUN git clone https://github.com/opencv/opencv.git && cd opencv && git checkout $OPENCV_VERSION && cd .. && \
+git clone https://github.com/opencv/opencv_contrib.git && cd opencv_contrib && git checkout $OPENCV_VERSION && cd .. && \
 cd opencv && mkdir build && cd build && \
 cmake -D CMAKE_BUILD_TYPE=RELEASE \
       -D CMAKE_INSTALL_PREFIX=/usr/local \
@@ -57,7 +62,7 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
       -D ENABLE_PRECOMPILED_HEADERS=OFF \
       -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules \
       -D BUILD_EXAMPLES=OFF \
-      -D CUDA_CUDA_LIBRARY=/usr/local/cuda-8.0/targets/x86_64-linux/lib/stubs/libcuda.so .. && \
+      .. && \
 make -j8 && make install && cd ../.. && \
 rm -rf /opencv && rm -rf /opencv_contrib
 

@@ -14,7 +14,7 @@ nvidia_ros_indigo: ## [NVIDIA] Build ROS  Indigo  Container
 	docker build -t turlucode/ros-indigo:nvidia nvidia/indigo/base
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:nvidia\033[0m\n"
 
-nvidia_ros_indigo_opencv3: nvidia_ros_indigo ## [NVIDIA] Build ROS  Indigo  Container | ---------------------- | OpenCV 3.4.1
+nvidia_ros_indigo_opencv3: nvidia_ros_indigo ## [NVIDIA] Build ROS  Indigo  Container | ---------------------- | OpenCV 3.4.7
 	docker build -t turlucode/ros-indigo:opencv3 nvidia/indigo/opencv3
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:opencv3\033[0m\n"
 
@@ -46,27 +46,27 @@ nvidia_ros_indigo_cuda10-1_cudnn7: nvidia_ros_indigo_cuda10-1 ## [NVIDIA] Build 
 	docker build -t turlucode/ros-indigo:cuda10.1-cudnn7 nvidia/indigo/cuda10.1/cudnn7
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cuda10.1-cudnn7\033[0m\n"
 
-nvidia_ros_indigo_cuda8_opencv3: nvidia_ros_indigo_cuda8 ## [NVIDIA] Build ROS  Indigo  Container | (CUDA  8   - no cuDNN) | OpenCV 3.4.1
+nvidia_ros_indigo_cuda8_opencv3: nvidia_ros_indigo_cuda8 ## [NVIDIA] Build ROS  Indigo  Container | (CUDA  8   - no cuDNN) | OpenCV 3.4.7
 	docker build -t turlucode/ros-indigo:cuda8-opencv3 nvidia/indigo/cuda8/opencv3
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cuda8-opencv3\033[0m\n"
 
-nvidia_ros_indigo_cuda10_opencv3: nvidia_ros_indigo_cuda10 ## [NVIDIA] Build ROS  Indigo  Container | (CUDA 10   - no cuDNN) | OpenCV 3.4.1
+nvidia_ros_indigo_cuda10_opencv3: nvidia_ros_indigo_cuda10 ## [NVIDIA] Build ROS  Indigo  Container | (CUDA 10   - no cuDNN) | OpenCV 3.4.7
 	docker build -t turlucode/ros-indigo:cuda10-opencv3 nvidia/indigo/cuda10/opencv3
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cuda10-opencv3\033[0m\n"
 
-nvidia_ros_indigo_cuda8_cudnn6_opencv3: nvidia_ros_indigo_cuda8_cudnn6 ## [NVIDIA] Build ROS  Indigo  Container | (CUDA  8   - cuDNN 6)  | OpenCV 3.4.1
+nvidia_ros_indigo_cuda8_cudnn6_opencv3: nvidia_ros_indigo_cuda8_cudnn6 ## [NVIDIA] Build ROS  Indigo  Container | (CUDA  8   - cuDNN 6)  | OpenCV 3.4.7
 	docker build -t turlucode/ros-indigo:cuda8-cudnn6-opencv3 nvidia/indigo/cuda8/cudnn6/opencv3
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cuda8-cudnn6-opencv3\033[0m\n"
 
-nvidia_ros_indigo_cuda8_cudnn7_opencv3: nvidia_ros_indigo_cuda8_cudnn7 ## [NVIDIA] Build ROS  Indigo  Container | (CUDA  8   - cuDNN 7)  | OpenCV 3.4.1
+nvidia_ros_indigo_cuda8_cudnn7_opencv3: nvidia_ros_indigo_cuda8_cudnn7 ## [NVIDIA] Build ROS  Indigo  Container | (CUDA  8   - cuDNN 7)  | OpenCV 3.4.7
 	docker build -t turlucode/ros-indigo:cuda8-cudnn7-opencv3 nvidia/indigo/cuda8/cudnn7/opencv3
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cuda8-cudnn7-opencv3\033[0m\n"
 
-nvidia_ros_indigo_cuda10_cudnn7_opencv3: nvidia_ros_indigo_cuda10_cudnn7 ## [NVIDIA] Build ROS  Indigo  Container | (CUDA 10   - cuDNN 7)  | OpenCV 3.4.1
+nvidia_ros_indigo_cuda10_cudnn7_opencv3: nvidia_ros_indigo_cuda10_cudnn7 ## [NVIDIA] Build ROS  Indigo  Container | (CUDA 10   - cuDNN 7)  | OpenCV 3.4.7
 	docker build -t turlucode/ros-indigo:cuda10-cudnn7-opencv3 nvidia/indigo/cuda10/cudnn7/opencv3
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cuda10-cudnn7-opencv3\033[0m\n"
 
-nvidia_ros_indigo_cuda10-1_cudnn7_opencv3: nvidia_ros_indigo_cuda10-1_cudnn7 ## [NVIDIA] Build ROS  Indigo  Container | (CUDA 10.1 - cuDNN 7)  | OpenCV 3.4.1
+nvidia_ros_indigo_cuda10-1_cudnn7_opencv3: nvidia_ros_indigo_cuda10-1_cudnn7 ## [NVIDIA] Build ROS  Indigo  Container | (CUDA 10.1 - cuDNN 7)  | OpenCV 3.4.7
 	docker build -t turlucode/ros-indigo:cuda10.1-cudnn7-opencv3 nvidia/indigo/cuda10.1/cudnn7/opencv3
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cuda10.1-cudnn7-opencv3\033[0m\n"
 
