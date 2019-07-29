@@ -7,7 +7,7 @@ LABEL Description="ROS-Indigo-Desktop with CUDA 10 and cuDNN 7 support (Ubuntu 1
 ENV DEBIAN_FRONTEND noninteractive 
 
 ## CUDNN Runtime-packages
-ENV CUDNN_VERSION 7.3.1.20
+ENV CUDNN_VERSION 7.6.0.64
 LABEL com.turlucode.ros.cudnn="${CUDNN_VERSION}"
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
