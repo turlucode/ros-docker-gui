@@ -24,12 +24,12 @@ Support for other grahics cards will follow!
 
 ### Supported ROS Images
 
-| ROS Distribution | Integrated Graphics |                         NVIDIA Graphics                        |                OpenCV               |
-|:----------------:|:-------------------:|:--------------------------------------------------------------:|:-----------------------------------:|
-|      Indigo      |         yes         | - CUDA 8 (cuDNN 6,7) - CUDA 10 (cuDNN 7) - CUDA 10.1 (cuDNN 7) | - OpenCV 2.x (default) - OpenCV 3.x |
-|      Kinetic     |         yes         | - CUDA 8 (cuDNN 6) - CUDA 10 (cuDNN 7) - CUDA 10.1 (cuDNN 7)   | - OpenCV 2.x (default) - OpenCV 3.x |
-|      Melodic     |         yes         | - CUDA 10 (cuDNN 7) - CUDA 10.1 (cuDNN 7)                      | - OpenCV 3.x (default)              |
-|   Bouncy (ROS2)  |         yes         |                         no support yet                         | - OpenCV 3.x (default)              |
+| ROS Distribution | Integrated Graphics |                            NVIDIA Graphics                           |                 OpenCV                 |
+|:----------------:|:-------------------:|:--------------------------------------------------------------------:|:--------------------------------------:|
+|      Indigo      |         yes         | - CUDA 8 (cuDNN 6,7)<br>- CUDA 10 (cuDNN 7)<br>- CUDA 10.1 (cuDNN 7) | - OpenCV 2.x (default)<br>- OpenCV 3.x |
+|      Kinetic     |         yes         | - CUDA 8 (cuDNN 6)<br>- CUDA 10 (cuDNN 7)<br>- CUDA 10.1 (cuDNN 7)   | - OpenCV 2.x (default)<br>- OpenCV 3.x |
+|      Melodic     |         yes         | - CUDA 10 (cuDNN 7)<br>- CUDA 10.1 (cuDNN 7)                         | - OpenCV 3.x (default)                 |
+|   Bouncy (ROS2)  |         yes         |                            no support yet                            | - OpenCV 3.x (default)                 |
 
 You can also see the complete list by running:
 
