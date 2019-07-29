@@ -107,6 +107,28 @@ nvidia_ros_kinetic_cuda10_cudnn7_opencv3: nvidia_ros_kinetic_cuda10_cudnn7 ## [N
 	docker build -t turlucode/ros-kinetic:cuda10-cudnn7-opencv3 nvidia/kinetic/cuda10/cudnn7/opencv3
 	@printf "\n\033[92mDocker Image: turlucode/ros-kinetic:cuda10-cudnn7-opencv3\033[0m\n"
 
+## MELODIC
+
+nvidia_ros_melodic: ## [NVIDIA] Build ROS  Melodic Container
+	docker build -t turlucode/ros-melodic:nvidia nvidia/melodic/base
+	@printf "\n\033[92mDocker Image: turlucode/ros-melodic:nvidia\033[0m\n"
+
+nvidia_ros_melodic_cuda10: nvidia_ros_melodic ## [NVIDIA] Build ROS  Melodic Container | (CUDA 10   - no cuDNN)
+	docker build -t turlucode/ros-melodic:cuda10 nvidia/melodic/cuda10
+	@printf "\n\033[92mDocker Image: turlucode/ros-melodic:cuda10\033[0m\n"
+
+nvidia_ros_melodic_cuda10-1: nvidia_ros_melodic ## [NVIDIA] Build ROS  Melodic Container | (CUDA 10.1 - no cuDNN)
+	docker build -t turlucode/ros-melodic:cuda10.1 nvidia/melodic/cuda10.1
+	@printf "\n\033[92mDocker Image: turlucode/ros-melodic:cuda10.1\033[0m\n"
+
+nvidia_ros_melodic_cuda10_cudnn7: nvidia_ros_melodic_cuda10 ## [NVIDIA] Build ROS  Melodic Container | (CUDA 10   - cuDNN 7)
+	docker build -t turlucode/ros-melodic:cuda10-cudnn7 nvidia/melodic/cuda10/cudnn7
+	@printf "\n\033[92mDocker Image: turlucode/ros-melodic:cuda10-cudnn7\033[0m\n"
+
+nvidia_ros_melodic_cuda10-1_cudnn7: nvidia_ros_melodic_cuda10.1 ## [NVIDIA] Build ROS  Melodic Container | (CUDA 10.1 - cuDNN 7)
+	docker build -t turlucode/ros-melodic:cuda10-cudnn7 nvidia/melodic/cuda10.1/cudnn7
+	@printf "\n\033[92mDocker Image: turlucode/ros-melodic:cuda10.1-cudnn7\033[0m\n"
+
 ## BOUNCY
 
 nvidia_ros_bouncy: ## [NVIDIA] Build ROS2 Bouncy  Container
