@@ -31,16 +31,6 @@ qt5-default \
 doxygen && \
 apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install Python 3.6 and pip3
-RUN add-apt-repository -y ppa:jonathonf/python-3.6 && apt-get update && \
-apt-get install -y python3.6 python3.6-dev && \
-apt-get clean && rm -rf /var/lib/apt/lists/* && \
-curl https://bootstrap.pypa.io/get-pip.py | python3.6 && \
-update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.4 1 && \
-update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 2
-
-RUN /usr/bin/yes | pip3 install --upgrade pip numpy
-
 ## Get OpenCV
 # True? Using WITH_OPENMP=ON has no sense if TBB is used (lower priority).
 # Do we need QT5 support (-D WITH_QT=ON)? If not, remove also qt5-default.
