@@ -19,6 +19,7 @@ wget \
 curl \
 htop \
 dbus-x11 \
+python3 python3-dev python3-pip \
 software-properties-common python-software-properties \
 gdb valgrind && \
 apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -40,15 +41,17 @@ RUN /usr/bin/yes | pip install --upgrade pip
 RUN /usr/bin/yes | pip install --upgrade virtualenv
 RUN /usr/bin/yes | pip install --upgrade paramiko
 RUN /usr/bin/yes | pip install --ignore-installed --upgrade numpy protobuf
+RUN /usr/bin/yes | pip3 install --upgrade pip
+RUN /usr/bin/yes | pip3 install --upgrade numpy
 
 # Install Python 3.6 and pip3
-RUN add-apt-repository -y ppa:jonathonf/python-3.6 && apt-get update && apt-get install -y \
-python3 python3-dev python3.6 python3.6-dev && \
-apt-get clean && rm -rf /var/lib/apt/lists/* && \
-curl https://bootstrap.pypa.io/get-pip.py | python3.6 && \
-update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.4 1 && \
-update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 2
-RUN /usr/bin/yes | pip3 install --upgrade pip numpy
+# RUN add-apt-repository -y ppa:jonathonf/python-3.6 && apt-get update && apt-get install -y \
+# python3 python3-dev python3.6 python3.6-dev && \
+# apt-get clean && rm -rf /var/lib/apt/lists/* && \
+# curl https://bootstrap.pypa.io/get-pip.py | python3.6 && \
+# update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.4 1 && \
+# update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 2
+# RUN /usr/bin/yes | pip3 install --upgrade pip numpy
 
 # Locale
 RUN locale-gen en_US.UTF-8  
