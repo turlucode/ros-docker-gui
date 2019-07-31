@@ -19,6 +19,7 @@ wget \
 curl \
 htop \
 dbus-x11 \
+python3 python3-dev python3-pip \
 software-properties-common python-software-properties \
 gdb valgrind \
 libgl1-mesa-glx libgl1-mesa-dri && \
@@ -41,6 +42,8 @@ RUN /usr/bin/yes | pip install --upgrade pip
 RUN /usr/bin/yes | pip install --upgrade virtualenv
 RUN /usr/bin/yes | pip install --upgrade paramiko
 RUN /usr/bin/yes | pip install --ignore-installed --upgrade numpy protobuf
+RUN /usr/bin/yes | pip3 install --upgrade pip
+RUN /usr/bin/yes | pip3 install --upgrade numpy
 
 # Locale
 RUN locale-gen en_US.UTF-8  
