@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 
 MAINTAINER Athanasios Tasoglou <athanasios@tasoglou.net>
-LABEL Description="ROS-Kinetic-Desktop (Ubuntu 16.04)" Vendor="TurluCode" Version="1.0"
+LABEL Description="ROS-Kinetic-Desktop (Ubuntu 16.04)" Vendor="TurluCode" Version="1.1"
 LABEL com.turlucode.ros.version="kinetic"
 
 # Install packages without prompting the user to answer any questions
@@ -19,6 +19,7 @@ wget \
 curl \
 htop \
 dbus-x11 \
+python3 python3-dev python3-pip \
 software-properties-common python-software-properties \
 gdb valgrind && \
 apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -30,6 +31,8 @@ RUN /usr/bin/yes | pip install --upgrade pip
 RUN /usr/bin/yes | pip install --upgrade virtualenv
 RUN /usr/bin/yes | pip install --upgrade paramiko
 RUN /usr/bin/yes | pip install --ignore-installed --upgrade numpy protobuf
+RUN /usr/bin/yes | pip3 install --upgrade pip
+RUN /usr/bin/yes | pip3 install --upgrade numpy
 
 # Locale
 RUN apt-get update && apt-get install -y locales && apt-get clean && rm -rf /var/lib/apt/lists/*
