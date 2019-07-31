@@ -1,3 +1,12 @@
+# If the first argument is ...
+ifeq (tools_vscode,$(firstword $(MAKECMDGOALS)))
+	# use the rest as arguments
+	RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+	# ...and turn them into do-nothing targets
+	#$(eval $(RUN_ARGS):;@:)
+endif
+
+
 .PHONY: help
 
 help: ## This help.
@@ -65,10 +74,6 @@ nvidia_ros_indigo_cuda8_cudnn7_opencv3: nvidia_ros_indigo_cuda8_cudnn7 ## [NVIDI
 nvidia_ros_indigo_cuda10_cudnn7_opencv3: nvidia_ros_indigo_cuda10_cudnn7 ## [NVIDIA] Build ROS  Indigo  Container | (CUDA 10   - cuDNN 7)  | OpenCV 3.4.7
 	docker build -t turlucode/ros-indigo:cuda10-cudnn7-opencv3 nvidia/indigo/cuda10/cudnn7/opencv3
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cuda10-cudnn7-opencv3\033[0m\n"
-
-nvidia_ros_indigo_cuda10_cudnn7_opencv3_vscode: nvidia_ros_indigo_cuda10_cudnn7 ## [NVIDIA] Build ROS  Indigo  Container | (CUDA 10   - cuDNN 7)  | OpenCV 3.4.7 | VS Code
-	docker build -t turlucode/ros-indigo:cuda10-cudnn7-opencv3-vscode nvidia/indigo/cuda10/cudnn7/opencv3/vscode
-	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cuda10-cudnn7-opencv3-vscode\033[0m\n"
 
 nvidia_ros_indigo_cuda10-1_cudnn7_opencv3: nvidia_ros_indigo_cuda10-1_cudnn7 ## [NVIDIA] Build ROS  Indigo  Container | (CUDA 10.1 - cuDNN 7)  | OpenCV 3.4.7
 	docker build -t turlucode/ros-indigo:cuda10.1-cudnn7-opencv3 nvidia/indigo/cuda10.1/cudnn7/opencv3
@@ -167,3 +172,9 @@ cpu_ros_melodic: ## [CPU] Build ROS Melodic Container
 ## Helper TASKS
 cpu_run_help: ## [CPU] Prints help and hints on how to run an [CPU]-based image
 	 @printf "\nCommand example:\ndocker run --rm -it --runtime=nvidia --privileged --net=host --ipc=host \\ \n--device=/dev/dri:/dev/dri \\ \n-v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY \\ \n-v $HOME/.Xauthority:/root/.Xauthority -e XAUTHORITY=/root/.Xauthority \\ \n-v <PATH_TO_YOUR_CATKIN_WS>:/root/catkin_ws \\ \n-e ROS_IP=<HOST_IP or HOSTNAME> \\ \nturlucode/ros-indigo:cpu\n"
+
+# TOOLS
+
+tools_vscode: ## [Tools] Create a new image that contains Visual Studio Code. Use it as "make tools_vscode <existing_docker_image>".
+	docker build --build-arg="ARG_FROM=$(RUN_ARGS)" -t $(RUN_ARGS)-vscode tools/vscode
+	@printf "\033[92mDocker Image: $(RUN_ARGS)-vscode\033[0m\n"

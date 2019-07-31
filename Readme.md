@@ -247,6 +247,40 @@ If you have a virtual device node like `/dev/video0`, e.g. a compatible usb came
 ````
 --device /dev/video0
 ````
+# Tools
+
+# Visual Studio Code
+
+You can have the option to create a new container that contais [Visual Studio Code](https://code.visualstudio.com/). This allows to use Visual Studio Code wihtin the ROS docker image and in turn use it for development and debugging.
+
+## Create image
+
+To create the new image run:
+```sh
+make tools_vscode <existing_ros_docker_image>
+
+# E.g.
+make tools_vscode turlucode/ros-indigo:cuda10.1-cudnn7-opencv3
+# which creates the image turlucode/ros-indigo:cuda10.1-cudnn7-opencv3-vscode
+```
+
+This will create a new docker image that uses as base `<existing_ros_docker_image>` with the name `<existing_ros_docker_image>-vscode`. If the image doesn't exist, the command will terminate with an error, so make sure you build the ros-docker-image first, before you use it as a base-image to install Visual Studio Code.
+
+## Run image
+
+You can run the newly created image as you were running the rest of the ROS images. If you want to keep the Visual Studio Code configuration consistent then you need to mount `.vscode`, e.g.:
+
+```sh
+# Mount argument for the docker run command:
+- v <local_path_to_store_configuration>:/home/$(id -un)/.vscode
+```
+
+If you are running the images as `root` then you need to follow the Visual Studio Code recommendations, which state:
+```
+You are trying to start vscode as a super user which is not recommended. If you really want to, you must specify an alternate user data directory using the --user-data-dir argument.
+```
+
+So act accordingly.
 
 # Base images
 
