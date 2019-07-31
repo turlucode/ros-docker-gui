@@ -24,6 +24,11 @@ software-properties-common python-software-properties \
 gdb valgrind && \
 apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# Install latest git
+RUN add-apt-repository ppa:git-core/ppa && apt-get update && apt-get install -y \
+git && \
+apt-get clean && rm -rf /var/lib/apt/lists/*
+
 # Install GCC 4.9 !!!
 RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
 apt-get update && \
