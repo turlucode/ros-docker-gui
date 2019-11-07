@@ -1,5 +1,5 @@
 # If the first argument is ...
-ifeq (tools_vscode,$(firstword $(MAKECMDGOALS)))
+ifneq (,$(findstring tools_,$(firstword $(MAKECMDGOALS))))
 	# use the rest as arguments
 	RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 	# ...and turn them into do-nothing targets
@@ -135,8 +135,8 @@ nvidia_ros_melodic_cuda10_cudnn7: nvidia_ros_melodic_cuda10 ## [NVIDIA] Build RO
 	docker build -t turlucode/ros-melodic:cuda10-cudnn7 nvidia/melodic/cuda10/cudnn7
 	@printf "\n\033[92mDocker Image: turlucode/ros-melodic:cuda10-cudnn7\033[0m\n"
 
-nvidia_ros_melodic_cuda10-1_cudnn7: nvidia_ros_melodic_cuda10.1 ## [NVIDIA] Build ROS  Melodic Container | (CUDA 10.1 - cuDNN 7)
-	docker build -t turlucode/ros-melodic:cuda10-cudnn7 nvidia/melodic/cuda10.1/cudnn7
+nvidia_ros_melodic_cuda10-1_cudnn7: nvidia_ros_melodic_cuda10-1 ## [NVIDIA] Build ROS  Melodic Container | (CUDA 10.1 - cuDNN 7)
+	docker build -t turlucode/ros-melodic:cuda10.1-cudnn7 nvidia/melodic/cuda10.1/cudnn7
 	@printf "\n\033[92mDocker Image: turlucode/ros-melodic:cuda10.1-cudnn7\033[0m\n"
 
 ## BOUNCY
@@ -178,3 +178,15 @@ cpu_run_help: ## [CPU] Prints help and hints on how to run an [CPU]-based image
 tools_vscode: ## [Tools] Create a new image that contains Visual Studio Code. Use it as "make tools_vscode <existing_docker_image>".
 	docker build --build-arg="ARG_FROM=$(RUN_ARGS)" -t $(RUN_ARGS)-vscode tools/vscode
 	@printf "\033[92mDocker Image: $(RUN_ARGS)-vscode\033[0m\n"
+
+tools_canutils: ## [Tools] Create a new image that contains Canutils. Use it as "make tools_canutils <existing_docker_image>".
+	docker build --build-arg="ARG_FROM=$(RUN_ARGS)" -t $(RUN_ARGS)-canutils tools/canutils
+	@printf "\033[92mDocker Image: $(RUN_ARGS)-canutils\033[0m\n"
+
+tools_cannelloni: ## [Tools] Create a new image that contains Cannelloni. Use it as "make tools_cannelloni <existing_docker_image>".
+	docker build --build-arg="ARG_FROM=$(RUN_ARGS)" -t $(RUN_ARGS)-cannelloni tools/cannelloni
+	@printf "\033[92mDocker Image: $(RUN_ARGS)-cannelloni\033[0m\n"
+
+tools_cpplint: ## [Tools] Create a new image that contains Cpplint. Use it as "make tools_cpplint <existing_docker_image>".
+	docker build --build-arg="ARG_FROM=$(RUN_ARGS)" -t $(RUN_ARGS)-cpplint tools/cpplint
+	@printf "\033[92mDocker Image: $(RUN_ARGS)-cpplint\033[0m\n"
