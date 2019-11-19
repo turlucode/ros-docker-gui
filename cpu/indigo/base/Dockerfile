@@ -1,7 +1,7 @@
 FROM ubuntu:14.04
 
 MAINTAINER Athanasios Tasoglou <athanasios@tasoglou.net>
-LABEL Description="ROS-Indigo-Desktop (Ubuntu 14.04)" Vendor="TurluCode" Version="1.0"
+LABEL Description="ROS-Indigo-Desktop (Ubuntu 14.04)" Vendor="TurluCode" Version="1.1"
 LABEL com.turlucode.ros.version="indigo"
 
 # Install packages without prompting the user to answer any questions
@@ -19,6 +19,7 @@ wget \
 curl \
 htop \
 dbus-x11 \
+libssl-dev \
 python3 python3-dev python3-pip \
 software-properties-common python-software-properties \
 gdb valgrind \
@@ -39,6 +40,11 @@ RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 60 --slave /
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 60 --slave /usr/bin/g++ g++ /usr/bin/g++-4.8
 # check which one is set, and change back and forth using:
 # sudo update-alternatives --config gcc
+
+# Install cmake 3.15.5
+RUN git clone https://gitlab.kitware.com/cmake/cmake.git && \
+cd cmake && git checkout tags/v3.15.5 && ./bootstrap --parallel=8 && make -j8 && make install && \
+cd .. && rm -rf cmake
 
 # Install new paramiko (solves ssh issues)
 RUN apt-add-repository universe

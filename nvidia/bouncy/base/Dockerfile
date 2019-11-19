@@ -1,7 +1,7 @@
 FROM nvidia/opengl:1.0-glvnd-runtime-ubuntu18.04
 
 MAINTAINER Athanasios Tasoglou <athanasios@tasoglou.net>
-LABEL Description="ROS2: Bouncy-Desktop (Ubuntu 18.04)" Vendor="TurluCode" Version="1.0"
+LABEL Description="ROS2: Bouncy-Desktop (Ubuntu 18.04)" Vendor="TurluCode" Version="1.1"
 LABEL com.turlucode.ros.version="bouncy"
 
 # Install packages without prompting the user to answer any questions
@@ -19,10 +19,17 @@ terminator \
 wget \
 curl \
 htop \
+libssl-dev \
+build-essential \
 dbus-x11 \
 software-properties-common \
 gdb valgrind && \
 apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install cmake 3.15.5
+RUN git clone https://gitlab.kitware.com/cmake/cmake.git && \
+cd cmake && git checkout tags/v3.15.5 && ./bootstrap --parallel=8 && make -j8 && make install && \
+cd .. && rm -rf cmake
 
 # Install new paramiko (solves ssh issues)
 RUN apt-add-repository universe
