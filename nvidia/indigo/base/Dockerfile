@@ -49,11 +49,11 @@ cd .. && rm -rf cmake
 RUN apt-add-repository universe
 RUN apt-get update && apt-get install -y python-pip python build-essential && apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN /usr/bin/yes | pip install --upgrade pip
-RUN /usr/bin/yes | pip install --upgrade virtualenv
+RUN /usr/bin/yes | pip install --upgrade virtualenv --ignore-installed six
 RUN /usr/bin/yes | pip install --upgrade paramiko
 RUN /usr/bin/yes | pip install --ignore-installed --upgrade numpy protobuf
 RUN /usr/bin/yes | pip3 install --upgrade pip
-RUN /usr/bin/yes | pip3 install --upgrade numpy
+#RUN /usr/bin/yes | pip3 install --upgrade numpy
 
 # Install Python 3.6 and pip3
 # RUN add-apt-repository -y ppa:jonathonf/python-3.6 && apt-get update && apt-get install -y \
