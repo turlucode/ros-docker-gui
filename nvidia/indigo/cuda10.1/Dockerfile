@@ -18,16 +18,16 @@ RUN NVIDIA_GPGKEY_SUM=d1be581509378368edeec8c1eb2958702feedf3bc3d17011adbf24efac
     echo "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64 /" > /etc/apt/sources.list.d/cuda.list && \
     echo "deb http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1404/x86_64 /" > /etc/apt/sources.list.d/nvidia-ml.list
 
-ENV CUDA_VERSION 10.1.168
+ENV CUDA_VERSION 10.1.243
 ENV CUDA_PKG_VERSION 10-1=$CUDA_VERSION-1
 LABEL com.turlucode.ros.cuda="${CUDA_VERSION}"
 
 ## For libraries in the cuda-compat-* package: https://docs.nvidia.com/cuda/eula/index.html#attachment-a
-RUN apt-get update && apt-get install -y --no-install-recommends \
-        cuda-cudart-$CUDA_PKG_VERSION \
-        cuda-compat-10-1 && \
-    ln -s cuda-10.1 /usr/local/cuda && \
-    rm -rf /var/lib/apt/lists/*
+RUN wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-cudart-10-1_10.1.243-1_amd64.deb && \
+    wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-compat-10-1_418.87.01-1_amd64.deb && \
+    wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-license-10-1_10.1.243-1_amd64.deb && \
+    dpkg -i *.deb && rm *.deb && \
+    ln -s cuda-10.0 /usr/local/cuda
 
 ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
 ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64
@@ -45,20 +45,25 @@ LABEL com.turlucode.ros.nccl="${NCCL_VERSION}"
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         cuda-libraries-$CUDA_PKG_VERSION \
-        cuda-nvtx-$CUDA_PKG_VERSION \
-        libnccl2=$NCCL_VERSION-1+cuda10.1 && \
-    apt-mark hold libnccl2 && \
+        cuda-nvtx-$CUDA_PKG_VERSION && \
     rm -rf /var/lib/apt/lists/*
+RUN wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1404/x86_64/libnccl2_2.4.2-1+cuda10.1_amd64.deb && \
+    dpkg -i *.deb && rm *.deb && \
+    apt-mark hold libnccl2
 
 
 # CUDA Devel-packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
         cuda-libraries-dev-$CUDA_PKG_VERSION \
         cuda-nvml-dev-$CUDA_PKG_VERSION \
-        cuda-minimal-build-$CUDA_PKG_VERSION \
-        cuda-command-line-tools-$CUDA_PKG_VERSION \
-        libnccl-dev=$NCCL_VERSION-1+cuda10.1 && \
+        cuda-command-line-tools-$CUDA_PKG_VERSION && \
     rm -rf /var/lib/apt/lists/*
+RUN wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-compiler-10-1_10.1.243-1_amd64.deb && \
+    wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-nvprune-10-1_10.1.243-1_amd64.deb && \
+    dpkg -i *.deb && rm *.deb
+RUN wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-minimal-build-10-1_10.1.243-1_amd64.deb && \
+    wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1404/x86_64/libnccl-dev_2.4.2-1+cuda10.1_amd64.deb && \
+    dpkg -i *.deb && rm *.deb
 
 ENV LIBRARY_PATH /usr/local/cuda/lib64/stubs
 
