@@ -27,7 +27,7 @@ RUN wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_
     wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-compat-10-1_418.87.01-1_amd64.deb && \
     wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-license-10-1_10.1.243-1_amd64.deb && \
     dpkg -i *.deb && rm *.deb && \
-    ln -s cuda-10.0 /usr/local/cuda
+    ln -s cuda-10.1 /usr/local/cuda
 
 ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
 ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64
