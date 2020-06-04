@@ -169,6 +169,12 @@ cpu_ros_melodic: ## [CPU] Build ROS Melodic Container
 	docker build -t turlucode/ros-melodic:cpu cpu/melodic/base
 	@printf "\n\033[92mDocker Image: turlucode/ros-melodic:cpu\033[0m\n"
 
+## NOETIC
+
+cpu_ros_noetic: ## [CPU] Build ROS Noetic Container
+	docker build -t turlucode/ros-noetic:cpu cpu/noetic/base
+	@printf "\n\033[92mDocker Image: turlucode/ros-noetic:cpu\033[0m\n"
+
 ## Helper TASKS
 cpu_run_help: ## [CPU] Prints help and hints on how to run an [CPU]-based image
 	 @printf "\nCommand example:\ndocker run --rm -it --runtime=nvidia --privileged --net=host --ipc=host \\ \n--device=/dev/dri:/dev/dri \\ \n-v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY \\ \n-v $HOME/.Xauthority:/root/.Xauthority -e XAUTHORITY=/root/.Xauthority \\ \n-v <PATH_TO_YOUR_CATKIN_WS>:/root/catkin_ws \\ \n-e ROS_IP=<HOST_IP or HOSTNAME> \\ \nturlucode/ros-indigo:cpu\n"

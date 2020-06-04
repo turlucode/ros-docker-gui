@@ -29,7 +29,8 @@ Support for other grahics cards will follow!
 |      Indigo      |         yes         | - CUDA 8 (cuDNN 6,7)<br>- CUDA 10 (cuDNN 7)<br>- CUDA 10.1 (cuDNN 7) | - OpenCV 2.x (default)<br>- OpenCV 3.x |
 |      Kinetic     |         yes         | - CUDA 8 (cuDNN 6)<br>- CUDA 10 (cuDNN 7)<br>- CUDA 10.1 (cuDNN 7)   | - OpenCV 2.x (default)<br>- OpenCV 3.x |
 |      Melodic     |         yes         | - CUDA 10 (cuDNN 7)<br>- CUDA 10.1 (cuDNN 7)                         | - OpenCV 3.x (default)                 |
-|   Bouncy (ROS2)  |         yes         |                            no support yet                            | - OpenCV 3.x (default)                 |
+|      Noetic      |         yes         |                             coming soon!                             | - OpenCV 4.x (default)                 |
+|   Bouncy (ROS2)  |         yes         |                            no support yet                            | - OpenCV 3.x (Ubuntu 18.04)            |
 
 You can also see the complete list by running:
 
@@ -59,7 +60,7 @@ docker run --rm -it --privileged --net=host --ipc=host \
 --device=/dev/dri:/dev/dri \
 -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY \
 -v $HOME/.Xauthority:/home/$(id -un)/.Xauthority -e XAUTHORITY=/home/$(id -un)/.Xauthority \
--e ROS_IP=localhost \
+-e ROS_IP=127.0.0.1 \
 turlucode/ros-indigo:cpu
 ````
 A terminator window will pop-up and the rest you know it! :)
@@ -79,7 +80,7 @@ docker run --rm -it --privileged --net=host --ipc=host \
 -e DOCKER_USER_ID=$(id -u) \
 -e DOCKER_USER_GROUP_NAME=$(id -gn) \
 -e DOCKER_USER_GROUP_ID=$(id -g) \
--e ROS_IP=localhost \
+-e ROS_IP=127.0.0.1 \
 turlucode/ros-indigo:cpu
 ````
 
@@ -213,7 +214,7 @@ docker run --rm -it --runtime=nvidia --privileged --net=host --ipc=host \
 -e DOCKER_USER_ID=$(id -u) \
 -e DOCKER_USER_GROUP_NAME=$(id -gn) \
 -e DOCKER_USER_GROUP_ID=$(id -g) \
--e ROS_IP=localhost \
+-e ROS_IP=127.0.0.1 \
 turlucode/ros-indigo:nvidia
 ````
 
