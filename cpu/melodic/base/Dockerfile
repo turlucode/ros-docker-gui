@@ -74,7 +74,7 @@ RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E
 RUN apt-get update && apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages \
 libpcap-dev \
 gstreamer1.0-tools libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-good1.0-dev \
-ros-melodic-desktop-full python-rosinstall python-rosinstall-generator python-wstool build-essential \
+ros-melodic-desktop-full python-rosinstall python-rosinstall-generator python-wstool build-essential python-rosdep \
 ros-melodic-socketcan-bridge \
 ros-melodic-geodesy && \
 apt-get clean && rm -rf /var/lib/apt/lists/*
