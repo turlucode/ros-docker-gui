@@ -56,6 +56,7 @@ make cpu_ros_indigo
 ### Running the image (as root)
 Once the container has been built, you can issue the following command to run it:
 ````sh
+xhost +local:root
 docker run --rm -it --privileged --net=host --ipc=host \
 --device=/dev/dri:/dev/dri \
 -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY \
@@ -72,6 +73,7 @@ _Important Remark_: This will launch the container as root. This might have unwa
 ### Running the image (as current user)
 You can also run the script as the current linux-user by passing the `DOCKER_USER_*` variables like this:
 ````sh
+xhost +local:$USER
 docker run --rm -it --privileged --net=host --ipc=host \
 --device=/dev/dri:/dev/dri \
 -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY \
