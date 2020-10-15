@@ -24,13 +24,90 @@ Support for other grahics cards will follow!
 
 ### Supported ROS Images
 
-| ROS Distribution | Integrated Graphics |                            NVIDIA Graphics                           |                 OpenCV                 |
-|:----------------:|:-------------------:|:--------------------------------------------------------------------:|:--------------------------------------:|
-|      Indigo      |         yes         | - CUDA 8 (cuDNN 6,7)<br>- CUDA 10 (cuDNN 7)<br>- CUDA 10.1 (cuDNN 7) | - OpenCV 2.x (default)<br>- OpenCV 3.x |
-|      Kinetic     |         yes         | - CUDA 8 (cuDNN 6)<br>- CUDA 10 (cuDNN 7)<br>- CUDA 10.1 (cuDNN 7)   | - OpenCV 2.x (default)<br>- OpenCV 3.x |
-|      Melodic     |         yes         | - CUDA 10 (cuDNN 7)<br>- CUDA 10.1 (cuDNN 7)                         | - OpenCV 3.x (default)                 |
-|      Noetic      |         yes         |                             coming soon!                             | - OpenCV 4.x (default)                 |
-|   Bouncy (ROS2)  |         yes         |                            no support yet                            | - OpenCV 3.x (Ubuntu 18.04)            |
+<table>
+  <tbody>
+    <tr>
+      <th>ROS Distribution</th>
+      <th align="center">Integrated Graphics</th>
+      <th align="center">NVIDIA Graphics</th>
+      <th align="center">OpenCV</th>
+    </tr>
+    <tr>
+      <td align="center">Indigo</td>
+      <td align="center">yes</td>
+      <td align="left">
+        <ul>
+          <li>CUDA 8 (cuDNN 6,7)</li>
+          <li>CUDA 10 (cuDNN 7)</li>
+          <li>CUDA 10.1 (cuDNN 7)</li>
+        </ul>
+      </td>
+      <td align="left">
+        <ul>
+          <li>OpenCV 2.x (default)</li>
+          <li>OpenCV 3.x</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">Kinetic</td>
+      <td align="center">yes</td>
+      <td align="left">
+        <ul>
+          <li>CUDA 8 (cuDNN 6)</li>
+          <li>CUDA 10 (cuDNN 7)</li>
+          <li>CUDA 10.1 (cuDNN 7)</li>
+        </ul>
+      </td>
+      <td align="left">
+        <ul>
+          <li>OpenCV 2.x (default)</li>
+          <li>OpenCV 3.x</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">Melodic</td>
+      <td align="center">yes</td>
+      <td align="left">
+        <ul>
+          <li>CUDA 10 (cuDNN 7)</li>
+          <li>CUDA 10.1 (cuDNN 7)</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>OpenCV 3.x (default)</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">Noetic</td>
+      <td align="center">yes</td>
+      <td align="left">
+        <ul>
+          <li>CUDA 11.1 (no cuDNN)</li>
+          <li>cuDNN coming soon!</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>OpenCV 4.x (default)</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">Bouncy (ROS2)</td>
+      <td align="center">yes</td>
+      <td align="left">no support yet</td>
+      <td>
+        <ul>
+          <li>OpenCV 3.x (Ubuntu 18.04)</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 You can also see the complete list by running:
 
