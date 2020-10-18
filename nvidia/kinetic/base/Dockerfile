@@ -80,6 +80,7 @@ ros-kinetic-desktop-full python-rosinstall python-rosinstall-generator python-ws
 ros-kinetic-socketcan-bridge \
 ros-kinetic-geodesy && \
 apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get install libcanberra-gtk0 libcanberra-gtk-module
 
 # Configure ROS
 RUN rosdep init && rosdep update 
