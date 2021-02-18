@@ -56,11 +56,11 @@ cd tmux && git checkout tags/3.1 && ls -la && sh autogen.sh && ./configure && ma
 # Install new paramiko (solves ssh issues)
 RUN apt-add-repository universe
 RUN apt-get update && apt-get install -y python-pip python build-essential && apt-get clean && rm -rf /var/lib/apt/lists/*
-RUN /usr/bin/yes | pip install --upgrade pip
+RUN /usr/bin/yes | pip install --upgrade "pip < 21.0"
 RUN /usr/bin/yes | pip install --upgrade virtualenv
 RUN /usr/bin/yes | pip install --upgrade paramiko
 RUN /usr/bin/yes | pip install --ignore-installed --upgrade numpy protobuf
-RUN /usr/bin/yes | pip3 install --upgrade pip
+RUN /usr/bin/yes | pip3 install --upgrade "pip < 20"
 RUN /usr/bin/yes | pip3 install --upgrade numpy
 
 # Locale
