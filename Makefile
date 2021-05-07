@@ -203,10 +203,6 @@ tools_cannelloni: ## [Tools] Create a new image that contains Cannelloni. Use it
 	docker build --build-arg="ARG_FROM=$(RUN_ARGS)" -t $(RUN_ARGS)-cannelloni tools/cannelloni
 	@printf "\033[92mDocker Image: $(RUN_ARGS)-cannelloni\033[0m\n"
 
-tools_cpplint: ## [Tools] Create a new image that contains Cpplint. Use it as "make tools_cpplint <existing_docker_image>".
-	docker build --build-arg="ARG_FROM=$(RUN_ARGS)" -t $(RUN_ARGS)-cpplint tools/cpplint
-	@printf "\033[92mDocker Image: $(RUN_ARGS)-cpplint\033[0m\n"
-
 tools_cmake: ## [Tools] Create a new image that contains CMake. Use it as "make tools_cmake <existing_docker_image>".
 	docker build --build-arg="ARG_FROM=$(RUN_ARGS)" -t $(RUN_ARGS)-cmake tools/cmake
 	@printf "\033[92mDocker Image: $(RUN_ARGS)-cmake\033[0m\n"
