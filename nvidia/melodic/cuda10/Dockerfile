@@ -1,7 +1,7 @@
 FROM turlucode/ros-melodic:nvidia
 
 MAINTAINER Athanasios Tasoglou <athanasios@tasoglou.net>
-LABEL Description="ROS-Melodic-Desktop with CUDA 10 support (Ubuntu 18.04)" Vendor="TurluCode" Version="1.0"
+LABEL Description="ROS-Melodic-Desktop with CUDA 10 support (Ubuntu 18.04)" Vendor="TurluCode" Version="1.1"
 
 # Install packages without prompting the user to answer any questions
 ENV DEBIAN_FRONTEND noninteractive 
@@ -36,25 +36,36 @@ ENV NVIDIA_REQUIRE_CUDA "cuda>=10.0 brand=tesla,driver>=384,driver<385 brand=tes
 
 
 # CUDA Runtime-packages
-ENV NCCL_VERSION 2.4.2
-LABEL com.turlucode.ros.nccl="${NCCL_VERSION}"
+ENV NCCL_VERSION 2.6.4
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        cuda-libraries-$CUDA_PKG_VERSION \
-        cuda-nvtx-$CUDA_PKG_VERSION \
-        libnccl2=$NCCL_VERSION-1+cuda10.0 && \
-    apt-mark hold libnccl2 && \
-    rm -rf /var/lib/apt/lists/*
+    cuda-libraries-$CUDA_PKG_VERSION \
+    cuda-npp-$CUDA_PKG_VERSION \
+    cuda-nvtx-$CUDA_PKG_VERSION \
+    cuda-cublas-10-0=10.0.130-1 \
+    libnccl2=$NCCL_VERSION-1+cuda10.0 \
+    && apt-mark hold libnccl2 \
+    && rm -rf /var/lib/apt/lists/*
+
+# apt from auto upgrading the cublas package. See https://gitlab.com/nvidia/container-images/cuda/-/issues/88
+RUN apt-mark hold cuda-cublas-10-0
 
 
 # CUDA Devel-packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        cuda-libraries-dev-$CUDA_PKG_VERSION \
-        cuda-nvml-dev-$CUDA_PKG_VERSION \
-        cuda-minimal-build-$CUDA_PKG_VERSION \
-        cuda-command-line-tools-$CUDA_PKG_VERSION \
-        libnccl-dev=$NCCL_VERSION-1+cuda10.0 && \
-    rm -rf /var/lib/apt/lists/*
+    cuda-nvml-dev-$CUDA_PKG_VERSION \
+    cuda-command-line-tools-$CUDA_PKG_VERSION \
+    cuda-nvprof-$CUDA_PKG_VERSION \
+    cuda-npp-dev-$CUDA_PKG_VERSION \
+    cuda-libraries-dev-$CUDA_PKG_VERSION \
+    cuda-minimal-build-$CUDA_PKG_VERSION \
+    cuda-cublas-dev-10-0=10.0.130-1 \
+    libnccl-dev=2.6.4-1+cuda10.0 \
+    && apt-mark hold libnccl-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# apt from auto upgrading the cublas package. See https://gitlab.com/nvidia/container-images/cuda/-/issues/88
+RUN apt-mark hold cuda-cublas-dev-10-0
 
 ENV LIBRARY_PATH /usr/local/cuda/lib64/stubs
 
