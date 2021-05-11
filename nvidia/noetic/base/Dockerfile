@@ -60,6 +60,7 @@ RUN chsh -s /usr/bin/zsh root
 RUN git clone https://github.com/sindresorhus/pure /root/.oh-my-zsh/custom/pure
 RUN ln -s /root/.oh-my-zsh/custom/pure/pure.zsh-theme /root/.oh-my-zsh/custom/
 RUN ln -s /root/.oh-my-zsh/custom/pure/async.zsh /root/.oh-my-zsh/custom/
+RUN touch /root/.zshrc
 RUN sed -i -e 's/robbyrussell/refined/g' /root/.zshrc
 RUN sed -i '/plugins=(/c\plugins=(git git-flow adb pyenv tmux)' /root/.zshrc
 
