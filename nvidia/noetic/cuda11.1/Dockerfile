@@ -1,7 +1,7 @@
 FROM turlucode/ros-noetic:nvidia
 
 MAINTAINER Athanasios Tasoglou <athanasios@tasoglou.net>
-LABEL Description="ROS-Noetic-Desktop with CUDA 11.1 support (Ubuntu 20.04)" Vendor="TurluCode" Version="1.0"
+LABEL Description="ROS-Noetic-Desktop with CUDA 11.1 support (Ubuntu 20.04)" Vendor="TurluCode" Version="1.1"
 
 # Install packages without prompting the user to answer any questions
 ENV DEBIAN_FRONTEND noninteractive 
@@ -54,7 +54,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 
 # CUDA Devel-packages
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y --no-install-recommends --allow-downgrades \
     cuda-nvml-dev-11-1=11.1.74-1 \
     cuda-command-line-tools-11-1=11.1.0-1 \
     cuda-nvprof-11-1=11.1.69-1 \
