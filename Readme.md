@@ -73,6 +73,7 @@ Support for other grahics cards will follow!
         <ul>
           <li>CUDA 10 (cuDNN 7)</li>
           <li>CUDA 10.1 (cuDNN 7)</li>
+          <li>CUDA 11.4.2 (cuDNN 8)</li>
         </ul>
       </td>
       <td>
@@ -99,7 +100,7 @@ Support for other grahics cards will follow!
     <tr>
       <td align="center">Bouncy (ROS2)</td>
       <td align="center">yes</td>
-      <td align="left">no support yet</td>
+      <td align="center">no support yet</td>
       <td>
         <ul>
           <li>OpenCV 3.x (Ubuntu 18.04)</li>
