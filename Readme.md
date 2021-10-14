@@ -87,8 +87,7 @@ Support for other grahics cards will follow!
       <td align="center">yes</td>
       <td align="left">
         <ul>
-          <li>CUDA 11.1 (no cuDNN)</li>
-          <li>cuDNN coming soon!</li>
+          <li>CUDA 11.4.2 (cuDNN 8)</li>
         </ul>
       </td>
       <td>

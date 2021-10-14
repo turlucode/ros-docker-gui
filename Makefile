@@ -153,9 +153,13 @@ nvidia_ros_noetic: ## [NVIDIA] Build ROS  Noetic  Container
 	docker build -t turlucode/ros-noetic:nvidia nvidia/noetic/base
 	@printf "\n\033[92mDocker Image: turlucode/ros-noetic:nvidia\033[0m\n"
 
-nvidia_ros_noetic_cuda11-1: nvidia_ros_noetic ## [NVIDIA] Build ROS  Noetic  Container | (CUDA 11.1   - no cuDNN)
-	docker build -t turlucode/ros-noetic:cuda11.1 nvidia/noetic/cuda11.1
-	@printf "\n\033[92mDocker Image: turlucode/ros-noetic:cuda11.1\033[0m\n"
+nvidia_ros_noetic_cuda11-4-2: nvidia_ros_noetic ## [NVIDIA] Build ROS  Noetic  Container | (CUDA 11.4.2 - no cuDNN)
+	docker build -t turlucode/ros-noetic:cuda11.4.2 nvidia/noetic/cuda11.4.2
+	@printf "\n\033[92mDocker Image: turlucode/ros-noetic:cuda11.4.2\033[0m\n"
+	
+nvidia_ros_noetic_cuda11-4-2_cudnn8: nvidia_ros_noetic_cuda11-4-2 ## [NVIDIA] Build ROS  Noetic  Container | (CUDA 11.4.2 - cuDNN 8)
+	docker build -t turlucode/ros-noetic:cuda11.4.2-cudnn8 nvidia/noetic/cuda11.4.2/cudnn8
+	@printf "\n\033[92mDocker Image: turlucode/ros-noetic:cuda11.4.2-cudnn8\033[0m\n"
 
 ## BOUNCY
 
