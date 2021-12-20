@@ -20,151 +20,151 @@ help: ## This help.
 ## INDIGO
 
 nvidia_ros_indigo: ## [NVIDIA] Build ROS  Indigo  Container
-	docker build -t turlucode/ros-indigo:nvidia nvidia/indigo/base
+	docker build -t turlucode/ros-indigo:nvidia -f nvidia/indigo/base/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:nvidia\033[0m\n"
 
 nvidia_ros_indigo_opencv3: nvidia_ros_indigo ## [NVIDIA] Build ROS  Indigo  Container | (----------------------) | OpenCV 3.4.7
-	docker build -t turlucode/ros-indigo:opencv3 nvidia/indigo/opencv3
+	docker build -t turlucode/ros-indigo:opencv3 -f nvidia/indigo/opencv3/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:opencv3\033[0m\n"
 
 nvidia_ros_indigo_cuda8: nvidia_ros_indigo ## [NVIDIA] Build ROS  Indigo  Container | (CUDA  8     - no cuDNN)
-	docker build -t turlucode/ros-indigo:cuda8 nvidia/indigo/cuda8
+	docker build -t turlucode/ros-indigo:cuda8 -f nvidia/indigo/cuda8/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cuda8\033[0m\n"
 
 nvidia_ros_indigo_cuda10: nvidia_ros_indigo ## [NVIDIA] Build ROS  Indigo  Container | (CUDA 10     - no cuDNN)
-	docker build -t turlucode/ros-indigo:cuda10 nvidia/indigo/cuda10
+	docker build -t turlucode/ros-indigo:cuda10 -f nvidia/indigo/cuda10/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cuda10\033[0m\n"
 
 nvidia_ros_indigo_cuda10-1: nvidia_ros_indigo ## [NVIDIA] Build ROS  Indigo  Container | (CUDA 10.1   - no cuDNN)
-	docker build -t turlucode/ros-indigo:cuda10.1 nvidia/indigo/cuda10.1
+	docker build -t turlucode/ros-indigo:cuda10.1 -f nvidia/indigo/cuda10.1/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cuda10.1\033[0m\n"
 
 nvidia_ros_indigo_cuda8_cudnn6: nvidia_ros_indigo_cuda8 ## [NVIDIA] Build ROS  Indigo  Container | (CUDA  8     - cuDNN 6)
-	docker build -t turlucode/ros-indigo:cuda8-cudnn6 nvidia/indigo/cuda8/cudnn6
+	docker build -t turlucode/ros-indigo:cuda8-cudnn6 -f nvidia/indigo/cuda8/cudnn6/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cuda8-cudnn6\033[0m\n"
 
 nvidia_ros_indigo_cuda8_cudnn7: nvidia_ros_indigo_cuda8 ## [NVIDIA] Build ROS  Indigo  Container | (CUDA  8     - cuDNN 7)
-	docker build -t turlucode/ros-indigo:cuda8-cudnn7 nvidia/indigo/cuda8/cudnn7
+	docker build -t turlucode/ros-indigo:cuda8-cudnn7 -f nvidia/indigo/cuda8/cudnn7/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cuda8-cudnn7\033[0m\n"
 
 nvidia_ros_indigo_cuda10_cudnn7: nvidia_ros_indigo_cuda10 ## [NVIDIA] Build ROS  Indigo  Container | (CUDA 10     - cuDNN 7)
-	docker build -t turlucode/ros-indigo:cuda10-cudnn7 nvidia/indigo/cuda10/cudnn7
+	docker build -t turlucode/ros-indigo:cuda10-cudnn7 -f nvidia/indigo/cuda10/cudnn7/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cuda10-cudnn7\033[0m\n"
 
 nvidia_ros_indigo_cuda10-1_cudnn7: nvidia_ros_indigo_cuda10-1 ## [NVIDIA] Build ROS  Indigo  Container | (CUDA 10.1   - cuDNN 7)
-	docker build -t turlucode/ros-indigo:cuda10.1-cudnn7 nvidia/indigo/cuda10.1/cudnn7
+	docker build -t turlucode/ros-indigo:cuda10.1-cudnn7 -f nvidia/indigo/cuda10.1/cudnn7/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cuda10.1-cudnn7\033[0m\n"
 
 nvidia_ros_indigo_cuda8_opencv3: nvidia_ros_indigo_cuda8 ## [NVIDIA] Build ROS  Indigo  Container | (CUDA  8     - no cuDNN) | OpenCV 3.4.7
-	docker build -t turlucode/ros-indigo:cuda8-opencv3 nvidia/indigo/cuda8/opencv3
+	docker build -t turlucode/ros-indigo:cuda8-opencv3 -f nvidia/indigo/cuda8/opencv3/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cuda8-opencv3\033[0m\n"
 
 nvidia_ros_indigo_cuda10_opencv3: nvidia_ros_indigo_cuda10 ## [NVIDIA] Build ROS  Indigo  Container | (CUDA 10     - no cuDNN) | OpenCV 3.4.7
-	docker build -t turlucode/ros-indigo:cuda10-opencv3 nvidia/indigo/cuda10/opencv3
+	docker build -t turlucode/ros-indigo:cuda10-opencv3 -f nvidia/indigo/cuda10/opencv3/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cuda10-opencv3\033[0m\n"
 
 nvidia_ros_indigo_cuda8_cudnn6_opencv3: nvidia_ros_indigo_cuda8_cudnn6 ## [NVIDIA] Build ROS  Indigo  Container | (CUDA  8     - cuDNN 6)  | OpenCV 3.4.7
-	docker build -t turlucode/ros-indigo:cuda8-cudnn6-opencv3 nvidia/indigo/cuda8/cudnn6/opencv3
+	docker build -t turlucode/ros-indigo:cuda8-cudnn6-opencv3 -f nvidia/indigo/cuda8/cudnn6/opencv3/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cuda8-cudnn6-opencv3\033[0m\n"
 
 nvidia_ros_indigo_cuda8_cudnn7_opencv3: nvidia_ros_indigo_cuda8_cudnn7 ## [NVIDIA] Build ROS  Indigo  Container | (CUDA  8     - cuDNN 7)  | OpenCV 3.4.7
-	docker build -t turlucode/ros-indigo:cuda8-cudnn7-opencv3 nvidia/indigo/cuda8/cudnn7/opencv3
+	docker build -t turlucode/ros-indigo:cuda8-cudnn7-opencv3 -f nvidia/indigo/cuda8/cudnn7/opencv3/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cuda8-cudnn7-opencv3\033[0m\n"
 
 nvidia_ros_indigo_cuda10_cudnn7_opencv3: nvidia_ros_indigo_cuda10_cudnn7 ## [NVIDIA] Build ROS  Indigo  Container | (CUDA 10     - cuDNN 7)  | OpenCV 3.4.7
-	docker build -t turlucode/ros-indigo:cuda10-cudnn7-opencv3 nvidia/indigo/cuda10/cudnn7/opencv3
+	docker build -t turlucode/ros-indigo:cuda10-cudnn7-opencv3 -f nvidia/indigo/cuda10/cudnn7/opencv3/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cuda10-cudnn7-opencv3\033[0m\n"
 
 nvidia_ros_indigo_cuda10-1_cudnn7_opencv3: nvidia_ros_indigo_cuda10-1_cudnn7 ## [NVIDIA] Build ROS  Indigo  Container | (CUDA 10.1   - cuDNN 7)  | OpenCV 3.4.7
-	docker build -t turlucode/ros-indigo:cuda10.1-cudnn7-opencv3 nvidia/indigo/cuda10.1/cudnn7/opencv3
+	docker build -t turlucode/ros-indigo:cuda10.1-cudnn7-opencv3 -f nvidia/indigo/cuda10.1/cudnn7/opencv3/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cuda10.1-cudnn7-opencv3\033[0m\n"
 
 ## KINETIC
 
 nvidia_ros_kinetic: ## [NVIDIA] Build ROS  Kinetic Container
-	docker build -t turlucode/ros-kinetic:nvidia nvidia/kinetic/base
+	docker build -t turlucode/ros-kinetic:nvidia -f nvidia/kinetic/base/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-kinetic:nvidia\033[0m\n"
 
 nvidia_ros_kinetic_opencv3: nvidia_ros_kinetic ## [NVIDIA] Build ROS  Kinetic Container | (----------------------) | OpenCV 3.4.1
-	docker build -t turlucode/ros-kinetic:opencv3 nvidia/kinetic/opencv3
+	docker build -t turlucode/ros-kinetic:opencv3 -f nvidia/kinetic/opencv3/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-kinetic:opencv3\033[0m\n"
 
 nvidia_ros_kinetic_cuda8: nvidia_ros_kinetic ## [NVIDIA] Build ROS  Kinetic Container | (CUDA  8     - no cuDNN)
-	docker build -t turlucode/ros-kinetic:cuda8 nvidia/kinetic/cuda8
+	docker build -t turlucode/ros-kinetic:cuda8 -f nvidia/kinetic/cuda8/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-kinetic:cuda8\033[0m\n"
 
 nvidia_ros_kinetic_cuda10: nvidia_ros_kinetic ## [NVIDIA] Build ROS  Kinetic Container | (CUDA 10     - no cuDNN)
-	docker build -t turlucode/ros-kinetic:cuda10 nvidia/kinetic/cuda10
+	docker build -t turlucode/ros-kinetic:cuda10 -f nvidia/kinetic/cuda10/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-kinetic:cuda10\033[0m\n"
 
 nvidia_ros_kinetic_cuda8_cudnn6: nvidia_ros_kinetic_cuda8 ## [NVIDIA] Build ROS  Kinetic Container | (CUDA  8     - cuDNN 6)
-	docker build -t turlucode/ros-kinetic:cuda8-cudnn6 nvidia/kinetic/cuda8/cudnn6
+	docker build -t turlucode/ros-kinetic:cuda8-cudnn6 -f nvidia/kinetic/cuda8/cudnn6/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-kinetic:cuda8-cudnn6\033[0m\n"
 
 nvidia_ros_kinetic_cuda10_cudnn7: nvidia_ros_kinetic_cuda10 ## [NVIDIA] Build ROS  Kinetic Container | (CUDA 10     - cuDNN 7)
-	docker build -t turlucode/ros-kinetic:cuda10-cudnn7 nvidia/kinetic/cuda10/cudnn7
+	docker build -t turlucode/ros-kinetic:cuda10-cudnn7 -f nvidia/kinetic/cuda10/cudnn7/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-kinetic:cuda10-cudnn7\033[0m\n"
 
 nvidia_ros_kinetic_cuda8_opencv3: nvidia_ros_kinetic_cuda8 ## [NVIDIA] Build ROS  Kinetic Container | (CUDA  8     - no cuDNN) | OpenCV 3.4.1
-	docker build -t turlucode/ros-kinetic:cuda8-opencv3 nvidia/kinetic/cuda8/opencv3
+	docker build -t turlucode/ros-kinetic:cuda8-opencv3 -f nvidia/kinetic/cuda8/opencv3/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-kinetic:cuda8-opencv3_latest\033[0m\n"
 
 nvidia_ros_kinetic_cuda8_cudnn6_opencv3: nvidia_ros_kinetic_cuda8_cudnn6 ## [NVIDIA] Build ROS  Kinetic Container | (CUDA  8     - cuDNN 6)  | OpenCV 3.4.1
-	docker build -t turlucode/ros-kinetic:cuda8-cudnn6-opencv3 nvidia/kinetic/cuda8/cudnn6/opencv3
+	docker build -t turlucode/ros-kinetic:cuda8-cudnn6-opencv3 -f nvidia/kinetic/cuda8/cudnn6/opencv3/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-kinetic:cuda8-cudnn6-opencv3\033[0m\n"
 
 nvidia_ros_kinetic_cuda10_cudnn7_opencv3: nvidia_ros_kinetic_cuda10_cudnn7 ## [NVIDIA] Build ROS  Kinetic Container | (CUDA 10     - cuDNN 7)  | OpenCV 3.4.1
-	docker build -t turlucode/ros-kinetic:cuda10-cudnn7-opencv3 nvidia/kinetic/cuda10/cudnn7/opencv3
+	docker build -t turlucode/ros-kinetic:cuda10-cudnn7-opencv3 -f nvidia/kinetic/cuda10/cudnn7/opencv3/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-kinetic:cuda10-cudnn7-opencv3\033[0m\n"
 
 ## MELODIC
 
 nvidia_ros_melodic: ## [NVIDIA] Build ROS  Melodic Container
-	docker build -t turlucode/ros-melodic:nvidia nvidia/melodic/base
+	docker build -t turlucode/ros-melodic:nvidia -f nvidia/melodic/base/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-melodic:nvidia\033[0m\n"
 
 nvidia_ros_melodic_cuda10: nvidia_ros_melodic ## [NVIDIA] Build ROS  Melodic Container | (CUDA 10     - no cuDNN)
-	docker build -t turlucode/ros-melodic:cuda10 nvidia/melodic/cuda10
+	docker build -t turlucode/ros-melodic:cuda10 -f nvidia/melodic/cuda10/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-melodic:cuda10\033[0m\n"
 
 nvidia_ros_melodic_cuda10-1: nvidia_ros_melodic ## [NVIDIA] Build ROS  Melodic Container | (CUDA 10.1   - no cuDNN)
-	docker build -t turlucode/ros-melodic:cuda10.1 nvidia/melodic/cuda10.1
+	docker build -t turlucode/ros-melodic:cuda10.1 -f nvidia/melodic/cuda10.1/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-melodic:cuda10.1\033[0m\n"
 
 nvidia_ros_melodic_cuda10_cudnn7: nvidia_ros_melodic_cuda10 ## [NVIDIA] Build ROS  Melodic Container | (CUDA 10     - cuDNN 7)
-	docker build -t turlucode/ros-melodic:cuda10-cudnn7 nvidia/melodic/cuda10/cudnn7
+	docker build -t turlucode/ros-melodic:cuda10-cudnn7 -f nvidia/melodic/cuda10/cudnn7/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-melodic:cuda10-cudnn7\033[0m\n"
 
 nvidia_ros_melodic_cuda10-1_cudnn7: nvidia_ros_melodic_cuda10-1 ## [NVIDIA] Build ROS  Melodic Container | (CUDA 10.1   - cuDNN 7)
-	docker build -t turlucode/ros-melodic:cuda10.1-cudnn7 nvidia/melodic/cuda10.1/cudnn7
+	docker build -t turlucode/ros-melodic:cuda10.1-cudnn7 -f nvidia/melodic/cuda10.1/cudnn7/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-melodic:cuda10.1-cudnn7\033[0m\n"
 	
 nvidia_ros_melodic_cuda11-4-2: nvidia_ros_melodic ## [NVIDIA] Build ROS  Melodic Container | (CUDA 11.4.2 - no cuDNN)
-	docker build -t turlucode/ros-melodic:cuda11.4.2 nvidia/melodic/cuda11.4.2
+	docker build -t turlucode/ros-melodic:cuda11.4.2 -f nvidia/melodic/cuda11.4.2/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-melodic:cuda11.4.2\033[0m\n"
 	
 nvidia_ros_melodic_cuda11-4-2_cudnn8: nvidia_ros_melodic_cuda11-4-2 ## [NVIDIA] Build ROS  Melodic Container | (CUDA 11.4.2 - cuDNN 8)
-	docker build -t turlucode/ros-melodic:cuda11.4.2-cudnn8 nvidia/melodic/cuda11.4.2/cudnn8
+	docker build -t turlucode/ros-melodic:cuda11.4.2-cudnn8 -f nvidia/melodic/cuda11.4.2/cudnn8/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-melodic:cuda11.4.2-cudnn8\033[0m\n"
 
 ## NOETIC
 
 nvidia_ros_noetic: ## [NVIDIA] Build ROS  Noetic  Container
-	docker build -t turlucode/ros-noetic:nvidia nvidia/noetic/base
+	docker build -t turlucode/ros-noetic:nvidia -f nvidia/noetic/base/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-noetic:nvidia\033[0m\n"
 
 nvidia_ros_noetic_cuda11-4-2: nvidia_ros_noetic ## [NVIDIA] Build ROS  Noetic  Container | (CUDA 11.4.2 - no cuDNN)
-	docker build -t turlucode/ros-noetic:cuda11.4.2 nvidia/noetic/cuda11.4.2
+	docker build -t turlucode/ros-noetic:cuda11.4.2 -f nvidia/noetic/cuda11.4.2/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-noetic:cuda11.4.2\033[0m\n"
 	
 nvidia_ros_noetic_cuda11-4-2_cudnn8: nvidia_ros_noetic_cuda11-4-2 ## [NVIDIA] Build ROS  Noetic  Container | (CUDA 11.4.2 - cuDNN 8)
-	docker build -t turlucode/ros-noetic:cuda11.4.2-cudnn8 nvidia/noetic/cuda11.4.2/cudnn8
+	docker build -t turlucode/ros-noetic:cuda11.4.2-cudnn8 -f nvidia/noetic/cuda11.4.2/cudnn8/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-noetic:cuda11.4.2-cudnn8\033[0m\n"
 
 ## BOUNCY
 
 nvidia_ros_bouncy: ## [NVIDIA] Build ROS2 Bouncy  Container
-	docker build -t turlucode/ros-bouncy:latest nvidia/bouncy/base
+	docker build -t turlucode/ros-bouncy:latest -f nvidia/bouncy/base/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-bouncy:latest\033[0m\n"
 
 ## Helper TASKS
@@ -176,25 +176,25 @@ nvidia_run_help: ## [NVIDIA] Prints help and hints on how to run an [NVIDIA]-bas
 
 ## INDIGO
 cpu_ros_indigo: ## [CPU]    Build ROS  Indigo  Container
-	docker build -t turlucode/ros-indigo:cpu cpu/indigo/base
+	docker build -t turlucode/ros-indigo:cpu -f cpu/indigo/base/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-indigo:cpu\033[0m\n"
 
 ## KINETIC
 
 cpu_ros_kinetic: ## [CPU]    Build ROS  Kinetic Container
-	docker build -t turlucode/ros-kinetic:cpu cpu/kinetic/base
+	docker build -t turlucode/ros-kinetic:cpu -f cpu/kinetic/base/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-kinetic:cpu\033[0m\n"
 
 ## MELODIC
 
 cpu_ros_melodic: ## [CPU]    Build ROS  Melodic Container
-	docker build -t turlucode/ros-melodic:cpu cpu/melodic/base
+	docker build -t turlucode/ros-melodic:cpu -f cpu/melodic/base/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-melodic:cpu\033[0m\n"
 
 ## NOETIC
 
 cpu_ros_noetic: ## [CPU]    Build ROS  Noetic  Container
-	docker build -t turlucode/ros-noetic:cpu cpu/noetic/base
+	docker build -t turlucode/ros-noetic:cpu -f cpu/noetic/base/Dockerfile .
 	@printf "\n\033[92mDocker Image: turlucode/ros-noetic:cpu\033[0m\n"
 
 ## Helper TASKS
