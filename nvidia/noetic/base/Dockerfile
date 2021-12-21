@@ -27,9 +27,9 @@ software-properties-common \
 gdb valgrind && \
 apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install cmake 3.21.3
+# Install cmake 3.22.1
 RUN git clone https://gitlab.kitware.com/cmake/cmake.git && \
-cd cmake && git checkout tags/v3.21.3 && ./bootstrap --parallel=8 && make -j8 && make install && \
+cd cmake && git checkout tags/v3.22.1 && ./bootstrap --parallel=8 && make -j8 && make install && \
 cd .. && rm -rf cmake
 
 # Install tmux 3.2

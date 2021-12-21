@@ -40,16 +40,16 @@ RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 60 --slave /
 # check which one is set, and change back and forth using:
 # sudo update-alternatives --config gcc
 
-# Install cmake 3.15.5
+# Install cmake 3.22.1
 RUN git clone https://gitlab.kitware.com/cmake/cmake.git && \
-cd cmake && git checkout tags/v3.15.5 && ./bootstrap --parallel=8 && make -j8 && make install && \
+cd cmake && git checkout tags/v3.22.1 && ./bootstrap --parallel=8 && make -j8 && make install && \
 cd .. && rm -rf cmake
 
-# Install tmux 3.1
+# Install tmux 3.2
 RUN apt-get update && apt-get install -y automake autoconf pkg-config libevent-dev libncurses5-dev bison && \
 apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN git clone https://github.com/tmux/tmux.git && \
-cd tmux && git checkout tags/3.1 && ls -la && sh autogen.sh && ./configure && make -j8 && make install
+cd tmux && git checkout tags/3.2 && ls -la && sh autogen.sh && ./configure && make -j8 && make install
 
 # Install new paramiko (solves ssh issues)
 RUN apt-add-repository universe

@@ -27,16 +27,16 @@ software-properties-common \
 gdb valgrind && \
 apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install cmake 3.17.3
+# Install cmake 3.22.1
 RUN git clone https://github.com/Kitware/CMake.git && \
-cd CMake && git checkout tags/v3.17.3 && ./bootstrap --parallel=8 && make -j8 && make install && \
+cd CMake && git checkout tags/v3.22.1 && ./bootstrap --parallel=8 && make -j8 && make install && \
 cd .. && rm -rf CMake
 
-# Install tmux 3.1
+# Install tmux 3.2
 RUN apt-get update && apt-get install -y automake autoconf pkg-config libevent-dev libncurses5-dev bison && \
 apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN git clone https://github.com/tmux/tmux.git && \
-cd tmux && git checkout tags/3.1 && ls -la && sh autogen.sh && ./configure && make -j8 && make install
+cd tmux && git checkout tags/3.2 && ls -la && sh autogen.sh && ./configure && make -j8 && make install
 
 # Install new paramiko (solves ssh issues)
 RUN apt-add-repository universe
