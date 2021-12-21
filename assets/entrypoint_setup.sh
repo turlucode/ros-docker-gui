@@ -63,16 +63,16 @@ setup_env_user () {
     # Copy SSH keys & fix owner
     if [ -d "/root/.ssh" ]; then
         cp -rf /root/.ssh /home/$USER/
-        chown -R $USER:$GROUP /home/$USER/.ssh
+        chown -R $USER_ID:$GROUP_ID /home/$USER/.ssh
     fi
     
     ## Fix owner
-    chown $USER:$GROUP /home/$USER
-    chown -R $USER:$GROUP /home/$USER/.config
-    chown $USER:$GROUP /home/$USER/.profile
-    chown $USER:$GROUP /home/$USER/.bashrc
-    chown $USER:$GROUP /home/$USER/.zshrc
-    chown -R $USER:$GROUP /home/$USER/.oh-my-zsh
+    chown $USER_ID:$GROUP_ID /home/$USER
+    chown -R $USER_ID:$GROUP_ID /home/$USER/.config
+    chown $USER_ID:$GROUP_ID /home/$USER/.profile
+    chown $USER_ID:$GROUP_ID /home/$USER/.bashrc
+    chown $USER_ID:$GROUP_ID /home/$USER/.zshrc
+    chown -R $USER_ID:$GROUP_ID /home/$USER/.oh-my-zsh
 
     ## This a trick to keep the evnironmental variables of root which is important!
     echo "if ! [ \"$DOCKER_USER_NAME\" = \"$(id -un)\" ]; then" >> /root/.bashrc
@@ -107,7 +107,7 @@ if [ $DOCKER_CUSTOM_USER_OK == true ]; then
     echo -e "\033[0;32mSetting up environment for user=$DOCKER_USER_NAME\033[0m"
     setup_env_user $DOCKER_USER_NAME $DOCKER_USER_ID $DOCKER_USER_GROUP_NAME $DOCKER_USER_GROUP_ID
 else
-    echo "  -->DOCKER_USER* variables not set. Using 'root'.";
+    echo "  -->DOCKER_USER* variables not set. You need to set all four! Using 'root'.";
     echo -e "\033[0;32mSetting up environment for user=root\033[0m"
     DOCKER_USER_NAME="root"
 fi
