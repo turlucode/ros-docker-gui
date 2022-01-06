@@ -26,6 +26,18 @@ software-properties-common python-software-properties \
 gdb valgrind && \
 apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# Install python 3.8
+RUN add-apt-repository ppa:deadsnakes/ppa && apt-get update && apt-get install -y \
+python3.8 python3.8-dev python3.8-distutils && \
+apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 60
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.5 60
+RUN cd /usr/lib/python3/dist-packages && ln -s apt_pkg.cpython-35m-x86_64-linux-gnu.so apt_pkg.so
+# check which one is set, and change back and forth using:
+# sudo update-alternatives --config python3
+
+RUN curl https://bootstrap.pypa.io/get-pip.py | python3.8
+
 # Install cmake 3.22.1
 RUN git clone https://gitlab.kitware.com/cmake/cmake.git && \
 cd cmake && git checkout tags/v3.22.1 && ./bootstrap --parallel=8 && make -j8 && make install && \
