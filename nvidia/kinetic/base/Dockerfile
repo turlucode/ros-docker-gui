@@ -20,6 +20,7 @@ wget \
 curl \
 htop \
 libssl-dev \
+apt-transport-https \
 dbus-x11 \
 python3 python3-dev python3-pip \
 software-properties-common python-software-properties \

@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 
 MAINTAINER Athanasios Tasoglou <athanasios@tasoglou.net>
-LABEL Description="ROS-Kinetic-Desktop (Ubuntu 16.04)" Vendor="TurluCode" Version="1.2"
+LABEL Description="ROS-Kinetic-Desktop (Ubuntu 16.04)" Vendor="TurluCode" Version="2.0"
 LABEL com.turlucode.ros.version="kinetic"
 
 # Install packages without prompting the user to answer any questions
@@ -19,6 +19,8 @@ xterm \
 wget \
 curl \
 htop \
+libssl-dev \
+apt-transport-https \
 dbus-x11 \
 python3 python3-dev python3-pip \
 software-properties-common python-software-properties \
