@@ -1,7 +1,7 @@
 FROM nvidia/opengl:1.0-glvnd-runtime-ubuntu16.04
 
 MAINTAINER Athanasios Tasoglou <athanasios@tasoglou.net>
-LABEL Description="ROS-Kinetic-Desktop (Ubuntu 16.04)" Vendor="TurluCode" Version="2.4"
+LABEL Description="ROS-Kinetic-Desktop (Ubuntu 16.04)" Vendor="TurluCode" Version="2.5"
 LABEL com.turlucode.ros.version="kinetic"
 
 # Install packages without prompting the user to answer any questions
@@ -28,14 +28,9 @@ gdb valgrind && \
 apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install python 3.8
-RUN add-apt-repository ppa:deadsnakes/ppa && apt-get update && apt-get install -y \
-python3.8 python3.8-dev python3.8-distutils && \
-apt-get clean && rm -rf /var/lib/apt/lists/*
-RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 60
-RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.5 60
-RUN cd /usr/lib/python3/dist-packages && ln -s apt_pkg.cpython-35m-x86_64-linux-gnu.so apt_pkg.so
-# check which one is set, and change back and forth using:
-# sudo update-alternatives --config python3
+RUN git clone -b ubuntu/xenial https://github.com/deadsnakes/python3.8.git && \
+cd python3.8 && ./configure --enable-optimizations && \
+make && make install
 
 RUN curl https://bootstrap.pypa.io/get-pip.py | python3.8
 
