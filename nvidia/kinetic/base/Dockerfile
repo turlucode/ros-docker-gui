@@ -28,9 +28,10 @@ gdb valgrind && \
 apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install python 3.8
+RUN apt-get update && apt-get install -y libbz2-dev && apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN git clone -b ubuntu/xenial https://github.com/deadsnakes/python3.8.git && \
 cd python3.8 && ./configure --enable-optimizations && \
-make && make install
+make -j8 && make install
 
 RUN curl https://bootstrap.pypa.io/get-pip.py | python3.8
 
