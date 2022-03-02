@@ -6,8 +6,6 @@ support! This means your local OS is no more bound the version of ROS you are us
 You can use _any_ version of ROS with _any_ Linux distribution, thanks to the amazing 
 power of docker!
 
-More info in [this blog post](http://turlucode.com/ros-docker-container-gui-support/).
-
 # Getting Started
 The idea is to have HW accelerated GUIs on docker. Generally it has proven that this is 
 a challenging task. However graphics card companies like NVIDIA, already provide 
