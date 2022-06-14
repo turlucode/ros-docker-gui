@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 
 MAINTAINER Athanasios Tasoglou <athanasios@tasoglou.net>
-LABEL Description="ROS-Kinetic-Desktop (Ubuntu 16.04)" Vendor="TurluCode" Version="2.1"
+LABEL Description="ROS-Kinetic-Desktop (Ubuntu 16.04)" Vendor="TurluCode" Version="2.2"
 LABEL com.turlucode.ros.version="kinetic"
 
 # Install packages without prompting the user to answer any questions
@@ -28,9 +28,9 @@ gdb valgrind && \
 apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install python 3.8
-RUN apt-get update && apt-get install -y libbz2-dev && apt-get install -y libffi-dev && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y libbz2-dev libffi-dev libsqlite3-dev && apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN git clone -b ubuntu/xenial https://github.com/deadsnakes/python3.8.git && \
-cd python3.8 && ./configure --enable-optimizations && \
+cd python3.8 && ./configure --enable-loadable-sqlite-extensions --enable-optimizations && \
 make -j8 && make install
 
 RUN curl https://bootstrap.pypa.io/get-pip.py | python3.8
