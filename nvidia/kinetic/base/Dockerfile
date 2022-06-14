@@ -1,7 +1,7 @@
-FROM nvidia/opengl:1.0-glvnd-runtime-ubuntu16.04
+FROM nvidia/opengl:1.2-glvnd-runtime-ubuntu16.04
 
 MAINTAINER Athanasios Tasoglou <athanasios@tasoglou.net>
-LABEL Description="ROS-Kinetic-Desktop (Ubuntu 16.04)" Vendor="TurluCode" Version="2.5"
+LABEL Description="ROS-Kinetic-Desktop (Ubuntu 16.04)" Vendor="TurluCode" Version="2.6"
 LABEL com.turlucode.ros.version="kinetic"
 
 # Install packages without prompting the user to answer any questions
