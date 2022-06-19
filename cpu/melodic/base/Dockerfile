@@ -41,10 +41,16 @@ cd tmux && git checkout tags/3.2 && ls -la && sh autogen.sh && ./configure && ma
 # Install new paramiko (solves ssh issues)
 RUN apt-add-repository universe
 RUN apt-get update && apt-get install -y python-pip python build-essential && apt-get clean && rm -rf /var/lib/apt/lists/*
-RUN /usr/bin/yes | pip install --upgrade "pip < 21.0"
+#RUN /usr/bin/yes | pip install --upgrade "pip<21.0"
 RUN /usr/bin/yes | pip install --upgrade virtualenv
-RUN /usr/bin/yes | pip install --upgrade paramiko
-RUN /usr/bin/yes | pip install --ignore-installed --upgrade numpy protobuf
+# https://stackoverflow.com/questions/42802265/error-installing-paramiko-using-pip
+RUN apt-get update && apt-get install -y libffi6 libffi-dev && apt-get clean && rm -rf /var/lib/apt/lists/*
+#RUN /usr/bin/yes | pip install --upgrade paramiko
+RUN /usr/bin/yes | pip install paramiko
+# https://groups.google.com/g/protobuf/c/A2p2IgHPIZc
+# python 2.7 supports ends after 3.17.3
+RUN /usr/bin/yes | pip install --ignore-installed --upgrade \
+    numpy "protobuf<=3.17.3"
 
 # Locale
 RUN locale-gen en_US.UTF-8  
