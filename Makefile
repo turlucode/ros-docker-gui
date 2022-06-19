@@ -14,6 +14,38 @@ help: ## This help.
 
 .DEFAULT_GOAL := help
 
+
+# patsubst search for arg1 and for every word in arg3 replaces it with arg2
+# to get the all to work we need to parse the file looking for all phony
+# targets
+# https://stackoverflow.com/questions/4219255/how-do-you-get-the-list-of-targets-in-a-makefile
+# need this hack for includes and must be before any includes
+THIS_FILE := $(lastword $(MAKEFILE_LIST))
+BUILD_LIST := $(shell grep -o -E '^[a-zA-Z0-9_-]+:' $(THIS_FILE) | \
+						sed -e 's/:$$//' | \
+						grep -E '^nvidia|cpu|tools' \
+			   )
+.PHONY: $(BUILD_LIST)
+# note we are only looking for targets that start with nvidia_, cpu_ and tools_
+# this calls make so cannot do recursively
+.PHONY: test-list
+test-list:
+	@grep -o -E '^[a-zA-Z0-9_-]+:' $(THIS_FILE) | \
+			sed -e 's/:$$//' | \
+			grep -E '^nvidia|cpu|tools'
+
+# this cannot be used recursively as it calls make to produce the list
+.PHONY: make-list
+make-list:
+	@$(MAKE) -pRrq -f $(lastword $(THIS_FILE)) : 2>/dev/null | \
+		awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | \
+		sort | egrep -v -e '^[^[:alnum:]]' -e '^$@$$' | \
+		grep -E '^nvidia_|cpu_|tools_'
+
+# build all container
+.PHONY: all
+all: $(BUILD_LIST)
+
 # DOCKER TASKS
 
 # NVIDIA
