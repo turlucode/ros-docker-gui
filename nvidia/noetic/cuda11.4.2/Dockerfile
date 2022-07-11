@@ -6,14 +6,9 @@ LABEL Description="ROS-Noetic-Desktop with CUDA 11.4.2 support (Ubuntu 20.04)" V
 # Install packages without prompting the user to answer any questions
 ENV DEBIAN_FRONTEND noninteractive 
 
-# CUDA Base-packages
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    gnupg2 curl ca-certificates && \
-    curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub | apt-key add - && \
-    echo "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64 /" > /etc/apt/sources.list.d/cuda.list && \
-    echo "deb https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu2004/x86_64 /" > /etc/apt/sources.list.d/nvidia-ml.list && \
-    apt-get purge --autoremove -y curl \
-    && rm -rf /var/lib/apt/lists/*
+RUN wget -nv https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb && \
+    dpkg -i cuda-keyring_1.0-1_all.deb && \
+    rm cuda-keyring_1.0-1_all.deb
 
 ENV NV_CUDA_LIB_VERSION 11.4.2-1
 ENV NV_CUDA_CUDART_VERSION 11.4.108-1
