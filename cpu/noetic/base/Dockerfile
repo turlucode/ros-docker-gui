@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
 MAINTAINER Athanasios Tasoglou <athanasios@tasoglou.net>
-LABEL Description="ROS-Melodic-Desktop (Ubuntu 20.04)" Vendor="TurluCode" Version="1.0"
+LABEL Description="ROS-Melodic-Desktop (Ubuntu 20.04)" Vendor="TurluCode" Version="1.1"
 LABEL com.turlucode.ros.version="noetic"
 
 # Install packages without prompting the user to answer any questions
@@ -27,16 +27,16 @@ software-properties-common \
 gdb valgrind && \
 apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install cmake 3.22.1
+# Install cmake 3.26.4
 RUN git clone https://github.com/Kitware/CMake.git && \
-cd CMake && git checkout tags/v3.22.1 && ./bootstrap --parallel=8 && make -j8 && make install && \
+cd CMake && git checkout tags/v3.26.4 && ./bootstrap --parallel=8 && make -j8 && make install && \
 cd .. && rm -rf CMake
 
-# Install tmux 3.2
+# Install tmux 3.3
 RUN apt-get update && apt-get install -y automake autoconf pkg-config libevent-dev libncurses5-dev bison && \
 apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN git clone https://github.com/tmux/tmux.git && \
-cd tmux && git checkout tags/3.2 && ls -la && sh autogen.sh && ./configure && make -j8 && make install
+cd tmux && git checkout tags/3.3 && ls -la && sh autogen.sh && ./configure && make -j8 && make install
 
 # Install new paramiko (solves ssh issues)
 RUN apt-add-repository universe
