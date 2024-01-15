@@ -27,10 +27,10 @@ software-properties-common \
 gdb valgrind && \
 apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install cmake 3.22.1
-RUN git clone https://gitlab.kitware.com/cmake/cmake.git && \
-cd cmake && git checkout tags/v3.22.1 && ./bootstrap --parallel=8 && make -j8 && make install && \
-cd .. && rm -rf cmake
+# Install cmake 3.28.1
+RUN git clone https://github.com/Kitware/CMake.git && \
+cd CMake && git checkout tags/v3.28.1 && ./bootstrap --parallel=8 && make -j8 && make install && \
+cd .. && rm -rf CMake
 
 # Install tmux 3.2
 RUN apt-get update && apt-get install -y automake autoconf pkg-config libevent-dev libncurses5-dev bison && \
