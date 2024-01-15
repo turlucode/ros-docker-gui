@@ -36,12 +36,16 @@ ENV NVIDIA_REQUIRE_CUDA "cuda>=10.0 brand=tesla,driver>=384,driver<385 brand=tes
 # CUDA Runtime-packages
 ENV NCCL_VERSION 2.6.4
 
+RUN wget -q https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/libnccl2_2.6.4-1+cuda10.0_amd64.deb \
+    && echo "f92759e2ab0e36a1c9887f080f7283a774a7c971e352203db4d94d99c44f1028 libnccl2_2.6.4-1+cuda10.0_amd64.deb" | sha256sum -c --strict - \
+    && dpkg -i libnccl2_2.6.4-1+cuda10.0_amd64.deb \
+    && rm -f libnccl2_2.6.4-1+cuda10.0_amd64.deb
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     cuda-libraries-$CUDA_PKG_VERSION \
     cuda-npp-$CUDA_PKG_VERSION \
     cuda-nvtx-$CUDA_PKG_VERSION \
     cuda-cublas-10-0=10.0.130-1 \
-    libnccl2=$NCCL_VERSION-1+cuda10.0 \
     && apt-mark hold libnccl2 \
     && rm -rf /var/lib/apt/lists/*
 
@@ -50,6 +54,11 @@ RUN apt-mark hold cuda-cublas-10-0
 
 
 # CUDA Devel-packages
+RUN wget -q https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/libnccl2_2.6.4-1+cuda10.0_amd64.deb \
+    && echo "f92759e2ab0e36a1c9887f080f7283a774a7c971e352203db4d94d99c44f1028 libnccl2_2.6.4-1+cuda10.0_amd64.deb" | sha256sum -c --strict - \
+    && dpkg -i libnccl2_2.6.4-1+cuda10.0_amd64.deb \
+    && rm -f libnccl2_2.6.4-1+cuda10.0_amd64.deb
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     cuda-nvml-dev-$CUDA_PKG_VERSION \
     cuda-command-line-tools-$CUDA_PKG_VERSION \
@@ -58,12 +67,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     cuda-libraries-dev-$CUDA_PKG_VERSION \
     cuda-minimal-build-$CUDA_PKG_VERSION \
     cuda-cublas-dev-10-0=10.0.130-1 \
-    libnccl-dev=2.6.4-1+cuda10.0 \
     && apt-mark hold libnccl-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # apt from auto upgrading the cublas package. See https://gitlab.com/nvidia/container-images/cuda/-/issues/88
-RUN apt-mark hold cuda-cublas-dev-10-0
+RUN apt-mark hold libnccl2 cuda-cublas-dev-10-0
 
 ENV LIBRARY_PATH /usr/local/cuda/lib64/stubs
 
