@@ -1,16 +1,15 @@
 import importlib.resources
+from string import Template
 from typing import Dict, List
 
-from string import Template
 from loguru import logger
 
-from turludock.helper_functions import is_ros_version_supported, get_cpu_count_for_build
 from turludock.config_sanity import (
     check_if_cmake_version_exists,
-    check_if_tmux_version_exists,
     check_if_llvm_version_exists,
+    check_if_tmux_version_exists,
 )
-from turludock.helper_functions import get_ros_major_version
+from turludock.helper_functions import get_cpu_count_for_build, get_ros_major_version, is_ros_version_supported
 
 
 def populate_templated_file(mapping: Dict[str, str], templated_file: str) -> str:

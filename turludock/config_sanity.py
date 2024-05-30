@@ -1,8 +1,8 @@
-from typing import List, Dict, Any
+from typing import Any, Dict, List
 
 from loguru import logger
 
-from turludock.helper_functions import get_ubuntu_version, check_if_remote_tag_exists, get_llvm_supported_versions
+from turludock.helper_functions import check_if_remote_tag_exists, get_llvm_supported_versions, get_ubuntu_version
 from turludock.yaml_load import load_cuda_config, load_cudnn_config
 
 

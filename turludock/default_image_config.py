@@ -1,8 +1,8 @@
 import os
 
-from turludock.yaml_load import load_default_image_configuration
 from turludock.config_parser import get_config_filename, get_config_name
 from turludock.helper_functions import list_packaged_yaml_files
+from turludock.yaml_load import load_default_image_configuration
 
 
 def configuration_exists(config_name: str) -> bool:

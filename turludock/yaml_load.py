@@ -1,7 +1,7 @@
 import importlib.resources
 from typing import Any
-import yaml
 
+import yaml
 from loguru import logger
 
 

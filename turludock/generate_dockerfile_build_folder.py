@@ -3,10 +3,10 @@ import os
 from loguru import logger
 
 import turludock.default_image_config as default_image_config
-from turludock.yaml_load import load_yaml_file
-from turludock.filesystem_operations import get_filename_from_path, copy_resource
 from turludock.config_parser import check_dockerfile_config
+from turludock.filesystem_operations import copy_resource, get_filename_from_path
 from turludock.generate_dockerfile import generate_dockerfile
+from turludock.yaml_load import load_yaml_file
 
 
 def _populate_build_folder(yaml_config: dict, dir_path: str) -> None:

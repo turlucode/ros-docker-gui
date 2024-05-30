@@ -1,16 +1,15 @@
-import multiprocessing
-import subprocess
-import re
-import os
-from typing import List
-import importlib.resources
 import importlib.metadata
+import importlib.resources
+import multiprocessing
+import os
+import re
+import subprocess
+from typing import List
 
-import toml
 import requests
-
-from packaging.version import Version, InvalidVersion
+import toml
 from loguru import logger
+from packaging.version import InvalidVersion, Version
 
 import turludock.constants as constants
 
@@ -313,7 +312,7 @@ def get_program_version() -> str:
     """Gets the program version.
 
     See pyproject.toml
-    
+
     Returns:
         str: The version
     """

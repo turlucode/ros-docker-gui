@@ -1,6 +1,7 @@
 import re
-from typing import Tuple, Optional
-from rich.progress import Progress, BarColumn, TimeElapsedColumn, TextColumn
+from typing import Optional, Tuple
+
+from rich.progress import BarColumn, Progress, TextColumn, TimeElapsedColumn
 
 
 class BuildProgress:

@@ -1,30 +1,21 @@
-from typing import Dict, Any
+from typing import Any, Dict
 
 from loguru import logger
 
 from turludock.config_parser import print_configuration
-from turludock.generate_templated_files import (
-    generate_from,
-    generate_header_info,
-    generate_cmake,
-    generate_llvm,
-    generate_tmux,
-    generate_ros,
-    generate_extra_packages_label,
-)
 from turludock.generate_non_templated_files import (
-    generate_common_env_config,
-    generate_install_common_packages,
-    generate_mesa,
-    generate_locale,
-    generate_terminator,
-    generate_ohmyzsh,
-    generate_conan,
-    generate_vscode,
-    generate_entrypoint,
     generate_cmd,
-    generate_meld,
+    generate_common_env_config,
+    generate_conan,
     generate_cpplint,
+    generate_entrypoint,
+    generate_install_common_packages,
+    generate_locale,
+    generate_meld,
+    generate_mesa,
+    generate_ohmyzsh,
+    generate_terminator,
+    generate_vscode,
 )
 from turludock.generate_nvidia_templated_files import (
     generate_cuda_base,
@@ -33,13 +24,22 @@ from turludock.generate_nvidia_templated_files import (
     generate_cudnn_devel,
     generate_cudnn_runtime,
 )
+from turludock.generate_templated_files import (
+    generate_cmake,
+    generate_extra_packages_label,
+    generate_from,
+    generate_header_info,
+    generate_llvm,
+    generate_ros,
+    generate_tmux,
+)
 from turludock.helper_functions import (
-    is_version_lower,
-    is_version_greater,
-    get_ubuntu_version,
-    get_ros_major_version,
     get_github_latest_version_tag,
     get_llvm_latest_version,
+    get_ros_major_version,
+    get_ubuntu_version,
+    is_version_greater,
+    is_version_lower,
 )
 
 

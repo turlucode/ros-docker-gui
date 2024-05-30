@@ -1,9 +1,9 @@
 import importlib.resources
-
 from string import Template
+
 from loguru import logger
 
-from turludock.config_sanity import is_cuda_version_supported, is_cuda_cudnn_version_combination_supported
+from turludock.config_sanity import is_cuda_cudnn_version_combination_supported, is_cuda_version_supported
 from turludock.yaml_load import load_cuda_config, load_cudnn_config
 
 

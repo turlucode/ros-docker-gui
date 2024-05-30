@@ -1,17 +1,16 @@
 import os
 import tempfile
-from typing import Dict, Any
+from typing import Any, Dict
 
 import docker
 from loguru import logger
 
-from turludock.generate_dockerfile import generate_dockerfile
 import turludock.default_image_config as default_image_config
-
-from turludock.filesystem_operations import get_filename_from_path, copy_resource
-from turludock.config_parser import check_dockerfile_config
-from turludock.yaml_load import load_yaml_file
 from turludock.build_progress import BuildProgress
+from turludock.config_parser import check_dockerfile_config
+from turludock.filesystem_operations import copy_resource, get_filename_from_path
+from turludock.generate_dockerfile import generate_dockerfile
+from turludock.yaml_load import load_yaml_file
 
 
 def _generate_image_tag(yaml_config: Dict[str, Any]) -> str:

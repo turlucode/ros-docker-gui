@@ -1,5 +1,6 @@
 import os
-from typing import Dict, Any
+from typing import Any, Dict
+
 from termcolor import colored
 
 import turludock.config_sanity as config_sanity
