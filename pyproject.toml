@@ -45,6 +45,7 @@ rich = "13.7.1"
 toml = "^0.10.2"
 pyproject-flake8 = "^7.0.0"
 black = "^24.4.2"
+isort = "^5.13.2"
 
 [build-system]
 requires = ["poetry-core"]
@@ -54,6 +55,12 @@ build-backend = "poetry.core.masonry.api"
 [tool.black]
 line-length = 120
 target-version = ["py35"]
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 120
+skip = [".gitignore"]
 
 [tool.flake8]
 max-line-length = 120
