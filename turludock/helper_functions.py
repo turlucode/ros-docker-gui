@@ -7,7 +7,6 @@ import subprocess
 from typing import List
 
 import requests
-import toml
 from loguru import logger
 from packaging.version import InvalidVersion, Version
 
