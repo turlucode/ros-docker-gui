@@ -1,0 +1,21 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [3.0.0] - 2024-06-01
+
+### Added
+
+- Added support for Wayland
+- Added ROS2 support for Humble, Iron and Jazzy
+
+### Changed
+
+- Complete make over! Moving to a python tool where Dockerfiles files are generated via templates
+- Supports generating of templated Dockerfiles and provides Dockerfile assets for complete build
+- Supports building of docker images
+- Only Noetic is supported from ROS1
+- Changed supported CUDA/cuDNN versions

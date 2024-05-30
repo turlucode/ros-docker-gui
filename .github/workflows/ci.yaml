@@ -1,0 +1,47 @@
+# More info https://github.com/orgs/python-poetry/discussions/4205
+name: CI
+
+on:
+  push:
+    branches: [master, v3.0-develop]
+    tags:
+      - "[0-9v]+.[0-9]+.[0-9a-z]+"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ '3.9' ]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install poetry
+        run: |
+          curl -O -sSL https://install.python-poetry.org/install-poetry.py
+          python install-poetry.py -y --version 1.1.12
+          echo "PATH=${HOME}/.poetry/bin:${PATH}" >> $GITHUB_ENV
+          rm install-poetry.py
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'poetry'
+
+      - name: Install dependencies
+        run: |
+          # This is required to do as of @actions/checkout@v3 to prevent default action python (3.8) from being used
+          poetry env use ${{ matrix.python-version }}
+          poetry install
+
+      - name: Lint with flake8
+        run: poetry run pflake8 turludock
+
+      - name: Check formatting with black
+        run: poetry run black --check turludock
+
+      - name: Print python versions
+        run: |
+          python -V
+          poetry run python -V

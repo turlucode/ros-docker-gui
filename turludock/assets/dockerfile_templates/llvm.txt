@@ -1,0 +1,2 @@
+# Install LLVM $llvm_version (https://apt.llvm.org/). Supported is Ubuntu >= 18.04. Versions 9-18 (05/2024)
+RUN wget https://apt.llvm.org/llvm.sh && chmod +x llvm.sh && ./llvm.sh $llvm_version all && rm llvm.sh

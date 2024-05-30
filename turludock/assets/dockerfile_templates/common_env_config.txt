@@ -1,0 +1,2 @@
+# Install packages without prompting the user to answer any questions
+ENV DEBIAN_FRONTEND noninteractive 

@@ -1,0 +1,3 @@
+# Entry script
+COPY entrypoint_setup.sh /
+ENTRYPOINT ["/entrypoint_setup.sh"]

@@ -1,0 +1,4 @@
+# Install cmake $cmake_version
+RUN git clone https://github.com/Kitware/CMake.git && \
+    cd CMake && git checkout tags/$cmake_version && ./bootstrap --parallel=$num_of_cpu && make -j$num_of_cpu && make install && \
+    cd .. && rm -rf CMake

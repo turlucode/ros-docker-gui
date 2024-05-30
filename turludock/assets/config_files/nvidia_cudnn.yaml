@@ -1,0 +1,19 @@
+'8.9.6.50':
+  ubuntu2004:
+    cuda_version:
+      - '11.8.0'
+    libcudnn_package: libcudnn8
+    libcudnn_dev_package: libcudnn8-dev
+    libcudnn_version: 8.9.6.50
+    libcudnn_revision: -1+cuda11.8
+    nvidia_devel_url: https://gitlab.com/nvidia/container-images/cuda/-/blob/master/dist/11.8.0/ubuntu2004/devel/cudnn8/Dockerfile
+    nvidia_runtime_url: https://gitlab.com/nvidia/container-images/cuda/-/blob/master/dist/11.8.0/ubuntu2004/runtime/cudnn8/Dockerfile
+  ubuntu2204:
+    cuda_version:
+      - '11.8.0'
+    libcudnn_package: libcudnn8
+    libcudnn_dev_package: libcudnn8-dev
+    libcudnn_version: 8.9.6.50
+    libcudnn_revision: -1+cuda11.8
+    nvidia_devel_url: https://gitlab.com/nvidia/container-images/cuda/-/blob/master/dist/11.8.0/ubuntu2204/devel/cudnn8/Dockerfile
+    nvidia_runtime_url: https://gitlab.com/nvidia/container-images/cuda/-/blob/master/dist/11.8.0/ubuntu2204/runtime/cudnn8/Dockerfile
