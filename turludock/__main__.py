@@ -1,5 +1,4 @@
 import sys
-import argparse
 
 from loguru import logger
 
@@ -11,22 +10,27 @@ from turludock.docker_build import build_pre_configured_image, build_custom_imag
 import turludock.generate_dockerfile_build_folder as generate_dockerfile_build_folder
 
 
-def main(args: argparse.Namespace) -> int:
+def main() -> int:
     """
     Main entry point for the command line interface of the turludock tool.
-
-    Args:
-        args: An object holding the command line arguments parsed by argparse.
 
     Returns:
         An integer indicating the exit status of the program. 0 indicates success,
         non-zero values indicate failure.
     """
+    # Initialize the logger
+    configure_logger()
+
+    # Parse arguments
+    args, parse_ok_ = parse_command_line_args()
+    if not parse_ok_:
+        sys.exit(1)
+
     # Enable debug mode
     if args.debug:
         configure_logger(True)
 
-    # which preset
+    # which
     if args.command == "which":
         if args.which == "presets":
             list_pre_configs()
@@ -65,14 +69,4 @@ def main(args: argparse.Namespace) -> int:
 
 
 if __name__ == "__main__":
-    # Initialize the logger
-    configure_logger()
-
-    # Parse arguments
-    args_, parse_ok_ = parse_command_line_args()
-
-    # Run main if parsing successful
-    if not parse_ok_:
-        sys.exit(1)
-    else:
-        sys.exit(main(args_))
+    main()
