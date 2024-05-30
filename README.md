@@ -278,6 +278,34 @@ The images on this repository are based on the following work:
 - https://github.com/ros2/rviz/issues/672#issuecomment-2041508267
 - https://github.com/ros2/rviz/issues/847#issuecomment-1503892696
 
+# Troubleshooting
+## Container eating up too much memory
+Is even a simple command inside docker eating up crazy a lot of memory? This happens especially in arch-linux.
+Chances are you have a "miss-configured" `LimitNOFILE`. [See here](https://github.com/containerd/containerd/issues/3201#issue-431539379),
+[here](https://github.com/moby/moby/issues/44547#issuecomment-1334125338), [here](https://bugs.archlinux.org/task/77548) for the reported issue.
+```sh
+# This is what is configured
+cat /usr/lib/systemd/system/containerd.service | grep LimitNOFILE
+# This is what is actually being used
+systemctl show containerd | grep LimitNOFILE
+```
+If `containerd.service` uses `infinity` better bound it with systemd with a new `.conf` file:
+```sh
+# /etc/systemd/system/containerd.service.d/30-override.conf
+[Service]
+LimitNOFILE=1048576
+```
+If the folder `docker.service.d` doesn't exist, create it.
+Now reload service with:
+```sh
+sudo systemctl restart containerd && sudo systemctl daemon-reload
+```
+And you are good to go! You feel now the container to be even more "snappy".
+
+## X11: Error: cannot open display
+You may need to run `xhost si:localuser:$USER` or worst case `xhost local:root`.
+
+
 # Issues and Contributing
   - Please let us know by [filing a new 
 issue](https://github.com/turlucode/ros-docker-gui/issues/new).
