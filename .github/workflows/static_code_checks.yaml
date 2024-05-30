@@ -1,21 +1,22 @@
 # More info https://github.com/orgs/python-poetry/discussions/4205
-name: CI
+name: Static code checks
 
 on:
   push:
-    branches: [master, v3.0-develop]
-    tags:
-      - "[0-9v]+.[0-9]+.[0-9a-z]+"
-  workflow_dispatch:
+    branches:
+      - '**'
+    tags-ignore:
+      - '*'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ '3.9' ]
+        python-version: [ '3.9', '3.10', '3.11', '3.12' ]
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Install poetry
         run: |
           curl -O -sSL https://install.python-poetry.org/install-poetry.py
@@ -35,13 +36,11 @@ jobs:
           poetry env use ${{ matrix.python-version }}
           poetry install
 
-      - name: Lint with flake8
-        run: poetry run pflake8 turludock
+      - name: Check code with flake8
+        run: poetry run pflake8 --statistics --count --show-source turludock
 
       - name: Check formatting with black
         run: poetry run black --check turludock
 
-      - name: Print python versions
-        run: |
-          python -V
-          poetry run python -V
+      - name: Check imports with isort
+        run: poetry run isort --check turludock
