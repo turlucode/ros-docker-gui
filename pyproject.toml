@@ -44,6 +44,7 @@ termcolor = "2.4.0"
 rich = "13.7.1"
 toml = "^0.10.2"
 pyproject-flake8 = "^7.0.0"
+black = "^24.4.2"
 
 [build-system]
 requires = ["poetry-core"]
