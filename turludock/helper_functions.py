@@ -4,6 +4,7 @@ import re
 import os
 from typing import List
 import importlib.resources
+import importlib.metadata
 
 import toml
 import requests
@@ -309,15 +310,11 @@ def is_version_greater(version_to_check: str, reference_version: str) -> bool:
 
 
 def get_program_version() -> str:
-    """Prints the program version.
+    """Gets the program version.
 
-    Args:
-        None
-
+    See pyproject.toml
+    
     Returns:
-        None
+        str: The version
     """
-    pyproject_path = os.path.join(os.path.dirname(__file__), "..", "pyproject.toml")
-    with open(pyproject_path, "r", encoding="utf-8") as f:
-        pyproject_data = toml.load(f)
-    return pyproject_data["tool"]["poetry"]["version"]
+    return importlib.metadata.version("turludock")
