@@ -4,6 +4,8 @@
 #   humble        RSO2. Assumes Ubuntu 22.04
 #   iron          ROS2. Assumes Ubuntu 22.04
 #   noetic        ROS2. Assumes Ubuntu 24.04
+#
+# Check also with 'turludock which ros'
 ros_version: noetic
 
 # Select which GPU driver your host-machine uses for its GUIs. 
@@ -13,7 +15,7 @@ ros_version: noetic
 gpu_driver: nvidia
 
 # CUDA and CUDNN configuration (if applicable).
-# Check supported with 'list-cuda-support <ros_codename>'
+# Check supported with 'turludock which cuda ROS_CODENAME'
 cuda_version: 11.8.0
 cudnn_version: 8.9.6.50
 
