@@ -143,7 +143,7 @@ The `FOLDER_PATH` now contains all necessary files to run a custom `docker build
 
 # Running the image (as current user)
 ## Mesa
-> :pineapple: **Important:** Make sure your YAML configuration uses: [`gpu_driver: mesa`](examples/noetic_nvidia_custom.yaml#L13)
+> :pineapple: **Important:** Make sure your YAML configuration uses: [`gpu_driver: mesa`](examples/noetic_nvidia_custom.yaml#L15)
 
 ### X11
 To run the ROS docker container with X11 support use:
@@ -205,7 +205,7 @@ _Important Remarks_:
 - See also [this section](#other-options) for other options.
 
 ## NVIDIA GPU
-> :pineapple: **Important:** Make sure your YAML configuration uses: [`gpu_driver: nvidia`]((examples/noetic_nvidia_custom.yaml#L13))
+> :pineapple: **Important:** Make sure your YAML configuration uses: [`gpu_driver: nvidia`]((examples/noetic_nvidia_custom.yaml#L15))
 
 ### X11
 
