@@ -19,7 +19,7 @@ turludock build -c custom.yaml --tag custom_tag
 
 # Check supported versions
 turludock which ros
-turludock which cuda ros_codename
+turludock which cuda ROS_CODENAME
 ```
 All commands have a `--help` support.
 > [Example YAML config](examples/noetic_nvidia_custom.yaml)
@@ -84,9 +84,9 @@ This will output ROS versions with their codename.
 
 To see the supported versions of CUDA/cuDDN of a specific ROS version run:
 ```sh
-turludock which cuda ros_codename
+turludock which cuda ROS_CODENAME
 ```
-`ros_codename` could be `noetic` for example.
+`ROS_CODENAME` could be `noetic` for example.
 
 # Build desired Docker Image
 
@@ -131,9 +131,9 @@ your own custom configuration...
 
 No problemo, use:
 ```sh
-turludock build -c custom.yaml --tag custom_tag
+turludock build -c custom.yaml --tag CUSTOM_TAG
 ```
-> How to create a custom yaml configuration? [Check the example.](#tool-is-based-on-yaml-configurations)
+> How to create a custom yaml configuration? [Check the example.](examples/noetic_nvidia_custom.yaml)
 
 Or if you want to generate the Dockerfile and its required assets for manual build use:
 ```sh
@@ -143,7 +143,7 @@ The `FOLDER_PATH` now contains all necessary files to run a custom `docker build
 
 # Running the image (as current user)
 ## Mesa
-> :pineapple: **Important:** Make sure your YAML configuration uses: `gpu_driver: mesa`
+> :pineapple: **Important:** Make sure your YAML configuration uses: [`gpu_driver: mesa`](examples/noetic_nvidia_custom.yaml#L13)
 
 ### X11
 To run the ROS docker container with X11 support use:
@@ -172,7 +172,7 @@ _Important Remark_:
 
 ROS related GUI programs seem to working fine. Other programs like `meld` or `vscode` also seem to be working fine. There might be cases where some GUI do not work as expected. Feel free to open a ticket so we can look into it.
 
-For example, we know RViz is not ready for Wayland, hence we will need to use the `xcb` (X11) plugin instead of Wayland one and therefore we will use `QT_QPA_PLATFORM=xcb` for all QT applications. More info [here](#rviz-wayland-known-issues).
+For example, we know RViz is not ready for Wayland, hence we will need to use the `xcb` (X11) plugin instead of the one for Wayland and therefore we will use `QT_QPA_PLATFORM=xcb` for all QT applications. More info [here](#rviz-wayland-known-issues).
 
 
 To run the ROS docker container with Wayland support use:
@@ -205,7 +205,7 @@ _Important Remarks_:
 - See also [this section](#other-options) for other options.
 
 ## NVIDIA GPU
-> :pineapple: **Important:** Make sure your YAML configuration uses: `gpu_driver: nvidia`
+> :pineapple: **Important:** Make sure your YAML configuration uses: [`gpu_driver: nvidia`]((examples/noetic_nvidia_custom.yaml#L13))
 
 ### X11
 
@@ -256,12 +256,6 @@ If you have a virtual device node like `/dev/video0`, e.g. a compatible usb came
 ```sh
 --device /dev/video0
 ```
-# Base images
-## NVIDIA
-The images on this repository are based on the following work:
-
-  - [nvidia-opengl](https://gitlab.com/nvidia/samples/blob/master/opengl/ubuntu14.04/glxgears/Dockerfile)
-  - [nvidia-cuda](https://gitlab.com/nvidia/cuda) - Hierarchy is base->runtime->devel
 
 # References
 ## Wayland in docker references
@@ -281,7 +275,7 @@ The images on this repository are based on the following work:
 # Troubleshooting
 ## Container eating up too much memory
 Is even a simple command inside docker eating up crazy a lot of memory? This happens especially in arch-linux.
-Chances are you have a "miss-configured" `LimitNOFILE`. [See here](https://github.com/containerd/containerd/issues/3201#issue-431539379),
+Chances are you have a "miss-configured" `LimitNOFILE`. See [here](https://github.com/containerd/containerd/issues/3201#issue-431539379),
 [here](https://github.com/moby/moby/issues/44547#issuecomment-1334125338), [here](https://bugs.archlinux.org/task/77548) for the reported issue.
 ```sh
 # This is what is configured
@@ -300,7 +294,7 @@ Now reload service with:
 ```sh
 sudo systemctl restart containerd && sudo systemctl daemon-reload
 ```
-And you are good to go! You feel now the container to be even more "snappy".
+And you are good to go! The container feels also "snappier" now.
 
 ## X11: Error: cannot open display
 You may need to run `xhost si:localuser:$USER` or worst case `xhost local:root`.
@@ -311,6 +305,13 @@ You may need to run `xhost si:localuser:$USER` or worst case `xhost local:root`.
 issue](https://github.com/turlucode/ros-docker-gui/issues/new).
   - You can contribute by [opening a pull 
 request](https://github.com/turlucode/ros-docker-gui/compare).
+
+## Base images
+### NVIDIA
+The images on this repository are based on the following work:
+
+  - [nvidia-opengl](https://gitlab.com/nvidia/samples/blob/master/opengl/ubuntu14.04/glxgears/Dockerfile)
+  - [nvidia-cuda](https://gitlab.com/nvidia/cuda) - Hierarchy is base->runtime->devel
 
 ## For developers - a quick how to
 
