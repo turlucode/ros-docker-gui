@@ -21,15 +21,15 @@ cudnn_version: 8.9.6.50
 
 # Define here extra packages to be installed.
 # Supported are:
-#   tmux      supports also custom version (check version tags at https://github.com/tmux/tmux.git)
-#   llvm      supports also custom version (check version tags at https://apt.llvm.org/)
-#   vscode    version is whatever latest is available
-#   conan     version is whatever latest is available
-#   cpplint   version is whatever latest is available
-#   meld      version is whatever latest is available
+#   tmux      Supports also custom version: Check version tags at https://github.com/tmux/tmux.git
+#   llvm      Supports also custom version: Check version tags at https://apt.llvm.org/
+#   vscode    Version is whatever latest is available
+#   conan     Version is whatever latest is available
+#   cpplint   Version is whatever latest is available
+#   meld      Version is whatever latest is available
 #
 # Packages that are anyway installed but support a custom version:
-#   cmake     check https://github.com/Kitware/CMake.git
+#   cmake     Check https://github.com/Kitware/CMake.git
 extra_packages:
   - cmake: v3.29.3
   - tmux: 3.4
