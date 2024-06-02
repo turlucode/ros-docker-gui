@@ -26,12 +26,64 @@ def _explain_default_image_config(yaml_filename: str) -> None:
     print_configuration(yaml_config)
 
 
+def _sort_file_list_based_on_release_date(config_files: list) -> list:
+    """Short the list of config files based on their release date and then alphabetically
+
+    Important!!! For this to work all presets need to start with "<ros_codename>_"!
+    Otherwise this is not able to infer the release date and in turn sort those.
+
+    Args:
+        config_files (list): The file list
+
+    Returns:
+        list: The input list sorted
+    """
+
+    def get_ros_codename(string: str) -> str:
+        """Get the ROS code name from the string using ROS_VERSION_RELEASE_DATE_MAP
+
+        Args:
+            string (str): Input string
+
+        Returns:
+            str: The ROS codename
+        """
+        for key, _ in constants.ROS_VERSION_RELEASE_DATE_MAP.items():
+            if key in string:
+                return key
+
+    # Function to extract the sorting key
+    def sort_key(string: str) -> tuple:
+        """Provide the sorting key
+
+        - Fist key is the release date since epoch
+        - Second key is what ever is after "codename_" and sorted alphabetically
+
+        Args:
+            string (str): The filepath of the .yaml file
+
+        Returns:
+            tuple: The sorting tuple
+        """
+        # Split the string on the last part after the last '/'
+        last_part = string.rsplit("/", 1)[-1]
+        # Split the last part on the first '_'
+        first_part, rest = last_part.split("_", 1)
+        return (constants.ROS_VERSION_RELEASE_DATE_MAP[get_ros_codename(first_part)], rest)
+
+    # Sort the list using the custom key
+    sorted_list = sorted(config_files, key=sort_key)
+    return sorted_list
+
+
 def list_pre_configs() -> None:
     """List in the terminal available image pre-configurations as provided by our module."""
     print("")
     logger.info("Available pre-configurations:")
     yaml_config_files = list_packaged_yaml_files(os.path.join("assets", "default_image_configurations"))
-    for yaml_config_full_path in yaml_config_files:
+    sorted_yaml_config_files = _sort_file_list_based_on_release_date(yaml_config_files)
+
+    for yaml_config_full_path in sorted_yaml_config_files:
         yaml_filename: str = get_config_filename(yaml_config_full_path)
         _explain_default_image_config(yaml_filename)
 
