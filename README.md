@@ -64,6 +64,12 @@ You test this by making sure `nvidia-smi` works:
 docker run --rm --runtime=nvidia --gpus all ubuntu nvidia-smi
 ```
 
+### Known Wayland limitations
+
+ROS related GUI programs seem to working fine. Other programs like `meld` or `vscode` also seem to be working fine. There might be cases where some GUI do not work as expected. Feel free to open a ticket so we can look into it.
+
+For example, we know RViz is not ready for Wayland, hence we will need to use the `xcb` (X11) plugin instead of the one for Wayland and therefore we will use `QT_QPA_PLATFORM=xcb` for all QT applications. More info [here](#rviz-wayland-known-issues).
+
 ## Supported ROS Images
 
 The idea is to try and support all currently ROS versions that are not End-of-Life (EOL).
@@ -168,17 +174,14 @@ _Important Remark_:
 - See also [this section](#other-options) for other options.
 
 ### Wayland
-> **NOTE:** Wayland support is still a bit experimental!
+> **NOTE:** Wayland support is still a bit experimental! See [known limitations](#known-wayland-limitations).
 
-ROS related GUI programs seem to working fine. Other programs like `meld` or `vscode` also seem to be working fine. There might be cases where some GUI do not work as expected. Feel free to open a ticket so we can look into it.
-
-For example, we know RViz is not ready for Wayland, hence we will need to use the `xcb` (X11) plugin instead of the one for Wayland and therefore we will use `QT_QPA_PLATFORM=xcb` for all QT applications. More info [here](#rviz-wayland-known-issues).
-
+ROS GUI on Wayland is still problematic and that is why we are going to use [`xwayland`](https://wayland.freedesktop.org/xserver.html). Make sure you have install `xhost`. Make sure the user also has the rights to draw to the display, [more info here](#x11-error-cannot-open-display).
 
 To run the ROS docker container with Wayland support use:
 
 ```sh
-docker run --rm -it --security-opt seccomp=unconfined --shm-size=8G \
+docker run --rm -it --security-opt seccomp=unconfined \
 -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY \
 -e XDG_RUNTIME_DIR=/run/user/$(id -u) \
 -e WAYLAND_DISPLAY=$WAYLAND_DISPLAY \
@@ -207,9 +210,9 @@ _Important Remarks_:
 ## NVIDIA GPU
 > :pineapple: **Important:** Make sure your YAML configuration uses: [`gpu_driver: nvidia`]((examples/noetic_nvidia_custom.yaml#L15))
 
-### X11
-
 For machines that are using NVIDIA graphics cards we need to have the [nvidia-container-toolkit].
+
+### X11
 
 To run the ROS docker container with X11 support use:
 ````sh
@@ -224,13 +227,44 @@ docker run --rm -it --runtime=nvidia --privileged --net=host --ipc=host \
 turlucode/ros-noetic:nvidia-cmake-tmux-llvm-meld
 ````
 
-_Important Remark_: 
+_Important Remarks_: 
 
 - The `DOCKER_USER_*` variables are used to run the container as the current user.
 - Please note that you need to pass the `Xauthority` to the correct user's home directory.
 - You may need to run `xhost si:localuser:$USER` or worst case `xhost local:root` if get errors like `Error: cannot open display`
 - See also [this section](#other-options) for other options.
 
+### Wayland
+> **NOTE:** Wayland support is still a bit experimental! See [known limitations](#known-wayland-limitations).
+
+ROS GUI on Wayland is still problematic and that is why we are going to use [`xwayland`](https://wayland.freedesktop.org/xserver.html). Make sure you have install `xhost`. Make sure the user also has the rights to draw to the display, [more info here](#x11-error-cannot-open-display).
+
+To run the ROS docker container with X11 support use:
+````sh
+docker run --rm -it --runtime=nvidia --privileged --net=host --ipc=host \
+-v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY \
+-e XDG_RUNTIME_DIR=/run/user/$(id -u) \
+-e WAYLAND_DISPLAY=$WAYLAND_DISPLAY \
+-v $XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:/run/user/$(id -u)/$WAYLAND_DISPLAY \
+-e QT_QPA_PLATFORM=xcb \
+-e XDG_SESSION_TYPE=wayland \
+-e GDK_BACKEND=wayland \
+-e CLUTTER_BACKEND=wayland \
+-e SDL_VIDEODRIVER=wayland \
+-e DOCKER_USER_NAME=$(id -un) \
+-e DOCKER_USER_ID=$(id -u) \
+-e DOCKER_USER_GROUP_NAME=$(id -gn) \
+-e DOCKER_USER_GROUP_ID=$(id -g) \
+-e ROS_IP=127.0.0.1 \
+turlucode/ros-noetic:nvidia-cmake-tmux-llvm-meld
+````
+
+- The `DOCKER_USER_*` variables are used to run the container as the current user.
+- We need to now start `terminator` with `dbus-launch`
+- The `QT_QPA_PLATFORM=xcb` is for now intentionally as discussed. For this reason also the `qtwayland5` packaged is not installed in our docker images.
+- Please note that you need to pass the `Xauthority` to the correct user's home directory.
+- You may need to run `xhost si:localuser:$USER` or worst case `xhost local:root` if get errors like `Error: cannot open display`
+- See also [this section](#other-options) for other options.
 
 ## Other options
 ### Mount your ssh-keys
@@ -297,8 +331,11 @@ sudo systemctl restart containerd && sudo systemctl daemon-reload
 And you are good to go! The container feels also "snappier" now.
 
 ## X11: Error: cannot open display
-You may need to run `xhost si:localuser:$USER` or worst case `xhost local:root`.
+Assuming `xhost` is installed and running on your host, you may need to run `xhost si:localuser:$USER` or worst case `xhost local:root`.
 
+## Vscode crashes
+
+Try adding `--shm-size=8G` to your docker command.
 
 # Issues and Contributing
   - Please let us know by [filing a new 
