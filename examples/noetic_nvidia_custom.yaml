@@ -10,7 +10,7 @@ ros_version: noetic
 
 # Select which GPU driver your host-machine uses for its GUIs. 
 # Supported are:
-#   mesa          Use 'mesa' for Intel and AMD GPUs
+#   mesa          For Intel and AMD GPUs
 #   nvidia        For NVIDIA GPUs
 gpu_driver: nvidia
 
@@ -28,8 +28,8 @@ cudnn_version: 8.9.6.50
 #   cpplint   version is whatever latest is available
 #   meld      version is whatever latest is available
 #
-# Packages that are anyway installed but support specifying version:
-#   cmake      check https://github.com/Kitware/CMake.git
+# Packages that are anyway installed but support a custom version:
+#   cmake     check https://github.com/Kitware/CMake.git
 extra_packages:
   - cmake: v3.29.3
   - tmux: 3.4
