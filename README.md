@@ -41,7 +41,7 @@ pip install turludock
 
 ## Supported tool functionality
 This tool has basically two main functionalities:
-  1. **Build** ROS images which result in ready to use containers.
+  1. **Build** ROS images which result in ready-to-use containers.
   2. **Generate** Dockerfile and required assets for *manual build* of docker images with `docker build`.
 
 Some more details with:
@@ -66,9 +66,9 @@ docker run --rm --runtime=nvidia --gpus all ubuntu nvidia-smi
 
 ### Known Wayland limitations
 
-ROS related GUI programs seem to working fine. Other programs like `meld` or `vscode` also seem to be working fine. There might be cases where some GUI do not work as expected. Feel free to open a ticket so we can look into it.
+ROS related GUI programs seem to working fine. Other programs like `meld` or `vscode` also seem to be working fine. There might be cases where some GUIs do not work as expected. Feel free to open a ticket so we can look into it.
 
-For example, we know RViz is not ready for Wayland, hence we will need to use the `xcb` (X11) plugin instead of the one for Wayland and therefore we will use `QT_QPA_PLATFORM=xcb` for all QT applications. More info [here](#rviz-wayland-known-issues).
+For example, we know RViz is not ready for Wayland; hence we will need to use the `xcb` (X11) plugin instead of the one for Wayland and therefore we will use `QT_QPA_PLATFORM=xcb` for all QT applications. More info [here](#rviz-wayland-known-issues).
 
 ## Supported ROS Images
 
@@ -77,7 +77,7 @@ Bellow you can check all ROS1 and ROS2 distributions and their EOL status:
 - [ROS 1 distributions](http://wiki.ros.org/Distributions)
 - [ROS 2 distributions](https://docs.ros.org/en/rolling/Releases.html)
 
-> Even if ROS 1 Noetic becomes EOL we will try to support it for longer time as many people might
+> Even if ROS 1 Noetic becomes EOL we will try to support it for longer time since many people might
 still be relying on it :sunglasses:
 
 To check which versions are actually supported use:
@@ -88,7 +88,7 @@ This will output ROS versions with their codename.
 
 ## Supported CUDA and cuDNN versions
 
-To see the supported versions of CUDA/cuDDN of a specific ROS version run:
+To see the supported versions of CUDA/cuDDN for a specific ROS version use:
 ```sh
 turludock which cuda ROS_CODENAME
 ```
@@ -109,9 +109,9 @@ This tool uses a specific `.yaml` configuration to generate Dockerfiles or build
 You can find a [typical configuration](examples/noetic_nvidia_custom.yaml) in the examples folder.
 
 ### Build or generate from presets
-This tool already provides pre configured `.yaml` files that can be used directly to generate Dockerfiles or 
-build docker images. You can see that as a list of presets: you might like them and use them or hate them
-and create your own :wink:.
+This tool already provides preconfigured `.yaml` files that can be used directly to generate
+Dockerfiles or build docker images. This is what we call a list of *presets*: you might like
+them and use them; or hate them and create your own :wink:.
 
 For a list of available presets run:
 ```sh
@@ -131,7 +131,7 @@ turludock generate -e noetic_mesa FOLDER_PATH
 The `FOLDER_PATH` now contains all necessary files to run a custom `docker build` command.
 So you can just invoke `docker build FOLDER_PATH` for example.
 
-### Build or generate from custom `.yaml` configuration
+### Build or generate from custom YAML configuration
 OK, so you don't like the existing presets and you would like to build a docker image using
 your own custom configuration... 
 
@@ -166,7 +166,7 @@ docker run --rm -it --privileged --net=host --ipc=host \
 turlucode/ros-noetic:mesa-cmake-tmux-llvm-meld
 ```
 
-_Important Remark_: 
+_Important Remarks_: 
 
 - The `DOCKER_USER_*` variables are used to run the container as the current user.
 - Please note that you need to pass the `Xauthority` to the correct user's home directory.
@@ -176,7 +176,9 @@ _Important Remark_:
 ### Wayland
 > **NOTE:** Wayland support is still a bit experimental! See [known limitations](#known-wayland-limitations).
 
-ROS GUI on Wayland is still problematic and that is why we are going to use [`xwayland`](https://wayland.freedesktop.org/xserver.html). Make sure you have install `xhost`. Make sure the user also has the rights to draw to the display, [more info here](#x11-error-cannot-open-display).
+ROS GUI on Wayland is still problematic and that is why we are going to use [`xwayland`](https://wayland.freedesktop.org/xserver.html).
+Make sure you have installed `xhost`.
+Make also sure the user has the rights to draw to the display, [more info here](#x11-error-cannot-open-display).
 
 To run the ROS docker container with Wayland support use:
 
@@ -210,7 +212,7 @@ _Important Remarks_:
 ## NVIDIA GPU
 > :pineapple: **Important:** Make sure your YAML configuration uses: [`gpu_driver: nvidia`]((examples/noetic_nvidia_custom.yaml#L15))
 
-For machines that are using NVIDIA graphics cards we need to have the [nvidia-container-toolkit].
+For machines that are using NVIDIA graphics cards we need to have the [nvidia-container-toolkit] installed.
 
 ### X11
 
@@ -237,7 +239,9 @@ _Important Remarks_:
 ### Wayland
 > **NOTE:** Wayland support is still a bit experimental! See [known limitations](#known-wayland-limitations).
 
-ROS GUI on Wayland is still problematic and that is why we are going to use [`xwayland`](https://wayland.freedesktop.org/xserver.html). Make sure you have install `xhost`. Make sure the user also has the rights to draw to the display, [more info here](#x11-error-cannot-open-display).
+ROS GUI on Wayland is still problematic and that is why we are going to use [`xwayland`](https://wayland.freedesktop.org/xserver.html).
+Make sure you have installed `xhost`.
+Make also sure the user has the rights to draw to the display, [more info here](#x11-error-cannot-open-display).
 
 To run the ROS docker container with X11 support use:
 ````sh
@@ -333,6 +337,20 @@ And you are good to go! The container feels also "snappier" now.
 ## X11: Error: cannot open display
 Assuming `xhost` is installed and running on your host, you may need to run `xhost si:localuser:$USER` or worst case `xhost local:root`.
 
+### Docker security risks
+
+Are you worried about the security risks when exposing your X-server to the
+container? Normally you should be! :smiley:
+
+There are some nice articles that explain what is going on and what might be some extra
+steps you can do, in order to be less exposed.
+
+1. [Docker Security Risks: GUIs + Xorg](https://nicroland.wordpress.com/2016/02/27/docker-security-risks-guis-xorg/)
+2. [Running a Graphical Application from a Docker Container - Simply and Securely](https://blog.artis3nal.com/blog/container-gui-app-pgmodeler/)
+3. Feel free to google/gpt the matter yourself. :wink:
+
+Most importantly you can also review the [template files](turludock/assets/dockerfile_templates/) in order to be absolutely sure you like what is being installed in the images when using the `turludock` tool.
+
 ## Vscode crashes
 
 Try adding `--shm-size=8G` to your docker command.
@@ -353,7 +371,7 @@ The images on this repository are based on the following work:
 ## For developers - a quick how to
 
 This project uses [`poetry`](https://python-poetry.org/) for packaging and dependency management.
-After [installing poetry](https://python-poetry.org/docs/#installation) you can basically create a [python virtual environment ](https://docs.python.org/3/library/venv.html) for one of the supported python versions, >3.9, and inside that new environment just install the dependencies with
+After [installing poetry](https://python-poetry.org/docs/#installation) you can basically create a [python virtual environment ](https://docs.python.org/3/library/venv.html) for one of the supported python versions, >=3.9, and inside that new environment just install the dependencies with
 ```sh
 poetry install 
 ```
