@@ -52,7 +52,7 @@ turludock --help
 ## Supported GPU drivers
 Currently this project supports all HW accelerated containers, assuming your GPU is supported by
 either [`mesa`](https://www.mesa3d.org/) or NVIDIA drivers.
-> For older Ubuntu versions that need support for state of the art GPUs like the Radeon RX 7 series,
+> For older Ubuntu versions that need support for state-of-the-art GPUs like the Radeon RX 7 series,
 we rely on the [`ppa:kisak/kisak-mesa`](https://launchpad.net/~kisak/+archive/ubuntu/turtle)
 repository.
 
