@@ -69,10 +69,9 @@ setup_env_user () {
         chown -R $USER_ID:$GROUP_ID /home/$USER/.ssh
     fi
 
-    ## Copy .local & fix owner - this happens especially if you use 'pip install --user'
+    ## Copy .local - this happens especially if you use 'pip install --user'
     if [ -d "/root/.local" ]; then
         cp -rf /root/.local /home/$USER/
-        chown -R $USER_ID:$GROUP_ID /home/$USER/.local
         # Add $HOME/.local/bin to PATH
         if [ -d "/home/$USER/.local/bin" ]; then
             echo 'PATH="$HOME/.local/bin:$PATH"' >> /root/.bashrc
@@ -85,6 +84,7 @@ setup_env_user () {
     ## Fix owner
     chown $USER_ID:$GROUP_ID /home/$USER
     chown -R $USER_ID:$GROUP_ID /home/$USER/.config
+    chown -R $USER_ID:$GROUP_ID /home/$USER/.local
     chown $USER_ID:$GROUP_ID /home/$USER/.profile
     chown $USER_ID:$GROUP_ID /home/$USER/.bashrc
     chown $USER_ID:$GROUP_ID /home/$USER/.zshrc
