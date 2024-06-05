@@ -1,6 +1,6 @@
 import importlib.resources
 from string import Template
-from typing import Dict, List
+from typing import Any, Dict, List
 
 from loguru import logger
 
@@ -9,7 +9,14 @@ from turludock.config_sanity import (
     check_if_llvm_version_exists,
     check_if_tmux_version_exists,
 )
-from turludock.helper_functions import get_cpu_count_for_build, get_ros_major_version, is_ros_version_supported
+from turludock.helper_functions import (
+    get_cpu_count_for_build,
+    get_ros_major_version,
+    get_ubuntu_version,
+    is_ros_version_supported,
+    is_version_greater,
+    is_version_lower,
+)
 
 
 def populate_templated_file(mapping: Dict[str, str], templated_file: str) -> str:
@@ -29,22 +36,66 @@ def populate_templated_file(mapping: Dict[str, str], templated_file: str) -> str
     return str_output
 
 
-def generate_from(from_str: str) -> str:
+def _get_ubuntu_base_image(version: str, nvidia: bool) -> str:
+    """Get the base image for the Docker build. It is used in "FROM <base_image>".
+
+    Args:
+        version (str): The semantic version of Ubuntu
+        nvidia (bool): Whether the NVIDIA GPU driver is being used
+
+    Returns:
+        str: The Docker image name to use as the base image.
+    """
+    if nvidia:
+        if is_version_lower(version, "16.04"):
+            raise ValueError(f"Ubuntu version lower than 16.04 is not supported. You provided: {version}")
+
+        # TODO(ATA): Not sure nvidia/opengl is really needed. Can we not just use 'ubuntu' with nvidia-docker-v2?
+        return f"nvidia/opengl:1.2-glvnd-runtime-ubuntu{version}"
+    else:
+        return f"ubuntu:{version}"
+
+
+def _get_base_image(yaml_config: Dict[str, Any]) -> str:
+    """Return the supported base image name.
+
+    This is used in the "FROM " part of the Dockerfile. See "from.txt" template.
+
+    Args:
+        yaml_config (dict): The configuration of the image to be built.
+
+    Returns:
+        str: The base image name.
+    """
+    ubuntu_version = get_ubuntu_version(yaml_config["ros_version"])
+    if yaml_config["gpu_driver"] == "nvidia":
+        uses_nvidia = True
+    else:
+        uses_nvidia = False
+    return _get_ubuntu_base_image(ubuntu_version["semantic"], uses_nvidia)
+
+
+def generate_from(yaml_config: Dict[str, Any]) -> str:
     """Generates the 'from.txt' templated file.
 
     Args:
         from_str (str): The value to be used for the 'From' template variable.
 
     Returns:
-        str: The populated 'from.txt' file as a string.
+        yaml_config (dict): The image configuration in yaml format.
     """
-    logger.debug(f"Generate 'from.txt'. Input: {from_str}")
-
     # Map the template variables
-    mapping = {"from": from_str}
+    base_image = _get_base_image(yaml_config)
+    mapping = {"from": base_image}
 
-    # Populate the templated file
-    return populate_templated_file(mapping, "from.txt")
+    # Pick template based on ubuntu version
+    ubuntu_version = get_ubuntu_version(yaml_config["ros_version"])
+    if is_version_greater(ubuntu_version["semantic"], "23.04"):
+        logger.debug(f"Generate 'from_2404.txt'. Input: {base_image}")
+        return populate_templated_file(mapping, "from_2404.txt")
+    else:
+        logger.debug(f"Generate 'from.txt'. Input: {base_image}")
+        return populate_templated_file(mapping, "from.txt")
 
 
 def generate_header_info(docker_label_description: str, ros_version_short: str) -> str:

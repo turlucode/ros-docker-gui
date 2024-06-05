@@ -68,45 +68,6 @@ def _get_item_from_extra_packages(extra_packages: list, package_name: str):
         return None
 
 
-def _get_ubuntu_base_image(version: str, nvidia: bool) -> str:
-    """Get the base image for the Docker build. It is used in "FROM <base_image>".
-
-    Args:
-        version (str): The semantic version of Ubuntu
-        nvidia (bool): Whether the NVIDIA GPU driver is being used
-
-    Returns:
-        str: The Docker image name to use as the base image.
-    """
-    if nvidia:
-        if is_version_lower(version, "16.04"):
-            raise ValueError(f"Ubuntu version lower than 16.04 is not supported. You provided: {version}")
-
-        # TODO(ATA): Not sure nvidia/opengl is really needed. Can we not just use 'ubuntu' with nvidia-docker-v2?
-        return f"nvidia/opengl:1.2-glvnd-runtime-ubuntu{version}"
-    else:
-        return f"ubuntu:{version}"
-
-
-def _get_base_image(yaml_config: Dict[str, Any]) -> str:
-    """Return the supported base image name.
-
-    This is used in the "FROM " part of the Dockerfile. See "from.txt" template.
-
-    Args:
-        yaml_config (dict): The configuration of the image to be built.
-
-    Returns:
-        str: The base image name.
-    """
-    ubuntu_version = get_ubuntu_version(yaml_config["ros_version"])
-    if yaml_config["gpu_driver"] == "nvidia":
-        uses_nvidia = True
-    else:
-        uses_nvidia = False
-    return _get_ubuntu_base_image(ubuntu_version["semantic"], uses_nvidia)
-
-
 def _generate_description(yaml_config: Dict[str, Any]) -> str:
     """Generate a description to be using in the "LABEL Description=" of the Dockerfile.
 
@@ -194,8 +155,7 @@ def generate_dockerfile(yaml_config: Dict[str, Any]) -> str:
     dockerfile = ""
 
     # Base image
-    base_image = _get_base_image(yaml_config)
-    dockerfile += generate_from(base_image)
+    dockerfile += generate_from(yaml_config)
 
     # Meta data
     dockerfile += generate_header_info(_generate_description(yaml_config), yaml_config["ros_version"])
