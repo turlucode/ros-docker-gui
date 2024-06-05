@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libcusparse-$cuda_libcusparse_version \
     libcublas-$cuda_libcublas_version \
     libnccl2=$cuda_libnccl_version \
-    && rm -rf /var/lib/apt/lists/*
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Keep apt from auto upgrading the cublas and nccl packages. See https://gitlab.com/nvidia/container-images/cuda/-/issues/88
 RUN apt-mark hold libcublas-$cuda_libcublas_version libnccl2

@@ -178,7 +178,7 @@ _Important Remarks_:
 
 ROS GUI on Wayland is still problematic and that is why we are going to use [`xwayland`](https://wayland.freedesktop.org/xserver.html).
 Make sure you have installed `xhost`.
-Make also sure the user has the rights to draw to the display, [more info here](#x11-error-cannot-open-display).
+Make also sure the user has the rights to draw to the display; [more info here](#x11-error-cannot-open-display).
 
 To run the ROS docker container with Wayland support use:
 
@@ -207,10 +207,12 @@ _Important Remarks_:
 
 - The `DOCKER_USER_*` variables are used to run the container as the current user.
 - We need to now start `terminator` with `dbus-launch`
+- The `QT_QPA_PLATFORM=xcb` is for now intentionally as discussed.
+For this reason also the `qtwayland5` package is not installed in our docker images.
 - See also [this section](#other-options) for other options.
 
 ## NVIDIA GPU
-> :pineapple: **Important:** Make sure your YAML configuration uses: [`gpu_driver: nvidia`]((examples/noetic_nvidia_custom.yaml#L15))
+> :pineapple: **Important:** Make sure your YAML configuration uses: [`gpu_driver: nvidia`](examples/noetic_nvidia_custom.yaml#L15)
 
 For machines that are using NVIDIA graphics cards we need to have the [nvidia-container-toolkit] installed.
 
@@ -241,7 +243,7 @@ _Important Remarks_:
 
 ROS GUI on Wayland is still problematic and that is why we are going to use [`xwayland`](https://wayland.freedesktop.org/xserver.html).
 Make sure you have installed `xhost`.
-Make also sure the user has the rights to draw to the display, [more info here](#x11-error-cannot-open-display).
+Make also sure the user has the rights to draw to the display; [more info here](#x11-error-cannot-open-display).
 
 To run the ROS docker container with X11 support use:
 ````sh
@@ -265,7 +267,8 @@ turlucode/ros-noetic:nvidia-cmake-tmux-llvm-meld
 
 - The `DOCKER_USER_*` variables are used to run the container as the current user.
 - We need to now start `terminator` with `dbus-launch`
-- The `QT_QPA_PLATFORM=xcb` is for now intentionally as discussed. For this reason also the `qtwayland5` packaged is not installed in our docker images.
+- The `QT_QPA_PLATFORM=xcb` is for now intentionally as discussed.
+For this reason also the `qtwayland5` package is not installed in our docker images.
 - Please note that you need to pass the `Xauthority` to the correct user's home directory.
 - You may need to run `xhost si:localuser:$USER` or worst case `xhost local:root` if get errors like `Error: cannot open display`
 - See also [this section](#other-options) for other options.
