@@ -59,7 +59,7 @@ setup_env_user () {
     ## Copy oh-my-zsh
     cp -rf /root/.oh-my-zsh /home/$USER/
     rm -rf /home/$USER/.oh-my-zsh/custom/pure.zsh-theme /home/$USER/.oh-my-zsh/custom/async.zsh
-    ln -s /home/$USER/.oh-my-zsh/custom/pure/pure.zsh-theme /home/$USER/.oh-my-zsh/custom/
+    ln -s /home/$USER/.oh-my-zsh/custom/pure/pure.zsh /home/$USER/.oh-my-zsh/custom/
     ln -s /home/$USER/.oh-my-zsh/custom/pure/async.zsh /home/$USER/.oh-my-zsh/custom/
     sed -i -e 's@ZSH=\"/root@ZSH=\"/home/$USER@g' /home/$USER/.zshrc
     
@@ -68,11 +68,23 @@ setup_env_user () {
         cp -rf /root/.ssh /home/$USER/
         chown -R $USER_ID:$GROUP_ID /home/$USER/.ssh
     fi
+
+    ## Copy .local & fix owner - this happens especially if you use 'pip install --user'
+    if [ -d "/root/.local" ]; then
+        cp -rf /root/.local /home/$USER/
+        chown -R $USER_ID:$GROUP_ID /home/$USER/.local
+        # Add $HOME/.local/bin to PATH
+        if [ -d "/home/$USER/.local/bin" ]; then
+            echo 'PATH="$HOME/.local/bin:$PATH"' >> /root/.bashrc
+            echo 'PATH="$HOME/.local/bin:$PATH"' >> /root/.zshrc
+            echo 'PATH="$HOME/.local/bin:$PATH"' >> /home/$USER/.bashrc
+            echo 'PATH="$HOME/.local/bin:$PATH"' >> /home/$USER/.zshrc
+        fi
+    fi
     
     ## Fix owner
     chown $USER_ID:$GROUP_ID /home/$USER
     chown -R $USER_ID:$GROUP_ID /home/$USER/.config
-    chown -R $USER_ID:$GROUP_ID /home/$USER/.local
     chown $USER_ID:$GROUP_ID /home/$USER/.profile
     chown $USER_ID:$GROUP_ID /home/$USER/.bashrc
     chown $USER_ID:$GROUP_ID /home/$USER/.zshrc
@@ -81,6 +93,7 @@ setup_env_user () {
     ## This is a trick to fix permissions for the XDG_RUNTIME_DIR used by wayland
     if [ -d "$XDG_RUNTIME_DIR" ]; then
         chown -R $USER_ID:$GROUP_ID $XDG_RUNTIME_DIR
+        chmod -R 0700 $XDG_RUNTIME_DIR
     fi
 
     echo "if [ -d "$XDG_RUNTIME_DIR" ]; then" >> /root/.bashrc
