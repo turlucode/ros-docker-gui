@@ -72,6 +72,14 @@ def _get_base_image(yaml_config: Dict[str, Any]) -> str:
         uses_nvidia = True
     else:
         uses_nvidia = False
+    # Temp fix until nvidia releases nvidia/opengl for Ubuntu 24.04
+    if is_version_greater(ubuntu_version["semantic"], "23.04"):
+        uses_nvidia = False
+        logger.warning(
+            "'nvidia/opengl:1.2-glvnd-runtime' does not exist yet for Ubuntu 24.04. "
+            + "Using 'ubuntu:20.04' as base image instead. This is experimental. "
+            + "Please report any issues faced."
+        )
     return _get_ubuntu_base_image(ubuntu_version["semantic"], uses_nvidia)
 
 
