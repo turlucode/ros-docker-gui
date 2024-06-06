@@ -203,10 +203,16 @@ docker run --rm -it --security-opt seccomp=unconfined \
 turlucode/ros-noetic:mesa-cmake-tmux-llvm-meld dbus-launch terminator
 ```
 
+Or for Ubuntu 24.04 and up, `dbus-launch terminator` is not needed, just use:
+
+```sh
+docker run [...] turlucode/ros-jazzy:mesa-cmake-tmux-llvm-meld
+```
+
 _Important Remarks_: 
 
 - The `DOCKER_USER_*` variables are used to run the container as the current user.
-- We need to now start `terminator` with `dbus-launch`
+- We need to start `terminator` with `dbus-launch` for Ubuntu versions less than 24.04, i.e. for versions < `jazzy`.
 - The `QT_QPA_PLATFORM=xcb` is for now intentionally as discussed.
 For this reason also the `qtwayland5` package is not installed in our docker images.
 - See also [this section](#other-options) for other options.
@@ -262,8 +268,14 @@ docker run --rm -it --runtime=nvidia --privileged --net=host --ipc=host \
 -e DOCKER_USER_GROUP_NAME=$(id -gn) \
 -e DOCKER_USER_GROUP_ID=$(id -g) \
 -e ROS_IP=127.0.0.1 \
-turlucode/ros-noetic:nvidia-cmake-tmux-llvm-meld
+turlucode/ros-noetic:nvidia-cmake-tmux-llvm-meld dbus-launch terminator
 ````
+
+Or for Ubuntu 24.04 and up, `dbus-launch terminator` is not needed, just use:
+
+```sh
+docker run [...] turlucode/ros-jazzy:nvidia-cmake-tmux-llvm-meld
+```
 
 - The `DOCKER_USER_*` variables are used to run the container as the current user.
 - We need to now start `terminator` with `dbus-launch`
