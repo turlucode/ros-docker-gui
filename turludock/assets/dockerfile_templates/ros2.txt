@@ -5,7 +5,9 @@ RUN add-apt-repository -y universe && \
 
 RUN apt-get update && apt-get install -y \
     ros-$ros_version_short-desktop \
-    ros-dev-tools && \
+    ros-dev-tools \
+    ros-$ros_version_short-perception \
+    libpcl-dev && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN echo "source /opt/ros/$ros_version_short/setup.bash" >> /root/.bashrc && \
