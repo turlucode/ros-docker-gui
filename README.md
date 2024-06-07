@@ -226,7 +226,7 @@ For machines that are using NVIDIA graphics cards we need to have the [nvidia-co
 
 To run the ROS docker container with X11 support use:
 ````sh
-docker run --rm -it --runtime=nvidia --privileged --net=host --ipc=host \
+docker run --rm -it --runtime=nvidia --gpus all --privileged --net=host --ipc=host \
 -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY \
 -v $HOME/.Xauthority:/home/$(id -un)/.Xauthority -e XAUTHORITY=/home/$(id -un)/.Xauthority \
 -e DOCKER_USER_NAME=$(id -un) \
@@ -242,6 +242,7 @@ _Important Remarks_:
 - The `DOCKER_USER_*` variables are used to run the container as the current user.
 - Please note that you need to pass the `Xauthority` to the correct user's home directory.
 - You may need to run `xhost si:localuser:$USER` or worst case `xhost local:root` if get errors like `Error: cannot open display`
+- Adapt `--gpus all` to your needs
 - See also [this section](#other-options) for other options.
 
 ### Wayland
@@ -253,7 +254,7 @@ Make also sure the user has the rights to draw to the display; [more info here](
 
 To run the ROS docker container with X11 support use:
 ````sh
-docker run --rm -it --runtime=nvidia --privileged --net=host --ipc=host \
+docker run --rm -it --runtime=nvidia --gpus all --privileged --net=host --ipc=host \
 -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY \
 -e XDG_RUNTIME_DIR=/run/user/$(id -u) \
 -e WAYLAND_DISPLAY=$WAYLAND_DISPLAY \
@@ -283,6 +284,7 @@ docker run [...] turlucode/ros-jazzy:nvidia-cmake-tmux-llvm-meld
 For this reason also the `qtwayland5` package is not installed in our docker images.
 - Please note that you need to pass the `Xauthority` to the correct user's home directory.
 - You may need to run `xhost si:localuser:$USER` or worst case `xhost local:root` if get errors like `Error: cannot open display`
+- Adapt `--gpus all` to your needs
 - See also [this section](#other-options) for other options.
 
 ## Other options
