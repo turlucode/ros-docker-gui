@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any, Dict, Optional, Union
 
 from loguru import logger
 
@@ -43,7 +43,7 @@ from turludock.helper_functions import (
 )
 
 
-def _get_item_from_extra_packages(extra_packages: list, package_name: str):
+def _get_item_from_extra_packages(extra_packages: list, package_name: str) -> Optional[Union[dict, str]]:
     """Get the dict or the str of a given package name
 
     Since the yaml list can contain either dictionaries or strings, here were trying to find the dictionary
@@ -57,7 +57,7 @@ def _get_item_from_extra_packages(extra_packages: list, package_name: str):
         package_name (str): The name of the package to search for.
 
     Returns:
-        Optional[dict]: If a dict which matches the package_name was found, return that dict. If a str
+        Optional[Union[dict, str]]: If a dict which matches the package_name was found, return that dict. If a str
             which matches the package_name was found, return that str. Otherwise return None.
     """
     for item in extra_packages:
