@@ -217,6 +217,8 @@ def generate_dockerfile(yaml_config: Dict[str, Any]) -> str:
                 package_name = next(iter(item), None)
             elif isinstance(item, str):
                 package_name = item
+            else:
+                raise ValueError("Item in 'extra_packages' should be either a string or a dict.")
 
             if package_name == "tmux":
                 dockerfile += generate_tmux(_get_package_version(yaml_config, package_name))
