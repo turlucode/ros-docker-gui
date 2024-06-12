@@ -1,17 +1,20 @@
 # `turludock` - Robot Operating System (ROS) Docker Containers with X11 and Wayland support for Linux
 [![N|Solid](http://turlucode.com/wp-content/uploads/2017/10/turlucode_.png)](http://turlucode.com/)
 
-`turludock` aims to provide different versions of ROS as docker containers, but with GUI 
-support! This means your local OS is no more bound to the version of ROS you are using! 
+`turludock` aims to provide different versions of ROS as Docker containers, but with GUI 
+support for both X11 and Wayland!
+This means your local OS is no more bound to the version of ROS you are using! 
 You can use _any_ version of ROS with _any_ Linux distribution, thanks to the amazing 
-power of docker!
+power of Docker!
 
 # TL;DR
+## Install tool
+```
+pip install turludock
+```
+
 ## Build image
 ```sh
-# Install tool
-pip install turludock
-
 # Build ROS image from presets (turludock which presets)
 turludock build -e noetic_mesa
 # Build from manual config 
@@ -28,9 +31,9 @@ All commands have a `--help` support.
 [See here](#running-the-image-as-current-user) how to run a container.
 
 # Getting Started
-The idea is to have HW accelerated GUIs with docker. Generally it has proven that this is 
+The idea is to have HW accelerated GUIs with Docker. Generally it has proven that this is 
 a challenging task. Graphics card companies like NVIDIA, already provide 
-solutions for their platform. Running X11 applications within a docker container is proven for
+solutions for their platform. Running X11 applications within a Docker container is proven for
 the last years. However, Wayland support remains still a bit challenging, but at least for
 our ROS containers we can assume it is supported :cake:.
 
@@ -40,9 +43,9 @@ pip install turludock
 ```
 
 ## Supported tool functionality
-This tool has basically two main functionalities:
+This tool has two main functionalities:
   1. **Build** ROS images which result in ready-to-use containers.
-  2. **Generate** Dockerfile and required assets for *manual build* of docker images with `docker build`.
+  2. **Generate** Dockerfile and required assets for *manual build* of Docker images with `Docker build`.
 
 Some more details with:
 ```sh
@@ -61,7 +64,7 @@ Both the NVIDIA drivers and the [nvidia-container-toolkit] are required to be in
 
 You test this by making sure `nvidia-smi` works:
 ```sh
-docker run --rm --runtime=nvidia --gpus all ubuntu nvidia-smi
+Docker run --rm --runtime=nvidia --gpus all ubuntu nvidia-smi
 ```
 
 ### Known Wayland limitations
@@ -73,7 +76,7 @@ For example, we know RViz is not ready for Wayland; hence we will need to use th
 ## Supported ROS Images
 
 The idea is to try and support all currently ROS versions that are not End-of-Life (EOL).
-Bellow you can check all ROS1 and ROS2 distributions and their EOL status:
+Below you can check all ROS1 and ROS2 distributions and their EOL status:
 - [ROS 1 distributions](http://wiki.ros.org/Distributions)
 - [ROS 2 distributions](https://docs.ros.org/en/rolling/Releases.html)
 
@@ -104,13 +107,13 @@ turludock generate --help
 ```
 
 ## Tool is based on YAML configurations
-This tool uses a specific `.yaml` configuration to generate Dockerfiles or build docker images.
+This tool uses a specific `.yaml` configuration to generate Dockerfiles or build Docker images.
 
 You can find a [typical configuration](examples/noetic_nvidia_custom.yaml) in the examples folder.
 
 ### Build or generate from presets
 This tool already provides preconfigured `.yaml` files that can be used directly to generate
-Dockerfiles or build docker images. This is what we call a list of *presets*: you might like
+Dockerfiles or build Docker images. This is what we call a list of *presets*: you might like
 them and use them; or hate them and create your own :wink:.
 
 For a list of available presets run:
@@ -118,9 +121,9 @@ For a list of available presets run:
 turludock which presets
 ```
 This will show the underlying ROS version, the GPU driver assumed, the CUDA/cuDNN version (if applicable) 
-and some preinstalled  packages that are part of the preset.
+and some preinstalled packages that are part of the preset.
 
-To build a docker image from the presets use:
+To build a Docker image from the presets use:
 ```sh
 turludock build -e noetic_mesa
 ```
@@ -128,11 +131,11 @@ Or if you want to generate the Dockerfile and its required assets for manual bui
 ```sh
 turludock generate -e noetic_mesa FOLDER_PATH
 ```
-The `FOLDER_PATH` now contains all necessary files to run a custom `docker build` command.
-So you can just invoke `docker build FOLDER_PATH` for example.
+The `FOLDER_PATH` now contains all necessary files to run a custom `Docker build` command.
+So you can just invoke `Docker build FOLDER_PATH` for example.
 
 ### Build or generate from custom YAML configuration
-OK, so you don't like the existing presets and you would like to build a docker image using
+OK, so you don't like the existing presets and you would like to build a Docker image using
 your own custom configuration... 
 
 No problemo, use:
@@ -145,16 +148,16 @@ Or if you want to generate the Dockerfile and its required assets for manual bui
 ```sh
 turludock generate -c custom.yaml FOLDER_PATH
 ```
-The `FOLDER_PATH` now contains all necessary files to run a custom `docker build` command.
+The `FOLDER_PATH` now contains all necessary files to run a custom `Docker build` command.
 
 # Running the image (as current user)
 ## Mesa
 > :pineapple: **Important:** Make sure your YAML configuration uses: [`gpu_driver: mesa`](examples/noetic_nvidia_custom.yaml#L15)
 
 ### X11
-To run the ROS docker container with X11 support use:
+To run the ROS Docker container with X11 support use:
 ```sh
-docker run --rm -it --privileged --net=host --ipc=host \
+Docker run --rm -it --privileged --net=host --ipc=host \
 --device=/dev/dri:/dev/dri \
 -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY \
 -v $HOME/.Xauthority:/home/$(id -un)/.Xauthority -e XAUTHORITY=/home/$(id -un)/.Xauthority \
@@ -180,10 +183,10 @@ ROS GUI on Wayland is still problematic and that is why we are going to use [`xw
 Make sure you have installed `xhost`.
 Make also sure the user has the rights to draw to the display; [more info here](#x11-error-cannot-open-display).
 
-To run the ROS docker container with Wayland support use:
+To run the ROS Docker container with Wayland support use:
 
 ```sh
-docker run --rm -it --security-opt seccomp=unconfined \
+Docker run --rm -it --security-opt seccomp=unconfined \
 -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY \
 -e XDG_RUNTIME_DIR=/run/user/$(id -u) \
 -e WAYLAND_DISPLAY=$WAYLAND_DISPLAY \
@@ -206,7 +209,7 @@ turlucode/ros-noetic:mesa-cmake-tmux-llvm-meld dbus-launch terminator
 Or for Ubuntu 24.04 and up, `dbus-launch terminator` is not needed, just use:
 
 ```sh
-docker run [...] turlucode/ros-jazzy:mesa-cmake-tmux-llvm-meld
+Docker run [...] turlucode/ros-jazzy:mesa-cmake-tmux-llvm-meld
 ```
 
 _Important Remarks_: 
@@ -214,7 +217,7 @@ _Important Remarks_:
 - The `DOCKER_USER_*` variables are used to run the container as the current user.
 - We need to start `terminator` with `dbus-launch` for Ubuntu versions less than 24.04, i.e. for versions < `jazzy`.
 - The `QT_QPA_PLATFORM=xcb` is for now intentionally as discussed.
-For this reason also the `qtwayland5` package is not installed in our docker images.
+For this reason also the `qtwayland5` package is not installed in our Docker images.
 - See also [this section](#other-options) for other options.
 
 ## NVIDIA GPU
@@ -224,9 +227,9 @@ For machines that are using NVIDIA graphics cards we need to have the [nvidia-co
 
 ### X11
 
-To run the ROS docker container with X11 support use:
+To run the ROS Docker container with X11 support use:
 ````sh
-docker run --rm -it --runtime=nvidia --gpus all --privileged --net=host --ipc=host \
+Docker run --rm -it --runtime=nvidia --gpus all --privileged --net=host --ipc=host \
 -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY \
 -v $HOME/.Xauthority:/home/$(id -un)/.Xauthority -e XAUTHORITY=/home/$(id -un)/.Xauthority \
 -e DOCKER_USER_NAME=$(id -un) \
@@ -252,9 +255,9 @@ ROS GUI on Wayland is still problematic and that is why we are going to use [`xw
 Make sure you have installed `xhost`.
 Make also sure the user has the rights to draw to the display; [more info here](#x11-error-cannot-open-display).
 
-To run the ROS docker container with X11 support use:
+To run the ROS Docker container with X11 support use:
 ````sh
-docker run --rm -it --runtime=nvidia --gpus all --privileged --net=host --ipc=host \
+Docker run --rm -it --runtime=nvidia --gpus all --privileged --net=host --ipc=host \
 -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY \
 -e XDG_RUNTIME_DIR=/run/user/$(id -u) \
 -e WAYLAND_DISPLAY=$WAYLAND_DISPLAY \
@@ -275,13 +278,13 @@ turlucode/ros-noetic:nvidia-cmake-tmux-llvm-meld dbus-launch terminator
 Or for Ubuntu 24.04 and up, `dbus-launch terminator` is not needed, just use:
 
 ```sh
-docker run [...] turlucode/ros-jazzy:nvidia-cmake-tmux-llvm-meld
+Docker run [...] turlucode/ros-jazzy:nvidia-cmake-tmux-llvm-meld
 ```
 
 - The `DOCKER_USER_*` variables are used to run the container as the current user.
 - We need to now start `terminator` with `dbus-launch`
 - The `QT_QPA_PLATFORM=xcb` is for now intentionally as discussed.
-For this reason also the `qtwayland5` package is not installed in our docker images.
+For this reason also the `qtwayland5` package is not installed in our Docker images.
 - Please note that you need to pass the `Xauthority` to the correct user's home directory.
 - You may need to run `xhost si:localuser:$USER` or worst case `xhost local:root` if get errors like `Error: cannot open display`
 - Adapt `--gpus all` to your needs
@@ -298,7 +301,7 @@ For the custom-user the container will make sure to copy them to the right locat
 
 ### Mount your local catkin_ws
 
-To mount your local `catkin_ws` you can just use the following docker feature:
+To mount your local `catkin_ws` you can just use the following Docker feature:
 ```sh
 # for root user
 -v $HOME/<some_path>/catkin_ws:/root/catkin_ws
@@ -307,15 +310,15 @@ To mount your local `catkin_ws` you can just use the following docker feature:
 ```
 
 ### Passing a camera device
-If you have a virtual device node like `/dev/video0`, e.g. a compatible usb camera, you pass this to the docker container like this:
+If you have a virtual device node like `/dev/video0`, e.g. a compatible usb camera, you pass this to the Docker container like this:
 ```sh
 --device /dev/video0
 ```
 
 # References
-## Wayland in docker references
+## Wayland in Docker references
 
-- [mviereck/x11docker](https://github.com/mviereck/x11docker/wiki/How-to-provide-Wayland-socket-to-docker-container)
+- [mviereck/x11docker](https://github.com/mviereck/x11docker/wiki/How-to-provide-Wayland-socket-to-Docker-container)
 - [stackexchange: How can I run a graphical application in a container under Wayland?](https://unix.stackexchange.com/a/359244/189868)
 - [rso2/RViz:  Wayland Support #847 ](https://github.com/ros2/rviz/issues/847#issuecomment-1506502560)
 - [github ticket: wayland libGL error](https://github.com/pygame/pygame/issues/3405#issuecomment-1221266709)
@@ -329,7 +332,7 @@ If you have a virtual device node like `/dev/video0`, e.g. a compatible usb came
 
 # Troubleshooting
 ## Container eating up too much memory
-Is even a simple command inside docker eating up crazy a lot of memory? This happens especially in arch-linux.
+Is even a simple command inside Docker eating up crazy a lot of memory? This happens especially in arch-linux.
 Chances are you have a "miss-configured" `LimitNOFILE`. See [here](https://github.com/containerd/containerd/issues/3201#issue-431539379),
 [here](https://github.com/moby/moby/issues/44547#issuecomment-1334125338), [here](https://bugs.archlinux.org/task/77548) for the reported issue.
 ```sh
@@ -344,7 +347,7 @@ If `containerd.service` uses `infinity` better bound it with systemd with a new 
 [Service]
 LimitNOFILE=1048576
 ```
-If the folder `docker.service.d` doesn't exist, create it.
+If the folder `Docker.service.d` doesn't exist, create it.
 Now reload service with:
 ```sh
 sudo systemctl restart containerd && sudo systemctl daemon-reload
@@ -362,7 +365,7 @@ container? Normally you should be! :smiley:
 There are some nice articles that explain what is going on and what might be some extra
 steps you can do, in order to be less exposed.
 
-1. [Docker Security Risks: GUIs + Xorg](https://nicroland.wordpress.com/2016/02/27/docker-security-risks-guis-xorg/)
+1. [Docker Security Risks: GUIs + Xorg](https://nicroland.wordpress.com/2016/02/27/Docker-security-risks-guis-xorg/)
 2. [Running a Graphical Application from a Docker Container - Simply and Securely](https://blog.artis3nal.com/blog/container-gui-app-pgmodeler/)
 3. Feel free to google/gpt the matter yourself. :wink:
 
@@ -370,13 +373,13 @@ Most importantly you can also review the [template files](turludock/assets/docke
 
 ## Vscode crashes
 
-Try adding `--shm-size=8G` to your docker command.
+Try adding `--shm-size=8G` to your Docker command.
 
 # Issues and Contributing
   - Please let us know by [filing a new 
-issue](https://github.com/turlucode/ros-docker-gui/issues/new).
+issue](https://github.com/turlucode/ros-Docker-gui/issues/new).
   - You can contribute by [opening a pull 
-request](https://github.com/turlucode/ros-docker-gui/compare).
+request](https://github.com/turlucode/ros-Docker-gui/compare).
 
 ## Base images
 ### NVIDIA
@@ -394,6 +397,6 @@ poetry install
 ```
 After that, you are good to go!
 
-   [nvidia-docker]: https://github.com/NVIDIA/nvidia-docker
+   [nvidia-Docker]: https://github.com/NVIDIA/nvidia-Docker
    [nvidia-container-toolkit]: 
 https://github.com/NVIDIA/nvidia-container-toolkit
