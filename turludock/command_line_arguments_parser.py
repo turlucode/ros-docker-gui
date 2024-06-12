@@ -66,6 +66,8 @@ def check_arguments(args: argparse.Namespace) -> None:
             pass
         elif args.which == "cuda":
             pass
+        else:
+            raise ValueError("Only the following sub-commands are supported: presets, ros, cuda\n")
     else:
         raise ValueError(f"Unknown command '{args.command}'.\n")
 
