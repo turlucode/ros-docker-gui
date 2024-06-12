@@ -45,7 +45,9 @@ class BuildProgress:
             status_msg (str): The string to search for the pattern in.
 
         Returns:
-            Tuple[bool, Optional[int], Optional[int]]: A tuple with a boolean and two optional integers.
+            Tuple[bool, Optional[int], Optional[int]]: A tuple with a boolean stating if parsing was successful
+            and one integer returning the current step and another one returning the total steps.
+            If parsing was unsuccessful, the tuple is (False, None, None).
         """
         # Define the regex pattern to match "Step NUMBER_ONE/NUMBER_TWO :"
         pattern = r"Step (\d+)/(\d+) :"
@@ -55,9 +57,9 @@ class BuildProgress:
 
         if match:
             # Extract the two numbers and convert them to integers
-            number_one = int(match.group(1))
-            number_two = int(match.group(2))
-            return True, number_one, number_two
+            current_step = int(match.group(1))
+            total_steps = int(match.group(2))
+            return True, current_step, total_steps
         else:
             return False, None, None
 
