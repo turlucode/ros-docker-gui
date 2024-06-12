@@ -396,6 +396,11 @@ After [installing poetry](https://python-poetry.org/docs/#installation) you can 
 poetry install 
 ```
 After that, you are good to go!
+### Coding style enforcement
+Check and enforce the coding style with static analysis:
+```sh
+poetry run isort turludock && poetry run black turludock && poetry run pflake8 turludock
+```
 
    [nvidia-Docker]: https://github.com/NVIDIA/nvidia-Docker
    [nvidia-container-toolkit]: 
