@@ -17,7 +17,7 @@ pip install turludock
 ```sh
 # Build ROS image from presets (turludock which presets)
 turludock build -e noetic_mesa
-# Build from custom config
+# Build using a custom configuration
 turludock build -c custom.yaml --tag custom_tag
 
 # Check supported versions
