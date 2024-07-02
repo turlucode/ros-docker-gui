@@ -17,7 +17,7 @@ pip install turludock
 ```sh
 # Build ROS image from presets (turludock which presets)
 turludock build -e noetic_mesa
-# Build from manual config 
+# Build from custom config
 turludock build -c custom.yaml --tag custom_tag
 
 # Check supported versions
@@ -45,7 +45,7 @@ pip install turludock
 ## Supported tool functionality
 This tool has two main functionalities:
   1. **Build** ROS images which result in ready-to-use containers.
-  2. **Generate** Dockerfile and required assets for *manual build* of Docker images with `Docker build`.
+  2. **Generate** Dockerfile and required assets for *manually building* the Docker images with `Docker build`.
 
 Some more details with:
 ```sh
