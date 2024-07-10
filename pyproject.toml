@@ -15,7 +15,7 @@ classifiers = [
     "Environment :: Console",
     "Intended Audience :: Developers",
     "Natural Language :: English",
-    "Topic :: ROS docker image generation",
+    "Topic :: Software Development :: Build Tools",
     "Operating System :: POSIX :: Linux",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
