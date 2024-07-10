@@ -25,10 +25,10 @@ turludock which ros
 turludock which cuda ROS_CODENAME
 ```
 All commands have a `--help` support.
-> [Example YAML config](examples/noetic_nvidia_custom.yaml)
+> [Example YAML config](https://github.com/turlucode/ros-docker-gui/blob/master/examples/noetic_nvidia_custom.yaml)
 
 ## Run container
-[See here](#running-the-image-as-current-user) how to run a container.
+[See "Running the image (as current user)"](#running-the-image-as-current-user) on how to run a container.
 
 # Getting Started
 The idea is to have HW accelerated GUIs with Docker. Generally it has proven that this is 
@@ -71,7 +71,7 @@ Docker run --rm --runtime=nvidia --gpus all ubuntu nvidia-smi
 
 ROS related GUI programs seem to working fine. Other programs like `meld` or `vscode` also seem to be working fine. There might be cases where some GUIs do not work as expected. Feel free to open a ticket so we can look into it.
 
-For example, we know RViz is not ready for Wayland; hence we will need to use the `xcb` (X11) plugin instead of the one for Wayland and therefore we will use `QT_QPA_PLATFORM=xcb` for all QT applications. More info [here](#rviz-wayland-known-issues).
+For example, we know RViz is not ready for Wayland; hence we will need to use the `xcb` (X11) plugin instead of the one for Wayland and therefore we will use `QT_QPA_PLATFORM=xcb` for all QT applications. More info in section ["RViz Wayland known issues"](#rviz-wayland-known-issues).
 
 ## Supported ROS Images
 
@@ -109,7 +109,7 @@ turludock generate --help
 ## Tool is based on YAML configurations
 This tool uses a specific `.yaml` configuration to generate Dockerfiles or build Docker images.
 
-You can find a [typical configuration](examples/noetic_nvidia_custom.yaml) in the examples folder.
+You can find a [typical configuration](https://github.com/turlucode/ros-docker-gui/blob/master/examples/noetic_nvidia_custom.yaml) in the examples folder.
 
 ### Build or generate from presets
 This tool already provides preconfigured `.yaml` files that can be used directly to generate
@@ -142,7 +142,7 @@ No problemo, use:
 ```sh
 turludock build -c custom.yaml --tag CUSTOM_TAG
 ```
-> How to create a custom yaml configuration? [Check the example.](examples/noetic_nvidia_custom.yaml)
+> How to create a custom yaml configuration? [Check the example.](https://github.com/turlucode/ros-docker-gui/blob/master/examples/noetic_nvidia_custom.yaml)
 
 Or if you want to generate the Dockerfile and its required assets for manual build use:
 ```sh
@@ -152,7 +152,7 @@ The `FOLDER_PATH` now contains all necessary files to run a custom `Docker build
 
 # Running the image (as current user)
 ## Mesa
-> :pineapple: **Important:** Make sure your YAML configuration uses: [`gpu_driver: mesa`](examples/noetic_nvidia_custom.yaml#L15)
+> :pineapple: **Important:** Make sure your YAML configuration uses: [`gpu_driver: mesa`](https://github.com/turlucode/ros-docker-gui/blob/master/examples/noetic_nvidia_custom.yaml#L15)
 
 ### X11
 To run the ROS Docker container with X11 support use:
@@ -174,14 +174,14 @@ _Important Remarks_:
 - The `DOCKER_USER_*` variables are used to run the container as the current user.
 - Please note that you need to pass the `Xauthority` to the correct user's home directory.
 - You may need to run `xhost si:localuser:$USER` or worst case `xhost local:root` if get errors like `Error: cannot open display`.
-- See also [this section](#other-options) for other options.
+- See also section ["Other options"](#other-options) for other options.
 
 ### Wayland
-> **NOTE:** Wayland support is still a bit experimental! See [known limitations](#known-wayland-limitations).
+> **NOTE:** Wayland support is still a bit experimental! See section ["Known Wayland limitations"](#known-wayland-limitations).
 
 ROS GUI on Wayland is still problematic and that is why we are going to use [`xwayland`](https://wayland.freedesktop.org/xserver.html).
 Make sure you have installed `xhost`.
-Make also sure the user has the rights to draw to the display; [more info here](#x11-error-cannot-open-display).
+Make also sure the user has the rights to draw to the display; more info in section ["X11: Error: cannot open display"](#x11-error-cannot-open-display).
 
 To run the ROS Docker container with Wayland support use:
 
@@ -218,10 +218,10 @@ _Important Remarks_:
 - We need to start `terminator` with `dbus-launch` for Ubuntu versions less than 24.04, i.e. for versions < `jazzy`.
 - The `QT_QPA_PLATFORM=xcb` is for now intentionally as discussed.
 For this reason also the `qtwayland5` package is not installed in our Docker images.
-- See also [this section](#other-options) for other options.
+- See also section ["Other options"](#other-options) for other options.
 
 ## NVIDIA GPU
-> :pineapple: **Important:** Make sure your YAML configuration uses: [`gpu_driver: nvidia`](examples/noetic_nvidia_custom.yaml#L15)
+> :pineapple: **Important:** Make sure your YAML configuration uses: [`gpu_driver: nvidia`](https://github.com/turlucode/ros-docker-gui/blob/master/examples/noetic_nvidia_custom.yaml#L15)
 
 For machines that are using NVIDIA graphics cards we need to have the [nvidia-container-toolkit] installed.
 
@@ -246,14 +246,14 @@ _Important Remarks_:
 - Please note that you need to pass the `Xauthority` to the correct user's home directory.
 - You may need to run `xhost si:localuser:$USER` or worst case `xhost local:root` if get errors like `Error: cannot open display`
 - Adapt `--gpus all` to your needs
-- See also [this section](#other-options) for other options.
+- See also section ["Other options"](#other-options) for other options.
 
 ### Wayland
-> **NOTE:** Wayland support is still a bit experimental! See [known limitations](#known-wayland-limitations).
+> **NOTE:** Wayland support is still a bit experimental! See section ["Known Wayland limitations"](#known-wayland-limitations).
 
 ROS GUI on Wayland is still problematic and that is why we are going to use [`xwayland`](https://wayland.freedesktop.org/xserver.html).
 Make sure you have installed `xhost`.
-Make also sure the user has the rights to draw to the display; [more info here](#x11-error-cannot-open-display).
+Make also sure the user has the rights to draw to the display; more info in section ["X11: Error: cannot open display"](#x11-error-cannot-open-display).
 
 To run the ROS Docker container with X11 support use:
 ````sh
@@ -288,7 +288,7 @@ For this reason also the `qtwayland5` package is not installed in our Docker ima
 - Please note that you need to pass the `Xauthority` to the correct user's home directory.
 - You may need to run `xhost si:localuser:$USER` or worst case `xhost local:root` if get errors like `Error: cannot open display`
 - Adapt `--gpus all` to your needs
-- See also [this section](#other-options) for other options.
+- See also section ["Other options"](#other-options) for other options.
 
 ## Other options
 ### Mount your ssh-keys
