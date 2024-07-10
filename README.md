@@ -8,7 +8,7 @@ You can use _any_ version of ROS with _any_ Linux distribution, thanks to the am
 power of Docker!
 
 # TL;DR
-## Install tool
+## Install tool - Python >= 3.9
 ```
 pip install turludock
 ```
