@@ -1,0 +1,78 @@
+[tool.poetry]
+name = "turludock"
+version = "3.0.0"
+description = "Builds ROS docker images that support GUI with either X11 or Wayland."
+authors = [
+    "Athanasios <dev@tasoglou.net>",
+    "Joris <dev@tasoglou.net>",
+]
+license = "BSD 3-Clause License"
+readme = "README.md"
+repository = "https://github.com/turlucode/ros-docker-gui"
+keywords = ["ros", "docker"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable", # 3 - Alpha, 4 - Beta, 5 - Production/Stable
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Topic :: ROS docker image generation",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Typing :: Typed",
+]
+include = [
+    { path = "turludock/assets/config_files/*.yaml"},
+    { path = "turludock/assets/default_image_configurations/*.yaml"},
+    { path = "turludock/assets/dockerfile_assets/*"},
+    { path = "turludock/assets/dockerfile_templates/*.txt"},
+    { path = "turludock/assets/dockerfile_templates/nvidia/*.txt"},
+]
+
+[tool.poetry.scripts]
+turludock = 'turludock.__main__:main'
+
+[tool.poetry.dependencies]
+python = "^3.9"
+loguru = "^0.7.2"
+docker = "7.0.0"
+requests = "2.26.0"
+pyyaml = "6.0.1"
+termcolor = "2.4.0"
+rich = "13.7.1"
+toml = "^0.10.2"
+pyproject-flake8 = "^7.0.0"
+black = "^24.4.2"
+isort = "^5.13.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.black]
+line-length = 120
+target-version = ["py35"]
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 120
+skip = [".gitignore"]
+
+[tool.flake8]
+max-line-length = 120
+
+[tool.mypy]
+show_error_codes = true
+strict = true
+
+[tool.ruff]
+line-length = 120
+# Enforce pyflakes(F), pycodestyle(E, W), isort (I), bugbears (B), and pep8-naming (N) rules.
+select = ["F", "E", "W", "I", "B", "N", "RET"]
+
+[tool.ruff.pycodestyle]
+max-doc-length = 120

@@ -1,0 +1,5 @@
+FROM $from
+
+# Ubuntu 24.04 docker image now includes user ubuntu with UID/GID 1000
+# Workaround: https://bugs.launchpad.net/cloud-images/+bug/2005129
+RUN touch /var/mail/ubuntu && chown ubuntu /var/mail/ubuntu && userdel -r ubuntu

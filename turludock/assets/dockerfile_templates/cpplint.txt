@@ -1,0 +1,6 @@
+# Install cpplint
+RUN apt-get update && apt-get install -y python3-pip && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN pip install --user --no-cache-dir --break-system-packages --upgrade pip && \
+    pip install --user --no-cache-dir --break-system-packages cpplint

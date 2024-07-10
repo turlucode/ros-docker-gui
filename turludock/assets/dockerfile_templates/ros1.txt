@@ -1,0 +1,18 @@
+# Install ROS 1 ($ros_version_short)
+RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $$(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list' && \
+    apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+
+RUN apt-get update && apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages \
+    libpcap-dev \
+    libopenblas-dev \
+    gstreamer1.0-tools libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-good1.0-dev \
+    ros-$ros_version_short-desktop-full python3-rosdep python3-rosinstall-generator python3-vcstool build-essential \
+    ros-$ros_version_short-socketcan-bridge \
+    ros-$ros_version_short-geodesy && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    rosdep init && rosdep update
+
+RUN echo "source /opt/ros/$ros_version_short/setup.bash" >> /root/.bashrc && \
+    echo "export ROSLAUNCH_SSH_UNKNOWN=1" >> /root/.bashrc && \
+    echo "source /opt/ros/$ros_version_short/setup.zsh" >> /root/.zshrc && \
+    echo "export ROSLAUNCH_SSH_UNKNOWN=1" >> /root/.zshrc

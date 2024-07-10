@@ -1,0 +1,8 @@
+# Install tmux $tmux_version
+RUN apt-get update && apt-get install -y \
+    automake autoconf pkg-config libevent-dev libncurses5-dev bison && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN git clone https://github.com/tmux/tmux.git && \
+    cd tmux && git checkout tags/$tmux_version && sh autogen.sh && ./configure && make -j$num_of_cpu && make install && \
+    cd .. && rm -rf tmux
+RUN sed -i '/^plugins=/ s/)/ tmux)/' ~/.zshrc

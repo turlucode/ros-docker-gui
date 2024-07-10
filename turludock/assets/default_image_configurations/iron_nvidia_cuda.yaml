@@ -1,0 +1,15 @@
+# Select ROS version. 
+ros_version: iron
+
+# Select which GPU driver your host-machine uses for its GUIs. 
+gpu_driver: nvidia
+
+# CUDA and CUDNN configuration (if applicable)
+cuda_version: 12.4.1
+
+# Define here extra packages to be installed
+extra_packages:
+  - cmake: v3.29.3
+  - tmux: 3.4
+  - llvm: 18
+  - meld

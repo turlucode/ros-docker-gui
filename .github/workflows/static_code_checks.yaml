@@ -1,0 +1,46 @@
+# More info https://github.com/orgs/python-poetry/discussions/4205
+name: Static code checks
+
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ '3.9', '3.10', '3.11', '3.12' ]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install poetry
+        run: |
+          curl -O -sSL https://install.python-poetry.org/install-poetry.py
+          python install-poetry.py -y --version 1.8.3
+          echo "PATH=${HOME}/.poetry/bin:${PATH}" >> $GITHUB_ENV
+          rm install-poetry.py
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'poetry'
+
+      - name: Install dependencies
+        run: |
+          # This is required to do as of @actions/checkout@v4 to prevent default action python (3.8) from being used
+          poetry env use ${{ matrix.python-version }}
+          poetry install
+
+      - name: Check code with flake8
+        run: poetry run pflake8 --statistics --count --show-source turludock
+
+      - name: Check formatting with black
+        run: poetry run black --check turludock
+
+      - name: Check imports with isort
+        run: poetry run isort --check turludock

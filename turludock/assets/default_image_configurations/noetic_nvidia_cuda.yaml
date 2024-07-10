@@ -1,0 +1,28 @@
+# Select ROS version. 
+# Supported are:
+#   noetic        Assumes Ubuntu 20.04
+ros_version: noetic
+
+# Select which GPU driver your host-machine uses for its GUIs. 
+# Supported are:
+#   mesa          Use 'mesa' for Intel and AMD GPUs
+#   nvidia        For NVIDIA GPUs
+gpu_driver: nvidia
+
+# CUDA and CUDNN configuration (if applicable)
+cuda_version: 12.4.1
+# cudnn_version: TODO
+
+# Define here extra packages to be installed
+# Supported are:
+#   tmux
+#   llvm
+#   vscode
+#   conan
+#   cpplint
+#   meld
+extra_packages:
+  - cmake: v3.29.3
+  - tmux: 3.4
+  - llvm: 18
+  - meld

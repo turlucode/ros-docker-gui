@@ -1,0 +1,9 @@
+# Install OhMyZSH
+RUN apt-get update && apt-get install -y zsh && apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true && \
+    chsh -s /usr/bin/zsh root && \
+    git clone https://github.com/sindresorhus/pure /root/.oh-my-zsh/custom/pure && \
+    ln -s /root/.oh-my-zsh/custom/pure/pure.zsh-theme /root/.oh-my-zsh/custom/ && \
+    ln -s /root/.oh-my-zsh/custom/pure/async.zsh /root/.oh-my-zsh/custom/ && \
+    sed -i -e 's/robbyrussell/refined/g' /root/.zshrc && \
+    sed -i '/plugins=(/c\plugins=(git git-flow adb pyenv)' /root/.zshrc

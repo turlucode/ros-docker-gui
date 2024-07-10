@@ -1,0 +1,12 @@
+# Select ROS version.
+ros_version: jazzy
+
+# Select which GPU driver your host-machine uses for its GUIs.
+gpu_driver: mesa
+
+# Define here extra packages to be installed.
+extra_packages:
+  - cmake: v3.29.3
+  - tmux: 3.4
+  - llvm: 18
+  - meld

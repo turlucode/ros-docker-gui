@@ -1,0 +1,4 @@
+# Common maintainer and meta-data info
+MAINTAINER Athanasios Tasoglou <dev@tasoglou.net>
+LABEL Description="$docker_label_description" Vendor="TurluCode"
+LABEL com.turlucode.ros.version="$ros_version_short"

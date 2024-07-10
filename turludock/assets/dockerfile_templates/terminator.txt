@@ -1,0 +1,6 @@
+# Install terminator
+RUN apt-get update && apt-get install -y terminator adwaita-icon-theme-full && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /root/.config/terminator/
+COPY terminator_config /root/.config/terminator/config

@@ -1,0 +1,2 @@
+# Extra packages label
+LABEL com.turlucode.extra_packages="$extra_packages_list"

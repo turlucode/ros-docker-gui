@@ -1,0 +1,4 @@
+# Latest MESA drivers. Currently for Ubuntu >=18.04 (https://launchpad.net/~kisak/+archive/ubuntu/turtle)
+RUN add-apt-repository -y ppa:kisak/kisak-mesa && apt-get update && \
+    apt-get install -y mesa-utils && apt-get --with-new-pkgs upgrade -y && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*

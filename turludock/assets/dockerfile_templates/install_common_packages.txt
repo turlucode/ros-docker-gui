@@ -1,0 +1,19 @@
+# Install common packages
+RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+sudo \
+locales \
+lsb-release \
+git \
+subversion \
+nano \
+vim \
+xterm \
+wget \
+curl \
+htop \
+libssl-dev \
+build-essential \
+software-properties-common \
+gdb \
+valgrind && \
+apt-get clean && rm -rf /var/lib/apt/lists/*

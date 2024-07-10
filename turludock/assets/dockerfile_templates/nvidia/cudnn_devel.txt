@@ -1,0 +1,7 @@
+# cuDNN devel 
+LABEL com.nvidia.cudnn.version="$libcudnn_version"
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    $libcudnn_package=$libcudnn_version$libcudnn_revision \
+    $libcudnn_dev_package=$libcudnn_version$libcudnn_revision \
+    && apt-mark hold $libcudnn_package \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*

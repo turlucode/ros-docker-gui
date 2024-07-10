@@ -1,0 +1,57 @@
+# More info https://github.com/orgs/python-poetry/discussions/4205
+
+# Some info on variables:
+# github.event.workflow_run.head_branch will give you the tag or branch name here
+# while github.ref gives you always the branch as in 'refs/heads/branch_name'
+name: Build and publish
+
+on:
+  workflow_run:
+    workflows: ["Static code checks"]
+    types:
+      - completed
+
+jobs:
+  build:
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.ref == 'refs/heads/master' }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ '3.9', '3.10', '3.11', '3.12' ]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install poetry
+        run: |
+          curl -O -sSL https://install.python-poetry.org/install-poetry.py
+          python install-poetry.py -y --version 1.8.3
+          echo "PATH=${HOME}/.poetry/bin:${PATH}" >> $GITHUB_ENV
+          rm install-poetry.py
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'poetry'
+
+      - name: Install dependencies
+        run: |
+          # This is required to do as of @actions/checkout@v4 to prevent default action python (3.8) from being used
+          poetry env use ${{ matrix.python-version }}
+          poetry install
+
+      - name: Tag/branch that triggered it
+        run: |
+          echo ${{ github.event.workflow_run.head_branch }}
+
+      - name: Branch
+        run: |
+          echo ${{ github.ref }}
+
+      - name: Build Python package and publish to PyPI
+        run: poetry publish --build -u __token__ -p ${{ secrets.PYPI_TOKEN }}
+
+      # A trick to see supported variables
+      # - name: Echo github.event.workflow_run
+      #   run: ${{ tojson(github.event.workflow_run) }}
+      #   shell: cat {0}

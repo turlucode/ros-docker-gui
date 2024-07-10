@@ -1,0 +1,20 @@
+# CUDA devel
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libtinfo5 libncursesw5 \
+    cuda-cudart-dev-$cuda_cudart_version \
+    cuda-command-line-tools-$cuda_lib_version \
+    cuda-minimal-build-$cuda_lib_version \
+    cuda-libraries-dev-$cuda_lib_version \
+    cuda-nvml-dev-$cuda_nvml_version \
+    cuda-nvprof-$cuda_nvprof_version \
+    libnpp-dev-$cuda_libnpp_version \
+    libcusparse-dev-$cuda_libcusparse_version \
+    libcublas-dev-$cuda_libcublas_version \
+    libnccl-dev=$cuda_libnccl_version \
+    libnccl2=$cuda_libnccl_version \
+    cuda-nsight-compute-$cuda_nsight_compute_version \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Keep apt from auto upgrading the cublas and nccl packages. See https://gitlab.com/nvidia/container-images/cuda/-/issues/88
+RUN apt-mark hold libcublas-dev-$cuda_libcublas_version libnccl-dev
+ENV LIBRARY_PATH /usr/local/cuda/lib64/stubs

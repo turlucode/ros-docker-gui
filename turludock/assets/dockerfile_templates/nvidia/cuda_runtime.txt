@@ -1,0 +1,14 @@
+# CUDA runtime
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    cuda-libraries-$cuda_lib_version \
+    libnpp-$cuda_libnpp_version \
+    cuda-nvtx-$cuda_nvtx_version \
+    libcusparse-$cuda_libcusparse_version \
+    libcublas-$cuda_libcublas_version \
+    libnccl2=$cuda_libnccl_version \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Keep apt from auto upgrading the cublas and nccl packages. See https://gitlab.com/nvidia/container-images/cuda/-/issues/88
+RUN apt-mark hold libcublas-$cuda_libcublas_version libnccl2
+
+# TODO: Do I need nvidia_entrypoint.sh?
