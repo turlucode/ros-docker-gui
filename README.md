@@ -396,6 +396,7 @@ After [installing poetry](https://python-poetry.org/docs/#installation) you can 
 poetry install 
 ```
 After that, you are good to go!
+> Hint: You can [install pynev](https://github.com/pyenv/pyenv?tab=readme-ov-file#installation) if you want to check multiple python versions.
 ### Coding style enforcement
 Check and enforce the coding style with static analysis:
 ```sh
