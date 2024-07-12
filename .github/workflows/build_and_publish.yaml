@@ -1,4 +1,6 @@
-# More info https://github.com/orgs/python-poetry/discussions/4205
+# More info: 
+# - https://github.com/orgs/python-poetry/discussions/4205
+# - https://github.com/orgs/python-poetry/discussions/4205#discussioncomment-911983
 
 # Some info on variables:
 # github.event.workflow_run.head_branch will give you the tag or branch name here
@@ -17,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ '3.9', '3.10', '3.11', '3.12' ]
+        python-version: [ '3.9' ]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

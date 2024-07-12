@@ -7,6 +7,15 @@ from loguru import logger
 from turludock.helper_functions import get_program_version
 
 
+class PrintVersionAction(argparse.Action):
+    """Action class to print the version of the program."""
+
+    def __call__(self, parser, namespace, values, option_string=None):
+        """The actual call to the action."""
+        logger.info(f"turludock v{get_program_version()}")
+        parser.exit()
+
+
 def print_command_help(args: argparse.Namespace, parser: dict) -> None:
     """Print help message for the command specified by the user.
 
@@ -83,7 +92,9 @@ def parse_command_line_args() -> Tuple[argparse.Namespace, bool]:
     parser["main"] = argparse.ArgumentParser(
         description="ROS docker container generator " + f"| turludock v{get_program_version()} | TurluCode"
     )
-    parser["main"].add_argument("--version", action="store_true", default=False, help="Enable debug mode")
+    parser["main"].add_argument(
+        "--version", action=PrintVersionAction, nargs=0, help="Show the program version and exit"
+    )
 
     subparsers = parser["main"].add_subparsers(title="Commands", description="", help="additional help", dest="command")
     subparsers.required = True  # Ensure that a sub-command is required
@@ -97,7 +108,7 @@ def parse_command_line_args() -> Tuple[argparse.Namespace, bool]:
         "-e",
         type=str,
         metavar="CONFIG_NAME",
-        help='Choose an existing pre-configuration. Check with "list-pre-configs"',
+        help='Choose an existing pre-configuration. Check with "turludock which presets"',
     )
     parser["build"].add_argument(
         "--tag", type=str, metavar="TAG", help='Name and optionally a tag (format: "name:tag")'
@@ -122,7 +133,7 @@ def parse_command_line_args() -> Tuple[argparse.Namespace, bool]:
         "-e",
         type=str,
         metavar="CONFIG_NAME",
-        help='Choose an existing pre-configuration. Check with "list-pre-configs"',
+        help='Choose an existing pre-configuration. Check with "turludock which presets"',
     )
     parser["gen"].add_argument(
         "path",
