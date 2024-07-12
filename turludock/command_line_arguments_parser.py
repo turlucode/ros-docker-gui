@@ -108,7 +108,7 @@ def parse_command_line_args() -> Tuple[argparse.Namespace, bool]:
         "-e",
         type=str,
         metavar="CONFIG_NAME",
-        help='Choose an existing pre-configuration. Check with "list-pre-configs"',
+        help='Choose an existing pre-configuration. Check with "turludock which presets"',
     )
     parser["build"].add_argument(
         "--tag", type=str, metavar="TAG", help='Name and optionally a tag (format: "name:tag")'
@@ -133,7 +133,7 @@ def parse_command_line_args() -> Tuple[argparse.Namespace, bool]:
         "-e",
         type=str,
         metavar="CONFIG_NAME",
-        help='Choose an existing pre-configuration. Check with "list-pre-configs"',
+        help='Choose an existing pre-configuration. Check with "turludock which presets"',
     )
     parser["gen"].add_argument(
         "path",
