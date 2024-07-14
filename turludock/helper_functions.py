@@ -7,6 +7,7 @@ import subprocess
 from typing import List
 
 import requests
+import urllib3
 from loguru import logger
 from packaging.version import InvalidVersion, Version
 
@@ -123,6 +124,10 @@ def get_llvm_supported_versions() -> List[int]:
     # Get LLVM install script which contains info about the supported versions
     url = "https://apt.llvm.org/llvm.sh"
     try:
+        # fixes warning: InsecureRequestWarning: Unverified HTTPS request is being made to host 'apt.llvm.org'
+        # when using verify=False in requests.get()
+        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+        # Get the content of the URL
         response = requests.get(url, timeout=10, verify=False)
     except Exception as e:
         logger.error(f"Could not get supported LLVM versions. Requests.get() error: {e}")
