@@ -65,7 +65,7 @@ def _get_item_from_extra_packages(extra_packages: list, package_name: str) -> Op
             return item
         if isinstance(item, str) and item == package_name:
             return item
-        return None
+    return None
 
 
 def _generate_description(yaml_config: Dict[str, Any]) -> str:
