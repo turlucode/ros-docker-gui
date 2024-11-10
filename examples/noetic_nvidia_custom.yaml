@@ -1,9 +1,9 @@
 # Select ROS version. 
 # Supported are:
 #   noetic        ROS1. Assumes Ubuntu 20.04
-#   humble        RSO2. Assumes Ubuntu 22.04
+#   humble        ROS2. Assumes Ubuntu 22.04
 #   iron          ROS2. Assumes Ubuntu 22.04
-#   noetic        ROS2. Assumes Ubuntu 24.04
+#   jazzy         ROS2. Assumes Ubuntu 24.04
 #
 # Check also with 'turludock which ros'
 ros_version: noetic
