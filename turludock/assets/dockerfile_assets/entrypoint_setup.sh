@@ -9,7 +9,7 @@ check_envs () {
         DOCKER_CUSTOM_USER_OK=false;
         return;
     fi
-    
+
     if [ -z ${DOCKER_USER_ID+x} ]; then 
         DOCKER_CUSTOM_USER_OK=false;
         return;
@@ -20,7 +20,7 @@ check_envs () {
             return;
         fi
     fi
-    
+
     if [ -z ${DOCKER_USER_GROUP_NAME+x} ]; then 
         DOCKER_CUSTOM_USER_OK=false;
         return;
@@ -62,7 +62,7 @@ setup_env_user () {
     ln -s /home/$USER/.oh-my-zsh/custom/pure/pure.zsh /home/$USER/.oh-my-zsh/custom/
     ln -s /home/$USER/.oh-my-zsh/custom/pure/async.zsh /home/$USER/.oh-my-zsh/custom/
     sed -i -e 's@ZSH=\"/root@ZSH=\"/home/$USER@g' /home/$USER/.zshrc
-    
+
     ## Copy SSH keys & fix owner
     if [ -d "/root/.ssh" ]; then
         cp -rf /root/.ssh /home/$USER/
@@ -80,7 +80,7 @@ setup_env_user () {
             echo 'PATH="$HOME/.local/bin:$PATH"' >> /home/$USER/.zshrc
         fi
     fi
-    
+
     ## Fix owner
     chown $USER_ID:$GROUP_ID /home/$USER
     chown -R $USER_ID:$GROUP_ID /home/$USER/.config
@@ -96,14 +96,14 @@ setup_env_user () {
         chmod -R 0700 $XDG_RUNTIME_DIR
     fi
 
-    echo "if [ -d "$XDG_RUNTIME_DIR" ]; then" >> /root/.bashrc
-    echo "    chown -R $USER_ID:$GROUP_ID $XDG_RUNTIME_DIR" >> /root/.bashrc
+    echo "if [ -d \"\$XDG_RUNTIME_DIR\" ]; then" >> /root/.bashrc
+    echo "    chown -R $USER_ID:$GROUP_ID \$XDG_RUNTIME_DIR" >> /root/.bashrc
     echo "fi" >> /root/.bashrc
 
-    echo "if [ -d "$XDG_RUNTIME_DIR" ]; then" >> /root/.zshrc
-    echo "    chown -R $USER_ID:$GROUP_ID $XDG_RUNTIME_DIR" >> /root/.zshrc
+    echo "if [ -d \"\$XDG_RUNTIME_DIR\" ]; then" >> /root/.zshrc
+    echo "    chown -R $USER_ID:$GROUP_ID \$XDG_RUNTIME_DIR" >> /root/.zshrc
     echo "fi" >> /root/.zshrc
-    
+
 
     ## This a trick to keep the evnironmental variables of root which is important!
     echo "if ! [ \"$DOCKER_USER_NAME\" = \"$(id -un)\" ]; then" >> /root/.bashrc
