@@ -279,21 +279,21 @@ def check_nvidia_config(config: dict):
         # CUDNN only works with CUDA. So CUDA must be present
         if "cudnn_version" in config and "cuda_version" not in config:
             raise ValueError(
-                "CUDNN version was configured, but not the CUDA version. " "Please configure also CUDA version."
+                "CUDNN version was configured, but not the CUDA version. Please configure also CUDA version."
             )
 
         # It doesn't make sense to install CUDA/CUDNN if the NVIDIA drivers are not present.
         if config["gpu_driver"] == "mesa":
             if "cuda_version" in config:
                 logger.warning(
-                    "CUDA has been configured although 'gpu_driver: mesa'. " "Did you mean 'gpu_driver: nvidia' ?"
+                    "CUDA has been configured although 'gpu_driver: mesa'. Did you mean 'gpu_driver: nvidia' ?"
                 )
             if "cudnn_version" in config:
                 logger.warning(
-                    "CUDNN has been configured although 'gpu_driver: mesa'. " "Did you mean 'gpu_driver: nvidia' ?"
+                    "CUDNN has been configured although 'gpu_driver: mesa'. Did you mean 'gpu_driver: nvidia' ?"
                 )
 
-        # Also given a warning in debug if nvidia has been selected but no CUDA or CUDNN
+        # Also show a warning in debug mode if nvidia has been selected but no CUDA or CUDNN version is set
         if config["gpu_driver"] == "nvidia":
             if "cuda_version" not in config:
                 logger.debug("Warning: 'cuda_version' is not set in the yaml configuration file")
