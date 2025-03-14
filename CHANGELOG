@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.0] - 2025-03-14
+
+### Added
+
+- Added new NVIDIA ROS2 Humble presets
+
+### Removed
+
+- `adb` from `oh_my_zsh` plugins
+
+### Fixed
+- Fixed issue in `config_files/nvidia_cuda.yaml` where `libnpp` was missing causing build issues
+- Fixed typos in `README.md`
+
 ## [3.0.4] - 2024-12-11
 
 ### Fixed
