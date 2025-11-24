@@ -130,7 +130,7 @@ def list_cuda_support(ros_codename: str) -> None:
                 found_supported = True
                 for cudnn_version in cudnn_config:
                     if ubuntu_version["flat"] in cudnn_config[cudnn_version]:
-                        if cudnn_config[cudnn_version][ubuntu_version["flat"]]:
+                        if cuda_version in cudnn_config[cudnn_version][ubuntu_version["flat"]]["cuda_version"]:
                             logger.info(f"*CUDA: {cuda_version} | cuDNN: {cudnn_version}")
         if not found_supported:
             logger.warning(f"No supported CUDA/cuDNN version for ROS {ros_codename.capitalize()} at this point.")
