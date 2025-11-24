@@ -84,6 +84,14 @@ def generate_cuda_devel(cuda_version: str, ubuntu_version: str) -> str:
         src = Template(f.read())
         str_output = src.substitute(mapping)
     str_output += "\n\n"
+
+    # Only for Ubuntu 20.04 we need to install extra "libtinfo5" and "libncursesw5"
+    if ubuntu_version == "ubuntu2004":
+        str_output = str_output.replace(
+            "RUN apt-get update && apt-get install -y --no-install-recommends \\",
+            "RUN apt-get update && apt-get install -y --no-install-recommends \\\n    libtinfo5 libncursesw5 \\",
+        )
+
     return str_output
 
 
