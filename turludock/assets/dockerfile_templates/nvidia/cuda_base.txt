@@ -1,8 +1,8 @@
 # CUDA base
 # Setup environmental variables
-ENV CUDA_VERSION $cuda_version
-ENV NVARCH x86_64
-ENV NVIDIA_REQUIRE_CUDA "$nvidia_require_cuda"
+ENV CUDA_VERSION=$cuda_version
+ENV NVARCH=x86_64
+ENV NVIDIA_REQUIRE_CUDA="$nvidia_require_cuda"
  
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gnupg2 ca-certificates && \
@@ -20,12 +20,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf \
     && echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
 
-ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:$${PATH}
-ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64
+ENV PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:$${PATH}
+ENV LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64
 
 # TODO: Needed?
 # COPY NGC-DL-CONTAINER-LICENSE /
 
 # nvidia-container-runtime
-ENV NVIDIA_VISIBLE_DEVICES all
-ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
+ENV NVIDIA_VISIBLE_DEVICES=all
+ENV NVIDIA_DRIVER_CAPABILITIES=compute,utility
