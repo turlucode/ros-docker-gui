@@ -145,7 +145,7 @@ def check_extra_packages(config: Dict[str, Any]) -> None:
         logger.debug("No extra_packages have been configured in the .yaml file.")
         return
     supported_by_default = ["cmake"]
-    supported_values = ["tmux", "llvm", "vscode", "conan", "meld", "cpplint"]
+    supported_values = ["tmux", "llvm", "vscode", "conan", "meld", "cpplint", "miniconda"]
     supported_values += supported_by_default
     check_against_known_list(config, dict_key, supported_values)
 

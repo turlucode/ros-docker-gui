@@ -141,3 +141,12 @@ def generate_mesa(use_latest: bool = True) -> str:
     else:
         filename = "mesa.txt"
     return get_non_templated_file(filename)
+
+
+def generate_miniconda() -> str:
+    """Get miniconda.txt a string
+
+    Returns:
+        str: The mesa Dockerfile instructions as a string
+    """
+    return get_non_templated_file("miniconda.txt")

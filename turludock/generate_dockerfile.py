@@ -13,6 +13,7 @@ from turludock.generate_non_templated_files import (
     generate_locale,
     generate_meld,
     generate_mesa,
+    generate_miniconda,
     generate_ohmyzsh,
     generate_python,
     generate_terminator,
@@ -238,6 +239,8 @@ def generate_dockerfile(yaml_config: Dict[str, Any]) -> str:
                 dockerfile += generate_conan()
             if package_name == "vscode":
                 dockerfile += generate_vscode()
+            if package_name == "miniconda":
+                dockerfile += generate_miniconda()
 
             extra_packages_label_list.append(package_name)
     else:
