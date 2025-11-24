@@ -17,3 +17,14 @@
     libcudnn_revision: -1+cuda11.8
     nvidia_devel_url: https://gitlab.com/nvidia/container-images/cuda/-/blob/master/dist/11.8.0/ubuntu2204/devel/cudnn8/Dockerfile
     nvidia_runtime_url: https://gitlab.com/nvidia/container-images/cuda/-/blob/master/dist/11.8.0/ubuntu2204/runtime/cudnn8/Dockerfile
+
+'9.5.1.17':
+  ubuntu2404:
+    cuda_version:
+      - '12.6.3'
+    libcudnn_package: libcudnn9-cuda-12
+    libcudnn_dev_package: libcudnn9-dev-cuda-12
+    libcudnn_version: 9.5.1.17
+    libcudnn_revision: '-1'
+    nvidia_devel_url: https://gitlab.com/nvidia/container-images/cuda/-/blob/master/dist/12.6.3/ubuntu2404/devel/cudnn/Dockerfile
+    nvidia_runtime_url: https://gitlab.com/nvidia/container-images/cuda/-/blob/master/dist/12.6.3/ubuntu2404/runtime/cudnn/Dockerfile
