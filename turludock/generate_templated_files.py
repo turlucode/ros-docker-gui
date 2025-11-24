@@ -14,7 +14,6 @@ from turludock.helper_functions import (
     get_ros_major_version,
     get_ubuntu_version,
     is_version_greater,
-    is_version_lower,
 )
 
 
@@ -42,26 +41,6 @@ def populate_templated_file(mapping: Dict[str, str], templated_file: str) -> str
         print(f"An unexpected error occurred at function `populate_templated_file`: {e}")
 
 
-def _get_ubuntu_base_image(version: str, nvidia: bool) -> str:
-    """Get the base image for the Docker build. It is used in "FROM <base_image>".
-
-    Args:
-        version (str): The semantic version of Ubuntu
-        nvidia (bool): Whether the NVIDIA GPU driver is being used
-
-    Returns:
-        str: The Docker image name to use as the base image.
-    """
-    if nvidia:
-        if is_version_lower(version, "16.04"):
-            raise ValueError(f"Ubuntu version lower than 16.04 is not supported. You provided: {version}")
-
-        # TODO(ATA): Not sure nvidia/opengl is really needed. Can we not just use 'ubuntu' with nvidia-docker-v2?
-        return f"nvidia/opengl:1.2-glvnd-runtime-ubuntu{version}"
-    else:
-        return f"ubuntu:{version}"
-
-
 def _get_base_image(yaml_config: Dict[str, Any]) -> str:
     """Return the supported base image name.
 
@@ -74,19 +53,7 @@ def _get_base_image(yaml_config: Dict[str, Any]) -> str:
         str: The base image name.
     """
     ubuntu_version = get_ubuntu_version(yaml_config["ros_version"])
-    if yaml_config["gpu_driver"] == "nvidia":
-        uses_nvidia = True
-        # Temp fix until nvidia releases nvidia/opengl for Ubuntu 24.04
-        if is_version_greater(ubuntu_version["semantic"], "23.04"):
-            uses_nvidia = False
-            logger.warning(
-                "'nvidia/opengl:1.2-glvnd-runtime' does not exist yet for Ubuntu 24.04. "
-                + "Using 'ubuntu:20.04' as base image instead. This is experimental. "
-                + "Please report any issues faced."
-            )
-    else:
-        uses_nvidia = False
-    return _get_ubuntu_base_image(ubuntu_version["semantic"], uses_nvidia)
+    return f'ubuntu:{ubuntu_version["semantic"]}'
 
 
 def generate_from(yaml_config: Dict[str, Any]) -> str:
