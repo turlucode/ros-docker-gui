@@ -168,15 +168,15 @@ def is_cuda_version_supported(cuda_version: str, ubuntu_version: str) -> bool:
         else:
             logger.error(f"Did not find supported ubuntu version '{ubuntu_version}' for cuda-{cuda_version}")
             supported_cuda_versions = list()
-            for cuda_version in cuda_config:
-                if ubuntu_version["flat"] in cuda_config[cuda_version]:
-                    supported_cuda_versions.append(cuda_version)
+            for candidate_version in cuda_config:
+                if ubuntu_version in cuda_config[candidate_version]:
+                    supported_cuda_versions.append(candidate_version)
             if len(supported_cuda_versions) == 0:
-                logger.error(f"'cuda_version: {cuda_config['cuda_version']}' not supported at all!")
+                logger.error(f"'cuda_version: {cuda_version}' not supported at all!")
             else:
                 logger.error(
-                    f"cuda_version: {cuda_config['cuda_version']}' not supported. Supported are "
-                    + f"{supported_cuda_versions} for Ubuntu {ubuntu_version['semantic']}"
+                    f"'cuda_version: {cuda_version}' not supported. Supported are "
+                    + f"{supported_cuda_versions} for Ubuntu {ubuntu_version}"
                 )
             return False
     else:
