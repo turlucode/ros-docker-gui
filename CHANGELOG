@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.3.0] - 2026-02-17
+
+### Added
+- Added `miniconda` support
+- Added CUDA 12.6.3 and cuDNN 9.5.1.17 support for Ubuntu 24.04
+
+### Fixed
+- Fixed the command that was listing the available cuDNN support
+- Fixed the `cuda_devel.txt` to actually support Ubuntu 24.04 onwards by moving `libtinfo5` and `libncursesw5` out of it and adding it to the python generation function
+- Fixed `is_cuda_version_supported()` not using directly 'ubuntu_version' as it was already the 'flat' version
+
+### Changed
+- Changed the base image of NVIDIA builds. Now we just use ubuntu images as base images and not `nvidia/opengl`
+
 ## [3.2.0] - 2025-05-09
 
 ### Added

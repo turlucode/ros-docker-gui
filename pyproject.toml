@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "turludock"
-version = "3.2.0"
+version = "3.3.0"
 description = "Builds ROS docker images that support GUI with either X11 or Wayland."
 authors = [
     "Athanasios <dev@tasoglou.net>",
